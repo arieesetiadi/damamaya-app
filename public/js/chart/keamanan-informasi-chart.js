@@ -79,7 +79,10 @@ function keamanan_chart(start_date, end_date) {
             type: "POST",
             async: false,
             success: function (chart) {
-                counts = chart["counts"];
+                counts_normal = chart["counts"]["normal"];
+                counts_deface = chart["counts"]["deface"];
+                counts_tidak_bisa_diakses =
+                    chart["counts"]["tidak_bisa_diakses"];
                 days = chart["dates"];
             },
         });
@@ -89,7 +92,7 @@ function keamanan_chart(start_date, end_date) {
         var myLineChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: days.reverse(),
+                labels: days,
                 datasets: [
                     {
                         label: "Normal",
@@ -104,7 +107,7 @@ function keamanan_chart(start_date, end_date) {
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts,
+                        data: counts_normal,
                     },
                     {
                         label: "Deface",
@@ -119,7 +122,7 @@ function keamanan_chart(start_date, end_date) {
                         pointHoverBorderColor: "rgba(255, 0, 0, 0.50)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: [0, 3, 4, 1, 6, 5, 7],
+                        data: counts_deface,
                     },
                     {
                         label: "Tidak Bisa Diakses",
@@ -134,7 +137,7 @@ function keamanan_chart(start_date, end_date) {
                         pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: [5, 6, 3, 5, 2, 7, 8],
+                        data: counts_tidak_bisa_diakses,
                     },
                 ],
             },

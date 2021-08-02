@@ -31,7 +31,7 @@
                     <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
-                <button id="btn_period_pro" type="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button id="btn_period_keamanan" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
         </div>
         <div class="card-body">
@@ -49,7 +49,6 @@
             </div>
             <hr>
             <div>
-                <p>Ket :</p>
                 <div class="d-inline-block mr-3">
                     <span class="dot bg-primary"></span>
                     Normal

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Layanan;
 
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -126,19 +127,37 @@ class KeamananInformasiController extends Controller
         //
     }
 
-    public static function chart()
+    public static function chart(Request $request)
     {
-        Carbon::setLocale('id');
-
         $chart = [];
 
-        for ($i = 0; $i < 7; $i++) {
-            // Ambil tanggal dari $i hari kebelakang
-            $date = Carbon::now()->subRealDay($i)->toDateString();
+        // Ambil tanggal Start dan End untuk menentukan periode Chart
+        $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
 
-            // Ambil jumlah data aduan dan tanggal
-            $chart['counts'][] = KeamananInformasi::where('tanggal', $date)->count();
-            $chart['dates'][] = Carbon::now()->subRealDay($i)->isoFormat("dddd - D MMMM");
+        // Looping sebanyak periode tanggal
+        foreach (CarbonPeriod::create($start, $end) as $p) {
+            $date = $p->toDateString();
+
+            // Hitung jumlah data sesuai dengan tanggal dan kategori yang diinputkan
+            $chart['counts']['normal'][] = KeamananInformasi::where([
+                ['tanggal', $date],
+                ['status_website', 'Normal']
+            ])->count();
+
+            $chart['counts']['deface'][] = KeamananInformasi::where([
+                ['tanggal', $date],
+                ['status_website', 'Deface']
+            ])->count();
+
+            $chart['counts']['tidak_bisa_diakses'][] = KeamananInformasi::where([
+                ['tanggal', $date],
+                ['status_website', 'Tidak Bisa Diakses']
+            ])->count();
+
+            // Ambil tanggal di looping saat ini
+            // Tambah 8 jam agar sesuai format UTC +8 Beijing
+            $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
 
         return response()->json($chart);
