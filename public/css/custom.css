@@ -1,0 +1,27 @@
+th,
+td {
+    text-align: center;
+}
+.left-img {
+    object-fit: scale-down;
+}
+#dark-link {
+    text-decoration: none;
+    color: grey;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.table-subdomain {
+    overflow-x: scroll;
+}
+
+#tr-subdomain th {
+    min-width: 160px;
+    vertical-align: middle;
+}
