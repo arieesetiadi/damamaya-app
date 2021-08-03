@@ -25,3 +25,7 @@ td {
     min-width: 160px;
     vertical-align: middle;
 }
+
+.bg-sidebar-custom {
+    background-color: #5c37e2;
+}

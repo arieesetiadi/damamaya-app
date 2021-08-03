@@ -93,7 +93,7 @@ function pro_chart(start_date, end_date) {
                 datasets: [
                     {
                         label: "Aduan",
-                        lineTension: 0.3,
+                        lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
                         borderColor: "rgba(78, 115, 223, 1)",
                         pointRadius: 3,

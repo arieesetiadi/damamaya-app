@@ -1,24 +1,32 @@
 $(function () {
+    let kategori = $("#kategori_keamanan option:selected").text();
+    let start_date = null;
+    let end_date = null;
+
+    $("#kategori_keamanan").on("change", function () {
+        kategori = $("#kategori_keamanan option:selected").text();
+    });
+
     if ($("#keamanan-chart").length) {
-        let start_date = $("#start_date").val();
-        let end_date = $("#end_date").val();
+        start_date = $("#start_date").val();
+        end_date = $("#end_date").val();
 
         // Show default chart
-        keamanan_chart(start_date, end_date);
+        keamanan_chart(start_date, end_date, kategori);
 
         $("#btn_period_keamanan").click(function () {
             start_date = $("#start_date").val();
             end_date = $("#end_date").val();
-            keamanan_chart(start_date, end_date);
+            keamanan_chart(start_date, end_date, kategori);
         });
 
         setInterval(() => {
-            keamanan_chart(start_date, end_date);
+            keamanan_chart(start_date, end_date, kategori);
         }, 60000);
     }
 });
 
-function keamanan_chart(start_date, end_date) {
+function keamanan_chart(start_date, end_date, kategori) {
     $("#keamanan-chart").remove();
 
     let canvas =
@@ -62,7 +70,9 @@ function keamanan_chart(start_date, end_date) {
         // Get Days Name
         let url = $("#chart-card-keamanan").data("route");
         let days = [];
-        let counts = [];
+        let counts_normal = [];
+        let counts_deface = [];
+        let counts_tidak_bisa_diakses = [];
 
         $.ajaxSetup({
             headers: {
@@ -75,6 +85,7 @@ function keamanan_chart(start_date, end_date) {
             data: {
                 start_date: start_date,
                 end_date: end_date,
+                kategori: kategori,
             },
             type: "POST",
             async: false,
@@ -89,30 +100,54 @@ function keamanan_chart(start_date, end_date) {
 
         // Area Chart Example
         var ctx = document.getElementById("keamanan-chart");
-        var myBarChart = new Chart(ctx, {
-            type: "bar",
+        var myLineChart = new Chart(ctx, {
+            type: "line",
             data: {
                 labels: days,
                 datasets: [
                     {
                         label: "Normal",
-                        backgroundColor: "#4e73df",
-                        hoverBackgroundColor: "#2e59d9",
-                        borderColor: "#4e73df",
+                        lineTension: 0,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(78, 115, 223, 1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
                         data: counts_normal,
                     },
                     {
                         label: "Deface",
-                        backgroundColor: "#e64c4c",
-                        hoverBackgroundColor: "#e64c4c",
-                        borderColor: "#e64c4c",
+                        lineTension: 0,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(255, 0, 0, 0.50)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(255, 0, 0, 0.50)",
+                        pointBorderColor: "rgba(255, 0, 0, 0.50)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(255, 0, 0, 0.50)",
+                        pointHoverBorderColor: "rgba(255, 0, 0, 0.50)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
                         data: counts_deface,
                     },
                     {
                         label: "Tidak Bisa Diakses",
-                        backgroundColor: "#5e5e5e",
-                        hoverBackgroundColor: "#5e5e5e",
-                        borderColor: "#5e5e5e",
+                        lineTension: 0,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "rgba(0, 0, 0, 0.50)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "rgba(0, 0, 0, 0.50)",
+                        pointBorderColor: "rgba(0, 0, 0, 0.50)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "rgba(0, 0, 0, 0.50)",
+                        pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
                         data: counts_tidak_bisa_diakses,
                     },
                 ],
@@ -131,27 +166,25 @@ function keamanan_chart(start_date, end_date) {
                     xAxes: [
                         {
                             time: {
-                                unit: "month",
+                                unit: "date",
                             },
                             gridLines: {
                                 display: false,
                                 drawBorder: false,
                             },
                             ticks: {
-                                maxTicksLimit: 6,
+                                maxTicksLimit: 7,
                             },
-                            maxBarThickness: 50,
                         },
                     ],
                     yAxes: [
                         {
                             ticks: {
-                                min: 0,
                                 maxTicksLimit: 5,
                                 padding: 10,
                                 // Include a dollar sign in the ticks
                                 callback: function (value, index, values) {
-                                    return value;
+                                    return "" + number_format(value);
                                 },
                             },
                             gridLines: {
@@ -168,16 +201,18 @@ function keamanan_chart(start_date, end_date) {
                     display: false,
                 },
                 tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
                     titleMarginBottom: 10,
                     titleFontColor: "#6e707e",
                     titleFontSize: 14,
-                    backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
                     borderColor: "#dddfeb",
                     borderWidth: 1,
                     xPadding: 15,
                     yPadding: 15,
                     displayColors: false,
+                    intersect: false,
+                    mode: "index",
                     caretPadding: 10,
                     callbacks: {
                         label: function (tooltipItem, chart) {
@@ -194,134 +229,5 @@ function keamanan_chart(start_date, end_date) {
                 },
             },
         });
-        // var myLineChart = new Chart(ctx, {
-        //     type: "line",
-        //     data: {
-        //         labels: days,
-        //         datasets: [
-        //             {
-        //                 label: "Normal",
-        //                 lineTension: 0.3,
-        //                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-        //                 borderColor: "rgba(78, 115, 223, 1)",
-        //                 pointRadius: 3,
-        //                 pointBackgroundColor: "rgba(78, 115, 223, 1)",
-        //                 pointBorderColor: "rgba(78, 115, 223, 1)",
-        //                 pointHoverRadius: 3,
-        //                 pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-        //                 pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-        //                 pointHitRadius: 10,
-        //                 pointBorderWidth: 2,
-        //                 data: counts_normal,
-        //             },
-        //             {
-        //                 label: "Deface",
-        //                 lineTension: 0.3,
-        //                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-        //                 borderColor: "rgba(255, 0, 0, 0.50)",
-        //                 pointRadius: 3,
-        //                 pointBackgroundColor: "rgba(255, 0, 0, 0.50)",
-        //                 pointBorderColor: "rgba(255, 0, 0, 0.50)",
-        //                 pointHoverRadius: 3,
-        //                 pointHoverBackgroundColor: "rgba(255, 0, 0, 0.50)",
-        //                 pointHoverBorderColor: "rgba(255, 0, 0, 0.50)",
-        //                 pointHitRadius: 10,
-        //                 pointBorderWidth: 2,
-        //                 data: counts_deface,
-        //             },
-        //             {
-        //                 label: "Tidak Bisa Diakses",
-        //                 lineTension: 0.3,
-        //                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-        //                 borderColor: "rgba(0, 0, 0, 0.50)",
-        //                 pointRadius: 3,
-        //                 pointBackgroundColor: "rgba(0, 0, 0, 0.50)",
-        //                 pointBorderColor: "rgba(0, 0, 0, 0.50)",
-        //                 pointHoverRadius: 3,
-        //                 pointHoverBackgroundColor: "rgba(0, 0, 0, 0.50)",
-        //                 pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
-        //                 pointHitRadius: 10,
-        //                 pointBorderWidth: 2,
-        //                 data: counts_tidak_bisa_diakses,
-        //             },
-        //         ],
-        //     },
-        //     options: {
-        //         maintainAspectRatio: false,
-        //         layout: {
-        //             padding: {
-        //                 left: 10,
-        //                 right: 25,
-        //                 top: 25,
-        //                 bottom: 0,
-        //             },
-        //         },
-        //         scales: {
-        //             xAxes: [
-        //                 {
-        //                     time: {
-        //                         unit: "date",
-        //                     },
-        //                     gridLines: {
-        //                         display: false,
-        //                         drawBorder: false,
-        //                     },
-        //                     ticks: {
-        //                         maxTicksLimit: 7,
-        //                     },
-        //                 },
-        //             ],
-        //             yAxes: [
-        //                 {
-        //                     ticks: {
-        //                         maxTicksLimit: 5,
-        //                         padding: 10,
-        //                         // Include a dollar sign in the ticks
-        //                         callback: function (value, index, values) {
-        //                             return "" + number_format(value);
-        //                         },
-        //                     },
-        //                     gridLines: {
-        //                         color: "rgb(234, 236, 244)",
-        //                         zeroLineColor: "rgb(234, 236, 244)",
-        //                         drawBorder: false,
-        //                         borderDash: [2],
-        //                         zeroLineBorderDash: [2],
-        //                     },
-        //                 },
-        //             ],
-        //         },
-        //         legend: {
-        //             display: false,
-        //         },
-        //         tooltips: {
-        //             backgroundColor: "rgb(255,255,255)",
-        //             bodyFontColor: "#858796",
-        //             titleMarginBottom: 10,
-        //             titleFontColor: "#6e707e",
-        //             titleFontSize: 14,
-        //             borderColor: "#dddfeb",
-        //             borderWidth: 1,
-        //             xPadding: 15,
-        //             yPadding: 15,
-        //             displayColors: false,
-        //             intersect: false,
-        //             mode: "index",
-        //             caretPadding: 10,
-        //             callbacks: {
-        //                 label: function (tooltipItem, chart) {
-        //                     var datasetLabel =
-        //                         chart.datasets[tooltipItem.datasetIndex]
-        //                             .label || "";
-        //                     return (
-        //                         datasetLabel +
-        //                         ": " +
-        //                         number_format(tooltipItem.yLabel)
-        //                     );
-        //                 },
-        //             },
-        //         },
-        //     },
-        // });
     }
 }

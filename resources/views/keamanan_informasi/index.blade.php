@@ -15,9 +15,22 @@
     <div id="chart-card-keamanan" data-route="{{ route('keamanan.chart') }}" class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 font-weight-bold text-primary">
-                    Laporan Grafik
-                </h6>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h6 class="m-0 d-inline-block font-weight-bold text-primary">
+                            Laporan Grafik
+                        </h6>
+                    </div>
+                    <div class="col-lg-6">
+                        {{-- Select Kategori --}}
+                        <select id="kategori_keamanan" class="d-inline-block custom-select custom-select-sm">
+                            <option selected>Semua</option>
+                            <option>Normal</option>
+                            <option>Deface</option>
+                            <option>Tidak Bisa Diakses</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div>
                 <span>Periode :</span>

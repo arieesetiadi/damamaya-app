@@ -104,7 +104,7 @@ function analisa_chart(start_date, end_date, kategori) {
                 datasets: [
                     {
                         label: "Issue",
-                        lineTension: 0.3,
+                        lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
                         borderColor: "rgba(78, 115, 223, 1)",
                         pointRadius: 3,
