@@ -101,17 +101,48 @@
                             height="400" class="chartjs-render-monitor"></canvas>
                     </div>
                     <hr>
+                    <div>
+                        <div class="d-inline-block mr-3">
+                            <span class="dot"></span>   
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-6">
-            <div class="card shadow mb-4">
-                <div class="card-header">
+            <div id="chart-card-keamanan" data-route="{{ route('keamanan.chart') }}" class="card shadow mb-4">
+                <div class="card-header py-3">
                     Grafik Keamanan Informasi
                 </div>
                 <div class="card-body">
-                    <div class="my-5 py5">Isi Grafik</div>
+                    <div id="keamanan-chart-area" class="chart-area">
+                        <div class="chartjs-size-monitor">
+                            <div class="chartjs-size-monitor-expand">
+                                <div class=""></div>
+                            </div>
+                            <div class="chartjs-size-monitor-shrink">
+                                <div class=""></div>
+                            </div>
+                        </div>
+                        <canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751"
+                            height="400" class="chartjs-render-monitor"></canvas>
+                    </div>
+                    <hr>
+                    <div>
+                        <div class="d-inline-block mr-3">
+                            <span class="dot bg-primary"></span>
+                            Normal
+                        </div>
+                        <div class="d-inline-block mr-3">
+                            <span class="dot bg-danger"></span>
+                            Deface
+                        </div>
+                        <div class="d-inline-block mr-3">
+                            <span class="dot bg-dark"></span>
+                            Tidak Bisa Diakses
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

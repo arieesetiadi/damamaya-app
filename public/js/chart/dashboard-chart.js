@@ -9,4 +9,8 @@ $(function () {
     if ($("#anggaran-chart").length) {
         anggaran_chart(start_date, end_date);
     }
+
+    if ($("#keamanan-chart").length) {
+        keamanan_chart(start_date, end_date);
+    }
 });

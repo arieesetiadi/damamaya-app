@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Layanan\Informasi;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class InformasiController extends Controller
 {
@@ -117,15 +118,22 @@ class InformasiController extends Controller
     public static function chart()
     {
         $chart = [];
+        $instansi = DB::table('instansi')->get();
+        $tahun_berjalan = Carbon::now()->addHour(8)->year;
 
-        for ($i = 0; $i < 7; $i++) {
-            // Ambil tanggal dari $i hari kebelakang
-            $date = Carbon::now()->subRealDay($i)->toDateString();
+        foreach ($instansi as $i => $ins) {
+            $chart['instansi'][] = $ins->name;
 
-            // Ambil jumlah data aduan dan tanggal
-            $chart['counts'][] = Informasi::where('created_at', $date)->count();
-            $chart['dates'][] = Carbon::now()->subRealDay($i)->isoFormat("dddd - D MMMM");
+            $chart['tahun_update'][] =
+                Informasi::where('instansi', $ins->name)->get('tahun_update');
+
+            $chart['tahun_berjalan'][] = $tahun_berjalan;
         }
+
+        // $chart = [
+        //     'instansi' => $instansi[0]->name,
+        //     'tahun_berjalan' => $tahun_berjalan
+        // ];
 
         return response()->json($chart);
     }

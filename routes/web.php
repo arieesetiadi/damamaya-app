@@ -44,7 +44,7 @@ Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->nam
 // Chart Data Routes
 Route::post('/pro-chart', [PengaduanPROController::class, 'chart'])->name('pro.chart');
 Route::post('/anggaran-chart', [PengaduanAnggaranController::class, 'chart'])->name('anggaran.chart');
-Route::get('/informasi-chart', [InformasiController::class, 'chart'])->name('informasi.chart');
+Route::post('/informasi-chart', [InformasiController::class, 'chart'])->name('informasi.chart');
 Route::post('/analisa-chart', [AnalisaMediaController::class, 'chart'])->name('analisa.chart');
 Route::post('/keamanan-chart', [KeamananInformasiController::class, 'chart'])->name('keamanan.chart');
 

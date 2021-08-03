@@ -12,14 +12,15 @@
     @endif
 
     {{-- Report Chart --}}
-    <div class="card shadow mb-4">
+    {{-- <div id="chart-card-informasi" data-route="{{ route('informasi.chart') }}" class="card shadow mb-4">   
+        <input id="_token" type="hidden" value="{{ csrf_token() }}">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 Laporan Grafik
             </h6>
         </div>
         <div class="card-body">
-            <div class="chart-area">
+            <div id="informasi-chart-area" class="chart-area">
                 <div class="chartjs-size-monitor">
                     <div class="chartjs-size-monitor-expand">
                         <div class=""></div>
@@ -28,12 +29,12 @@
                         <div class=""></div>
                     </div>
                 </div>
-                <canvas id="info-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                    class="chartjs-render-monitor" data-route="{{ route('informasi.chart') }}"></canvas>
+                <canvas id="informasi-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
+                    class="chartjs-render-monitor"></canvas>
             </div>
             <hr>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Report Table  -->
     <div class="card shadow mb-4">

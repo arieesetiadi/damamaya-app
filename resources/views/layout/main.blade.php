@@ -111,23 +111,6 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Layanan Informasi -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-list-ul"></i>
-                    <span>Layanan Informasi</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('informasi.index') }}">Report</a>
-                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                            <a class="collapse-item" href="{{ route('informasi.create') }}">Input</a>
-                        @endif
-                    </div>
-                </div>
-            </li>
-
             <!-- Nav Item - Keamanan Informasi -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
@@ -140,6 +123,23 @@
                         <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
+                        @endif
+                    </div>
+                </div>
+            </li>
+
+            <!-- Nav Item - Layanan Informasi -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-list-ul"></i>
+                    <span>Layanan Informasi</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('informasi.index') }}">Report</a>
+                        @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            <a class="collapse-item" href="{{ route('informasi.create') }}">Input</a>
                         @endif
                     </div>
                 </div>

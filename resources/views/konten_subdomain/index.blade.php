@@ -82,14 +82,62 @@
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $konten->tanggal }}</td>
                                 <td>{{ $konten->instansi }}</td>
-                                <td>{{ $konten->survey_kepuasan_masyarakat == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->agenda == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->foto_kegiatan == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->berita == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->foto_pimpinan == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->struktur_organisasi == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->tupoksi == 1 ? 'Ada' : 'Tidak Ada' }}</td>
-                                <td>{{ $konten->transparansi_anggaran == 1 ? 'Ada' : 'Tidak Ada' }}</td>
+                                <td>
+                                    @if ($konten->survey_kepuasan_masyarakat == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->agenda == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->foto_kegiatan == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->berita == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->foto_pimpinan == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->struktur_organisasi == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->tupoksi == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if ($konten->transparansi_anggaran == 1)
+                                        <span class="badge badge-primary d-block py-2">Ada</span>
+                                    @else
+                                        <span class="badge badge-danger d-block py-2">Tidak Ada</span>
+                                    @endif
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
