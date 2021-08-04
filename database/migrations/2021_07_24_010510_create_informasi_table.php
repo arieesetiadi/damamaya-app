@@ -15,7 +15,7 @@ class CreateInformasiTable extends Migration
     {
         Schema::create('layanan_informasi', function (Blueprint $table) {
             $table->id();
-            $table->string('instansi');
+            $table->string('nama_pd');
             $table->year('tahun_update');
             $table->timestamps();
         });

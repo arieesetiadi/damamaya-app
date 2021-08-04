@@ -1,6 +1,7 @@
 th,
 td {
     text-align: center;
+    vertical-align: middle;
 }
 .left-img {
     object-fit: scale-down;
@@ -28,4 +29,29 @@ td {
 
 .bg-sidebar-custom {
     background-color: #5c37e2;
+}
+
+th.w-nama-instansi,
+td.w-nama-instansi {
+    width: 400px;
+}
+
+.w-custom-xs {
+    width: 75px;
+}
+
+.w-custom-sm {
+    width: 150px;
+}
+
+.w-custom-md {
+    width: 300px;
+}
+
+.w-custom-lg {
+    width: 450px;
+}
+
+.h-table {
+    height: 550px;
 }

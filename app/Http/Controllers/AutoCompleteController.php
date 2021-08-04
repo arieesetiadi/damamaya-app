@@ -14,9 +14,15 @@ class AutoCompleteController extends Controller
 
     public function getInstansi(Request $request)
     {
+        $instansi = [];
+
         // Ambil nama instansi sesuai dengan apa yang diketik oleh user
-        return response()->json(
-            DB::table('instansi')->where('name', 'like', "%$request->key%")->get()
-        );
+        $res = DB::table('instansi')->where('nama_pd', 'like', "%$request->key%")->get('nama_pd');
+
+        foreach ($res as $r) {
+            $instansi[] = $r->nama_pd;
+        }
+
+        return response()->json($instansi);
     }
 }

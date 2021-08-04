@@ -14,8 +14,9 @@ class CreateInstansiTable extends Migration
     public function up()
     {
         Schema::create('instansi', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->string('id_pd');
+            $table->string('nama_pd');
+            $table->string('nama_pendek_pd');
             $table->timestamps();
         });
     }

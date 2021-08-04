@@ -16,7 +16,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 font-weight-bold text-primary">
-                    Laporan Grafik
+                    Grafik Jumlah Aduan Anggaran
                 </h6>
             </div>
             <div>
@@ -56,7 +56,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold text-primary">
-                    Laporan Table
+                    Data Layanan Pengaduan Anggaran
                 </h6>
             </div>
 

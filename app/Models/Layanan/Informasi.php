@@ -11,5 +11,5 @@ class Informasi extends Model
 
     protected $table = "layanan_informasi";
 
-    protected $fillable = ['instansi', 'tahun_update'];
+    protected $fillable = ['nama_pd', 'tahun_update'];
 }

@@ -69,7 +69,7 @@
         <div class="col-6">
             <div id="chart-card-analisa" data-route="{{ route('analisa.chart') }}" class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between">
-                    <div>
+                    <div class="pt-1">
                         Grafik Analisa Media
                     </div>
                     <div class="d-flex justify-content-end">
@@ -103,7 +103,7 @@
                     <hr>
                     <div>
                         <div class="d-inline-block mr-3">
-                            <span class="dot"></span>   
+                            <span class="dot"></span>
                         </div>
                     </div>
                 </div>

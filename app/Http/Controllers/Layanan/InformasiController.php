@@ -23,12 +23,19 @@ class InformasiController extends Controller
 
     public function index()
     {
+        // Ambil data tahun dalam periode 5 tahun terakhir
+        $years = [];
+        for ($i = 0; $i < 5; $i++) {
+            $years[] = Carbon::now()->year - $i;
+        }
+
         // Kirim data yang dibutuhkan ke halaman Report Layana  Informasi
         $data = [
             'title' => 'Layanan Informasi',
-            'informasi' => Informasi::all()->reverse()
+            'informasi' => Informasi::all()->reverse(),
+            'years' => array_reverse($years),
+            'instansi' => DB::table('instansi')->get()
         ];
-
         return view('informasi.index', compact('data'));
     }
 
@@ -63,7 +70,7 @@ class InformasiController extends Controller
 
         // Insert data layanan informasi dengan Model
         Informasi::create([
-            'instansi' => $request->instansi,
+            'nama_pd' => $request->instansi,
             'tahun_update' => $request->tahun_update,
         ]);
 

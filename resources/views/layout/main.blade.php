@@ -6,6 +6,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -321,18 +322,40 @@
     <script>
         var route = "{{ route('get.instansi') }}";
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $("#instansi").typeahead({
             source: function(query, process) {
-                return $.get(
-                    route, {
-                        query: query,
+                $.ajax({
+                    url: route,
+                    type: 'POST',
+                    data: {
+                        key: query
                     },
-                    function(data) {
-                        return process(data);
+                    async: false,
+                    success: function(data) {
+                        process(data)
                     }
-                );
-            },
+                });
+            }
         });
+
+        // $("#instansi").typeahead({
+        //     source: function(query, process) {
+        //         return $.get(
+        //             route, {
+        //                 query: query,
+        //             },
+        //             function(data) {
+        //                 return process(data);
+        //             }
+        //         );
+        //     }
+        // });
     </script>
 
 </body>

@@ -17,7 +17,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 font-weight-bold text-primary">
-                    Laporan Grafik
+                    Grafik Jumlah Aduan PRO Denpasar
                 </h6>
             </div>
             <div>
@@ -57,7 +57,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold text-primary">
-                    Laporan Table
+                    Data Layanan Pengaduan PRO Denpasar
                 </h6>
             </div>
 
@@ -77,15 +77,15 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <div class="table-responsive h-table">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>Tanggal Pengaduan</th>
+                            <th class="w-custom-sm">Tanggal Pengaduan</th>
                             <th>Nama Pelapor</th>
-                            <th>Topik</th>
-                            <th>Kategori</th>
+                            <th class="w-custom-md">Topik</th>
+                            <th class="w-custom-sm">Kategori</th>
                             <th>Instansi</th>
                         </tr>
                     </thead>

@@ -22,7 +22,7 @@
                         </div>
 
                         <div class="mt-3">
-                            <label for="instansi">Instansi :</label>
+                            <label for="instansi">Instansi / Perangkat Daerah :</label>
                             <input id="instansi" name="instansi"
                                 class="form-control form-control-sm  @error('instansi')  border-danger @enderror"
                                 type="text" placeholder="Instansi" value="{{ old('instansi') }}">

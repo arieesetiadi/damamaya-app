@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <h6 class="m-0 d-inline-block font-weight-bold text-primary">
-                            Laporan Grafik
+                            Grafik Jumlah Issue
                         </h6>
                     </div>
                     <div class="col-lg-6">
@@ -74,7 +74,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold text-primary">
-                    Laporan Table
+                    Data Layanan Analisa Media
                 </h6>
             </div>
 

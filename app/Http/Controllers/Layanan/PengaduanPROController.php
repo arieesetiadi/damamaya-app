@@ -25,6 +25,7 @@ class PengaduanPROController extends Controller
 
     public function index()
     {
+
         // Kirim data yang dibutuhkan ke halaman Report Pengaduan PRO
         $data = [
             'title' => 'Pengaduan PRO Denpasar',

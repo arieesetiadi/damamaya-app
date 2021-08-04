@@ -1,52 +1,89 @@
 @extends('layout.main')
 
 @section('content')
-    <!-- Page Heading -->
-    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
-    <p class="mb-4">Kelengkapan Daftar Informasi Publik</p>
+<!-- Page Heading -->
+<h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
+<p class="mb-4">Kelengkapan Daftar Informasi Publik</p>
 
-    @if (session('success'))
-        <div class="alert alert-primary" role="alert">
-            {{ session('success') }}
+@if (session('success'))
+    <div class="alert alert-primary" role="alert">
+        {{ session('success') }}
+    </div>
+@endif
+
+{{-- Report Chart --}}
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h6 class="m-0 mt-2 font-weight-bold text-primary">
+            Laporan Tahun Update Instansi
+        </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive h-table">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th class="w-nama-instansi">Nama Instansi / Perangkat Daerah</th>
+                        @foreach ($data['years'] as $y)
+                            <th>{{ $y }}</th>
+                        @endforeach
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data['instansi'] as $ins)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td class="w-nama-instansi">{{ $ins->nama_pd }}</td>
+                            @foreach ($data['years'] as $y)
+                                @php
+                                    $tahun_update = Illuminate\Support\Facades\DB::table('layanan_informasi')
+                                        ->where('nama_pd', "$ins->nama_pd")
+                                        ->max('tahun_update');
+                                @endphp
+    
+                                {{-- Cek apakah ada data instansi di Layanan Informasi --}}
+                                @if (isset($tahun_update))
+    
+                                    {{-- Tampikan tahun update dari instansi tersebut --}}
+                                    {{-- Jika sama dengan tahun berjalan, maka tampilkan warna biru --}}
+                                    @if ($y == $tahun_update && $loop->last)
+                                        <td>
+                                            <span class="badge badge-primary d-block py-2">{{ $y }}</span>
+                                        </td>
+                                        @elseif ($y == $tahun_update)
+                                        <td>
+                                            <span class="badge badge-danger d-block py-2">{{ $y }}</span>
+                                        </td>
+                                        @else
+                                        <td></td>
+                                    @endif
+    
+                                    @else
+                                    <td></td>
+                                @endif
+    
+                            @endforeach
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
-    @endif
+    </div>
+</div>
 
-    {{-- Report Chart --}}
-    {{-- <div id="chart-card-informasi" data-route="{{ route('informasi.chart') }}" class="card shadow mb-4">   
-        <input id="_token" type="hidden" value="{{ csrf_token() }}">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                Laporan Grafik
+
+<!-- Report Table  -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <div>
+            <h6 class="m-0 mt-2 font-weight-bold text-primary">
+                Data Layanan Informasi
             </h6>
         </div>
-        <div class="card-body">
-            <div id="informasi-chart-area" class="chart-area">
-                <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
-                    </div>
-                    <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
-                    </div>
-                </div>
-                <canvas id="informasi-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                    class="chartjs-render-monitor"></canvas>
-            </div>
-            <hr>
-        </div>
-    </div> --}}
 
-    <!-- Report Table  -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <div>
-                <h6 class="m-0 mt-2 font-weight-bold text-primary">
-                    Laporan Table
-                </h6>
-            </div>
-
-            <div>
-                {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
+        <div>
+            {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
                     @csrf
                     <div class="input-group">
                         <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
@@ -58,30 +95,30 @@
                         </div>
                     </div>
                 </form> --}}
-            </div>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Instansi</th>
-                            <th>Tahun Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data['informasi'] as $info)
-                            <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $info->instansi }}</td>
-                                <td>{{ $info->tahun_update }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
         </div>
     </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama Instansi / Perangkat Daerah</th>
+                        <th>Tahun Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data['informasi'] as $info)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $info->nama_pd }}</td>
+                            <td>{{ $info->tahun_update }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
 @endsection
