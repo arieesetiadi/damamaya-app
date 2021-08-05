@@ -24,13 +24,9 @@
                     <div class="col-lg-6">
                         {{-- Select Kategori --}}
                         <select id="kategori_analisa" class="d-inline-block custom-select custom-select-sm">
-                            <option selected hidden>Pilih Kategori</option>
+                            <option selected>Semua</option>
                             @foreach ($data['kategori'] as $kategori)
-                                @if ($kategori->name == $data['kategori'][0]->name)
-                                    <option value="{{ $kategori->name }}" selected>{{ $kategori->name }}</option>
-                                @else
-                                    <option value="{{ $kategori->name }}">{{ $kategori->name }}</option>
-                                @endif
+                                <option>{{ $kategori->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -94,8 +90,8 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <div id="analisa-table-container" class="table-responsive">
+                {{-- <table class="table" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -118,7 +114,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>

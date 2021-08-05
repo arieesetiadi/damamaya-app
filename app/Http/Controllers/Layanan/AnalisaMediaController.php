@@ -138,18 +138,30 @@ class AnalisaMediaController extends Controller
 
         // Looping sebanyak periode tanggal
         foreach (CarbonPeriod::create($start, $end) as $p) {
-            $date = $p->toDateString();
 
             // Hitung jumlah data sesuai dengan tanggal dan kategori yang diinputkan
-            $chart['counts'][] = AnalisaMedia::where([
-                ['tanggal', $date],
-                ['kategori', $request->kategori]
-            ])->count();
+            if ($request->kategori == 'Semua') {
+                $chart['counts'][] = AnalisaMedia::where(
+                    'tanggal',
+                    $p->toDateString()
+                )->count();
+            } else {
+                $chart['counts'][] = AnalisaMedia::where([
+                    ['tanggal', $p->toDateString()],
+                    ['kategori', $request->kategori]
+                ])->count();
+            }
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
             $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
+
+        // Ambil data didalam periode untuk ditampilkan di table
+        $chart['data'] = AnalisaMedia::whereBetween(
+            'tanggal',
+            [$start->subDay('1'), $end]
+        )->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($chart);
     }

@@ -77,20 +77,21 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive h-table">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <div id="pro-table-container" class="table-responsive">
+                {{-- <h4 class="text-secondary text-center">Data Tidak Ditemukan</h4> --}}
+                {{-- <table class="table table-hover" id="pro-table">
                     <thead>
                         <tr>
                             <th>No.</th>
                             <th class="w-custom-sm">Tanggal Pengaduan</th>
-                            <th>Nama Pelapor</th>
-                            <th class="w-custom-md">Topik</th>
+                            <th class="w-custom-sm">Nama Pelapor</th>
+                            <th class="w-custom-sm">Topik</th>
                             <th class="w-custom-sm">Kategori</th>
-                            <th>Instansi</th>
+                            <th>Nama Instansi / Perangkat Daerah</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        @foreach ($data['pengaduan_pro'] as $pro)
+                    <tbody> --}}
+                {{-- @foreach ($data['pengaduan_pro'] as $pro)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td>{{ $pro->tgl_pengaduan }}</td>
@@ -99,8 +100,8 @@
                                 <td>{{ $pro->kategori }}</td>
                                 <td>{{ $pro->instansi }}</td>
                             </tr>
-                        @endforeach
-                    </tbody>
+                        @endforeach --}}
+                </tbody>
                 </table>
             </div>
         </div>

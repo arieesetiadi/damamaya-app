@@ -28,9 +28,9 @@ $(function () {
 
 function keamanan_chart(start_date, end_date, kategori) {
     $("#keamanan-chart").remove();
+    $("#keamanan-table").remove();
 
-    let canvas =
-        '<canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>';
+    let canvas = `<canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
 
     // Append new canvas
     $("#keamanan-chart-area").append(canvas);
@@ -67,12 +67,12 @@ function keamanan_chart(start_date, end_date, kategori) {
             return s.join(dec);
         }
 
-        // Get Days Name
+        // Get dates Name
         let url = $("#chart-card-keamanan").data("route");
-        let days = [];
-        let counts_normal = [];
-        let counts_deface = [];
-        let counts_tidak_bisa_diakses = [];
+        let dates = [];
+        let counts = [];
+        let data = [];
+        let keamanan_table_str = ``;
 
         $.ajaxSetup({
             headers: {
@@ -90,20 +90,59 @@ function keamanan_chart(start_date, end_date, kategori) {
             type: "POST",
             async: false,
             success: function (chart) {
-                counts_normal = chart["counts"]["normal"];
-                counts_deface = chart["counts"]["deface"];
-                counts_tidak_bisa_diakses =
-                    chart["counts"]["tidak_bisa_diakses"];
-                days = chart["dates"];
+                counts = chart["counts"];
+                dates = chart["dates"];
+                data = chart["data"];
             },
         });
+
+        // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
+        if (data.length > 0) {
+            keamanan_table_str = `
+               <table class="table table-hover" id="keamanan-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tanggal</th>
+                            <th>Jam</th>
+                            <th>Link Website</th>
+                            <th>Status Website</th>
+                            <th>Nama Petugas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    `;
+
+            $.each(data, function (i, val) {
+                keamanan_table_str += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${val.tanggal}</td>
+                        <td>${val.jam}</td>
+                        <td>${val.link_website}</td>
+                        <td>${val.status_website}</td>
+                        <td>${val.nama_petugas}</td>
+                    </tr>
+                `;
+            });
+
+            keamanan_table_str += `</tbody></table>`;
+
+            $("#keamanan-table-container").append(keamanan_table_str);
+        } else {
+            keamanan_table_str = `
+                <h4 id="keamanan-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
+            `;
+
+            $("#keamanan-table-container").append(keamanan_table_str);
+        }
 
         // Area Chart Example
         var ctx = document.getElementById("keamanan-chart");
         var myLineChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: days,
+                labels: dates,
                 datasets: [
                     {
                         label: "Normal",
@@ -118,7 +157,7 @@ function keamanan_chart(start_date, end_date, kategori) {
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts_normal,
+                        data: counts["normal"],
                     },
                     {
                         label: "Deface",
@@ -133,7 +172,7 @@ function keamanan_chart(start_date, end_date, kategori) {
                         pointHoverBorderColor: "rgba(255, 0, 0, 0.50)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts_deface,
+                        data: counts["deface"],
                     },
                     {
                         label: "Tidak Bisa Diakses",
@@ -148,7 +187,7 @@ function keamanan_chart(start_date, end_date, kategori) {
                         pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts_tidak_bisa_diakses,
+                        data: counts["tidak_bisa_diakses"],
                     },
                 ],
             },

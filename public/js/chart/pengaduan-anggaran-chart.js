@@ -20,9 +20,9 @@ $(function () {
 
 function anggaran_chart(start_date, end_date) {
     $("#anggaran-chart").remove();
+    $("#anggaran-table").remove();
 
-    let canvas =
-        '<canvas id="anggaran-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>';
+    let canvas = `<canvas id="anggaran-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
 
     // Append new canvas
     $("#anggaran-chart-area").append(canvas);
@@ -61,10 +61,12 @@ function anggaran_chart(start_date, end_date) {
             return s.join(dec);
         }
 
-        // Get Days Name
+        // Get dates Name
         let url = $("#chart-card-anggaran").data("route");
-        let days = [];
+        let dates = [];
         let counts = [];
+        let data = [];
+        let anggaran_table_str = ``;
 
         $.ajaxSetup({
             headers: {
@@ -82,16 +84,58 @@ function anggaran_chart(start_date, end_date) {
             async: false,
             success: function (chart) {
                 counts = chart["counts"];
-                days = chart["dates"];
+                dates = chart["dates"];
+                data = chart["data"];
             },
         });
+
+        // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
+        if (data.length > 0) {
+            anggaran_table_str = `
+                <table class="table table-hover" id="anggaran-table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th class="w-custom-sm">Tanggal Pengaduan</th>
+                            <th class="w-custom-sm">Nama Pelapor</th>
+                            <th class="w-custom-sm">Topik</th>
+                            <th class="w-custom-sm">Kategori</th>
+                            <th>Nama Instansi / Perangkat Daerah</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    `;
+
+            $.each(data, function (i, val) {
+                anggaran_table_str += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${val.tgl_pengaduan}</td>
+                        <td>${val.nama_pelapor}</td>
+                        <td>${val.topik}</td>
+                        <td>${val.kategori}</td>
+                        <td>${val.nama_pd}</td>
+                    </tr>
+                `;
+            });
+
+            anggaran_table_str += `</tbody></table>`;
+
+            $("#anggaran-table-container").append(anggaran_table_str);
+        } else {
+            anggaran_table_str = `
+                <h4 id="anggaran-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
+            `;
+
+            $("#anggaran-table-container").append(anggaran_table_str);
+        }
 
         // Area Chart Example
         var ctx = document.getElementById("anggaran-chart");
         var myLineChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: days,
+                labels: dates,
                 datasets: [
                     {
                         label: "Aduan",

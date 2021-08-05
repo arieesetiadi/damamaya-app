@@ -103,8 +103,8 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+            <div id="keamanan-table-container" class="table-responsive">
+                {{-- <table class="table" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -127,7 +127,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>

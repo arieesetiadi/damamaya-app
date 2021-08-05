@@ -28,16 +28,14 @@ $(function () {
 
 function analisa_chart(start_date, end_date, kategori) {
     $("#analisa-chart").remove();
+    $("#analisa-table").remove();
 
-    let canvas =
-        '<canvas id="analisa-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>';
+    let canvas = `<canvas id="analisa-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
 
     // Append new canvas
     $("#analisa-chart-area").append(canvas);
 
     if ($("#analisa-chart").length) {
-        // Clear canvas area
-
         // Set new default font family and font color to mimic Bootstrap's default styling
         (Chart.defaults.global.defaultFontFamily = "Nunito"),
             '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
@@ -69,10 +67,12 @@ function analisa_chart(start_date, end_date, kategori) {
             return s.join(dec);
         }
 
-        // Get Days Name
+        // Get dates Name
         let url = $("#chart-card-analisa").data("route");
-        let days = [];
+        let dates = [];
         let counts = [];
+        let data = [];
+        let analisa_table_str = ``;
 
         $.ajaxSetup({
             headers: {
@@ -91,16 +91,58 @@ function analisa_chart(start_date, end_date, kategori) {
             async: false,
             success: function (chart) {
                 counts = chart["counts"];
-                days = chart["dates"];
+                dates = chart["dates"];
+                data = chart["data"];
             },
         });
+
+        // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
+        if (data.length > 0) {
+            analisa_table_str = `
+                <table class="table table-hover" id="analisa-table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Tanggal</th>
+                            <th>Issue Lokal</th>
+                            <th>Issue Nasional</th>
+                            <th>Kategori</th>
+                            <th>Nama Petugas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    `;
+
+            $.each(data, function (i, val) {
+                analisa_table_str += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${val.tanggal}</td>
+                        <td>${val.issue_lokal}</td>
+                        <td>${val.issue_nasional}</td>
+                        <td>${val.kategori}</td>
+                        <td>${val.nama_petugas}</td>
+                    </tr>
+                `;
+            });
+
+            analisa_table_str += `</tbody></table>`;
+
+            $("#analisa-table-container").append(analisa_table_str);
+        } else {
+            analisa_table_str = `
+                <h4 id="analisa-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
+            `;
+
+            $("#analisa-table-container").append(analisa_table_str);
+        }
 
         // Area Chart Example
         var ctx = document.getElementById("analisa-chart");
         var myLineChart = new Chart(ctx, {
             type: "line",
             data: {
-                labels: days,
+                labels: dates,
                 datasets: [
                     {
                         label: "Issue",

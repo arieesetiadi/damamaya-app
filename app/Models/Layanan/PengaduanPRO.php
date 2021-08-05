@@ -16,6 +16,6 @@ class PengaduanPRO extends Model
         'nama_pelapor',
         'topik',
         'kategori',
-        'instansi',
+        'nama_pd',
     ];
 }

@@ -137,53 +137,54 @@ class KeamananInformasiController extends Controller
 
         // Looping sebanyak periode tanggal
         foreach (CarbonPeriod::create($start, $end) as $p) {
-            $date = $p->toDateString();
+            $normal[] =
+                KeamananInformasi::where([
+                    ['tanggal', $p->toDateString()],
+                    ['status_website', 'Normal']
+                ])->count();
 
-            switch ($request->kategori) {
-                case 'Normal':
-                    $chart['counts']['normal'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Normal']
-                    ])->count();
-                    break;
+            $deface[] =
+                KeamananInformasi::where([
+                    ['tanggal', $p->toDateString()],
+                    ['status_website', 'Deface']
+                ])->count();
 
-                case 'Deface':
-                    $chart['counts']['deface'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Deface']
-                    ])->count();
-                    break;
-
-                case 'Tidak Bisa Diakses':
-                    $chart['counts']['tidak_bisa_diakses'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Tidak Bisa Diakses']
-                    ])->count();
-                    break;
-
-                default:
-                    // Hitung jumlah data sesuai dengan tanggal dan kategori yang diinputkan
-                    $chart['counts']['normal'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Normal']
-                    ])->count();
-
-                    $chart['counts']['deface'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Deface']
-                    ])->count();
-
-                    $chart['counts']['tidak_bisa_diakses'][] = KeamananInformasi::where([
-                        ['tanggal', $date],
-                        ['status_website', 'Tidak Bisa Diakses']
-                    ])->count();
-                    break;
-            }
+            $tidak_bisa_diakses[] =
+                KeamananInformasi::where([
+                    ['tanggal', $p->toDateString()],
+                    ['status_website', 'Tidak Bisa Diakses']
+                ])->count();
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
             $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
+
+        switch ($request->kategori) {
+            case 'Normal':
+                $chart['counts']['normal'] = $normal;
+                break;
+
+            case 'Deface':
+                $chart['counts']['deface'] = $deface;
+                break;
+
+            case 'Tidak Bisa Diakses':
+                $chart['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
+                break;
+
+            default:
+                $chart['counts']['normal'] = $normal;
+                $chart['counts']['deface'] = $deface;
+                $chart['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
+                break;
+        }
+
+        // Ambil data didalam periode untuk ditampilkan di table
+        $chart['data'] = KeamananInformasi::whereBetween(
+            'tanggal',
+            [$start->subDay('1'), $end]
+        )->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($chart);
     }

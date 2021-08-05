@@ -19,7 +19,7 @@ class CreatePengaduanAnggaranTable extends Migration
             $table->string('nama_pelapor');
             $table->string('topik');
             $table->string('kategori');
-            $table->string('instansi');
+            $table->string('nama_pd');
             $table->timestamps();
         });
     }

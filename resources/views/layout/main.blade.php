@@ -328,7 +328,7 @@
             }
         });
 
-        $("#instansi").typeahead({
+        $("#nama_pd").typeahead({
             source: function(query, process) {
                 $.ajax({
                     url: route,
