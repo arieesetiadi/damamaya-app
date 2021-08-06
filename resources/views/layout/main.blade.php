@@ -313,7 +313,6 @@
     {{-- Custom Charts --}}
     <script src="{{ asset('js/chart/pengaduan-pro-chart.js') }}"></script>
     <script src="{{ asset('js/chart/pengaduan-anggaran-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/layanan-informasi-chart.js') }}"></script>
     <script src="{{ asset('js/chart/analisa-media-chart.js') }}"></script>
     <script src="{{ asset('js/chart/keamanan-informasi-chart.js') }}"></script>
     <script src="{{ asset('js/chart/dashboard-chart.js') }}"></script>
@@ -336,26 +335,12 @@
                     data: {
                         key: query
                     },
-                    async: false,
                     success: function(data) {
-                        process(data)
+                        process(data);
                     }
                 });
             }
         });
-
-        // $("#instansi").typeahead({
-        //     source: function(query, process) {
-        //         return $.get(
-        //             route, {
-        //                 query: query,
-        //             },
-        //             function(data) {
-        //                 return process(data);
-        //             }
-        //         );
-        //     }
-        // });
     </script>
 
 </body>

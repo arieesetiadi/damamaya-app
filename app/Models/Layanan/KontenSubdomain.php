@@ -13,7 +13,7 @@ class KontenSubdomain extends Model
 
     protected $fillable = [
         'tanggal',
-        'instansi',
+        'nama_pd',
         'survey_kepuasan_masyarakat',
         'agenda',
         'foto_kegiatan',

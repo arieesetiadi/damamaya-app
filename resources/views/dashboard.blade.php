@@ -74,13 +74,9 @@
                     </div>
                     <div class="d-flex justify-content-end">
                         <select id="kategori_analisa" class="d-inline-block custom-select custom-select-sm">
-                            <option selected hidden>Pilih Kategori</option>
+                            <option selected>Semua</option>
                             @foreach ($data['kategori'] as $kategori)
-                                @if ($kategori->name == $data['kategori'][0]->name)
-                                    <option value="{{ $kategori->name }}" selected>{{ $kategori->name }}</option>
-                                @else
-                                    <option value="{{ $kategori->name }}">{{ $kategori->name }}</option>
-                                @endif
+                                <option>{{ $kategori->name }}</option>
                             @endforeach
                         </select>
                         <button id="btn_period_analisa" type="submit"

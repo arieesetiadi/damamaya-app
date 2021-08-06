@@ -31,12 +31,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{-- Loop semua  data instansi --}}
                         @foreach ($data['instansi'] as $ins)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
                                 <td class="w-nama-instansi">{{ $ins->nama_pd }}</td>
                                 @foreach ($data['years'] as $y)
                                     @php
+                                        //Ambil tahun update instansi dari table layanan informasi
                                         $tahun_update = Illuminate\Support\Facades\DB::table('layanan_informasi')
                                             ->where('nama_pd', "$ins->nama_pd")
                                             ->max('tahun_update');

@@ -64,13 +64,13 @@ class InformasiController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'instansi' => 'required',
+            'nama_pd' => 'required',
             'tahun_update' => 'required',
         ]);
 
         // Insert data layanan informasi dengan Model
         Informasi::create([
-            'nama_pd' => $request->instansi,
+            'nama_pd' => $request->nama_pd,
             'tahun_update' => $request->tahun_update,
         ]);
 

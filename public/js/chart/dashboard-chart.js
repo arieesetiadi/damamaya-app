@@ -13,4 +13,8 @@ $(function () {
     if ($("#keamanan-chart").length) {
         keamanan_chart(start_date, end_date);
     }
+
+    if ($("#analisa-chart").length) {
+        analisa_chart(start_date, end_date, "Semua");
+    }
 });

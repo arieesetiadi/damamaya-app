@@ -16,7 +16,7 @@ class CreateKontenSubdomainTable extends Migration
         Schema::create('layanan_konten_subdomain', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->string('instansi');
+            $table->string('nama_pd');
             $table->boolean('survey_kepuasan_masyarakat');
             $table->boolean('agenda');
             $table->boolean('foto_kegiatan');

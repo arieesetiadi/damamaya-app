@@ -22,11 +22,11 @@
                         </div>
 
                         <div class="mt-3">
-                            <label for="instansi">Instansi / Perangkat Daerah :</label>
-                            <input id="instansi" name="instansi"
-                                class="form-control form-control-sm  @error('instansi')  border-danger @enderror"
-                                type="text" placeholder="Instansi" value="{{ old('instansi') }}">
-                            @error('instansi')
+                            <label for="nama_pd">Nama Instansi / Perangkat Daerah :</label>
+                            <input id="nama_pd" name="nama_pd"
+                                class="form-control form-control-sm  @error('nama_pd')  border-danger @enderror" type="text"
+                                placeholder="Instansi" value="{{ old('nama_pd') }}">
+                            @error('nama_pd')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

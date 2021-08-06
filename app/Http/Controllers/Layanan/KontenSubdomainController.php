@@ -25,7 +25,7 @@ class KontenSubdomainController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Konten Subdomain
         $data = [
             'title' => 'Konten Subdomain',
-            'konten_subdomain' => KontenSubdomain::all()->reverse()
+            'konten_subdomain' => KontenSubdomain::limit(50)->get()->reverse()
         ];
 
         return view('konten_subdomain.index', compact('data'));
@@ -58,14 +58,14 @@ class KontenSubdomainController extends Controller
         // Validasi data dari form input
         $request->validate([
             'tanggal' => 'required',
-            'instansi' => 'required|max:255'
+            'nama_pd' => 'required|max:255'
         ]);
 
         // Insert data konten subdomain dengan Model
         // Karena tipe data boolean, maka yang diinsert hanya angka 1 atau 0, dengan menggunakan ternary operator
         KontenSubdomain::create([
             'tanggal' => $request->tanggal,
-            'instansi' => $request->instansi,
+            'nama_pd' => $request->nama_pd,
             'survey_kepuasan_masyarakat' => $request->survey == 'on' ? 1 : 0,
             'agenda' => $request->agenda == 'on' ? 1 : 0,
             'foto_kegiatan' => $request->foto_kegiatan == 'on' ? 1 : 0,
