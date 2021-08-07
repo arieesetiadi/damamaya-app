@@ -1,19 +1,21 @@
-$(function () {
-    var route = "{{ route('get.instansi') }}";
+var route = $('meta[name="get-instansi"]').attr("content");
 
-    console.log(route);
+$.ajaxSetup({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+});
 
-    $("#instansi-pro").typeahead({
-        source: function (query, process) {
-            return $.get(
-                route,
-                {
-                    query: query,
-                },
-                function (data) {
-                    return process(data);
-                }
-            );
-        },
-    });
+$("#nama_pd").typeahead({
+    source: function (key, process) {
+        return $.get(
+            route,
+            {
+                key: key,
+            },
+            function (data) {
+                return process(data);
+            }
+        );
+    },
 });

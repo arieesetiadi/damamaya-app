@@ -39,7 +39,7 @@ Route::prefix('user/')->group(function () {
 });
 
 // Auto Complete Nama Instansi
-Route::post('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
+Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
 
 // Chart Data Routes
 Route::post('/pro-chart', [PengaduanPROController::class, 'chart'])->name('pro.chart');

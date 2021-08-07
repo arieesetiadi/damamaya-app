@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="get-instansi" content="{{ route('get.instansi') }}">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -318,30 +319,7 @@
     <script src="{{ asset('js/chart/dashboard-chart.js') }}"></script>
 
     {{-- Form Autocomplete Script --}}
-    <script>
-        var route = "{{ route('get.instansi') }}";
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $("#nama_pd").typeahead({
-            source: function(query, process) {
-                $.ajax({
-                    url: route,
-                    type: 'POST',
-                    data: {
-                        key: query
-                    },
-                    success: function(data) {
-                        process(data);
-                    }
-                });
-            }
-        });
-    </script>
+    <script src="{{ asset('js/autocomplete.js') }}"></script>
 
 </body>
 
