@@ -85,18 +85,6 @@
             </div>
 
             <div>
-                {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
-                    @csrf
-                    <div class="input-group">
-                        <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
-                            placeholder="Cari user..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
             </div>
         </div>
         <div class="card-body">

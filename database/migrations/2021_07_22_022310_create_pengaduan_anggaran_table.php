@@ -15,7 +15,7 @@ class CreatePengaduanAnggaranTable extends Migration
     {
         Schema::create('pengaduan_anggaran', function (Blueprint $table) {
             $table->id();
-            $table->date('tgl_pengaduan');
+            $table->date('tanggal');
             $table->string('nama_pelapor');
             $table->string('topik');
             $table->string('kategori');

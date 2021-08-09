@@ -12,7 +12,7 @@ class PengaduanAnggaran extends Model
     protected $table = 'layanan_pengaduan_anggaran';
 
     protected $fillable = [
-        'tgl_pengaduan',
+        'tanggal',
         'nama_pelapor',
         'topik',
         'kategori',

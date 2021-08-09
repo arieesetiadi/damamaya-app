@@ -66,7 +66,7 @@ class PengaduanPROController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'tgl_pengaduan' => 'required',
+            'tanggal' => 'required',
             'nama_pelapor' => 'required|max:255',
             'topik' => 'required|max:255',
             'kategori' => 'required',
@@ -75,7 +75,7 @@ class PengaduanPROController extends Controller
 
         // Insert data pengaduan PRO dengan Model
         PengaduanPRO::create([
-            'tgl_pengaduan' => $request->tgl_pengaduan,
+            'tanggal' => $request->tanggal,
             'nama_pelapor' => $request->nama_pelapor,
             'topik' => $request->topik,
             'kategori' => $request->kategori,
@@ -142,7 +142,7 @@ class PengaduanPROController extends Controller
         foreach (CarbonPeriod::create($start, $end) as $p) {
 
             // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-            $chart['counts'][] = PengaduanPRO::where('tgl_pengaduan', $p->toDateString())->count();
+            $chart['counts'][] = PengaduanPRO::where('tanggal', $p->toDateString())->count();
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
@@ -151,14 +151,14 @@ class PengaduanPROController extends Controller
 
         // Ambil data didalam periode untuk ditampilkan di table
         $chart['data'] = PengaduanPRO::whereBetween(
-            'tgl_pengaduan',
+            'tanggal',
             [$start->subDay('1'), $end]
-        )->orderBy('tgl_pengaduan', 'DESC')->get();
+        )->orderBy('tanggal', 'DESC')->get();
 
         // $chart['data'] = PengaduanPRO::where([
-        //     ['tgl_pengaduan', '>=', $start],
-        //     ['tgl_pengaduan', '<=', $end]
-        // ])->orderBy('tgl_pengaduan', 'DESC')->get();
+        //     ['tanggal', '>=', $start],
+        //     ['tanggal', '<=', $end]
+        // ])->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($chart);
     }

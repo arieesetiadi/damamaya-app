@@ -25,7 +25,7 @@ class KontenSubdomainController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Konten Subdomain
         $data = [
             'title' => 'Konten Subdomain',
-            'konten_subdomain' => KontenSubdomain::limit(50)->get()->reverse()
+            'konten_subdomain' => KontenSubdomain::limit(10)->get()->reverse()
         ];
 
         return view('konten_subdomain.index', compact('data'));

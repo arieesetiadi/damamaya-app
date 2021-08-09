@@ -13,11 +13,11 @@
                     <div class="col-lg-6">
                         @csrf
                         <div class="mb-3">
-                            <label for="tgl_pengaduan">Tanggal Pengaduan :</label>
-                            <input id="tgl_pengaduan" name="tgl_pengaduan"
-                                class="form-control form-control-sm  @error('tgl_pengaduan')  border-danger @enderror"
-                                type="date" value="{{ $data['now'] }}">
-                            @error('tgl_pengaduan')
+                            <label for="tanggal">Tanggal Pengaduan :</label>
+                            <input id="tanggal" name="tanggal"
+                                class="form-control form-control-sm  @error('tanggal')  border-danger @enderror" type="date"
+                                value="{{ $data['now'] }}">
+                            @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>

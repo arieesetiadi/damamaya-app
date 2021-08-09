@@ -61,46 +61,12 @@
             </div>
 
             <div>
-                {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
-                    @csrf
-                    <div class="input-group">
-                        <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
-                            placeholder="Cari user..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
+
             </div>
         </div>
         <div class="card-body">
             <div id="anggaran-table-container" class="table-responsive">
-                {{-- <table class="table" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tanggal Pengaduan</th>
-                            <th>Nama Pelapor</th>
-                            <th>Topik</th>
-                            <th>Kategori</th>
-                            <th>Instansi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data['pengaduan_anggaran'] as $anggaran)
-                            <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $anggaran->tgl_pengaduan }}</td>
-                                <td>{{ $anggaran->nama_pelapor }}</td>
-                                <td>{{ $anggaran->topik }}</td>
-                                <td>{{ $anggaran->kategori }}</td>
-                                <td>{{ $anggaran->instansi }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table> --}}
+                {{-- Table diisi dari pengaduan-anggaran-chart.js --}}
             </div>
         </div>
     </div>

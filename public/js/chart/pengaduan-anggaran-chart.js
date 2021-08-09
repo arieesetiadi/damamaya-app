@@ -107,7 +107,7 @@ function anggaran_chart(start_date, end_date) {
                         anggaran_table_str += `
                         <tr>
                             <td>${i + 1}</td>
-                            <td>${val.tgl_pengaduan}</td>
+                            <td>${val.tanggal}</td>
                             <td>${val.nama_pelapor}</td>
                             <td>${val.topik}</td>
                             <td>${val.kategori}</td>

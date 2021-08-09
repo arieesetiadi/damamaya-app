@@ -62,47 +62,11 @@
             </div>
 
             <div>
-                {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
-                    @csrf
-                    <div class="input-group">
-                        <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
-                            placeholder="Cari user..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
             </div>
         </div>
         <div class="card-body">
             <div id="pro-table-container" class="table-responsive">
-                {{-- <h4 class="text-secondary text-center">Data Tidak Ditemukan</h4> --}}
-                {{-- <table class="table table-hover" id="pro-table">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th class="w-custom-sm">Tanggal Pengaduan</th>
-                            <th class="w-custom-sm">Nama Pelapor</th>
-                            <th class="w-custom-sm">Topik</th>
-                            <th class="w-custom-sm">Kategori</th>
-                            <th>Nama Instansi / Perangkat Daerah</th>
-                        </tr>
-                    </thead>
-                    <tbody> --}}
-                {{-- @foreach ($data['pengaduan_pro'] as $pro)
-                            <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $pro->tgl_pengaduan }}</td>
-                                <td>{{ $pro->nama_pelapor }}</td>
-                                <td>{{ $pro->topik }}</td>
-                                <td>{{ $pro->kategori }}</td>
-                                <td>{{ $pro->instansi }}</td>
-                            </tr>
-                        @endforeach --}}
-                </tbody>
-                </table>
+                {{-- Table diisi melalui pengaduan-pro-chart.js --}}
             </div>
         </div>
     </div>

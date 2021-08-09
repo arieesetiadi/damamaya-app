@@ -12,7 +12,7 @@ class PengaduanPRO extends Model
     protected $table = 'layanan_pengaduan_pro';
 
     protected $fillable = [
-        'tgl_pengaduan',
+        'tanggal',
         'nama_pelapor',
         'topik',
         'kategori',

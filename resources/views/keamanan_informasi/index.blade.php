@@ -88,46 +88,11 @@
             </div>
 
             <div>
-                {{-- <form action="#" method="POST" class="form-inline mr-auto w-100 navbar-search">
-                    @csrf
-                    <div class="input-group">
-                        <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
-                            placeholder="Cari user..." aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-sm btn-primary" type="submit">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form> --}}
             </div>
         </div>
         <div class="card-body">
             <div id="keamanan-table-container" class="table-responsive">
-                {{-- <table class="table" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Tanggal</th>
-                            <th>Jam</th>
-                            <th>Link Website</th>
-                            <th>Status Website</th>
-                            <th>Nama Petugas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data['keamanan_informasi'] as $keamanan_info)
-                            <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $keamanan_info->tanggal }}</td>
-                                <td>{{ $keamanan_info->jam }}</td>
-                                <td>{{ $keamanan_info->link_website }}</td>
-                                <td>{{ $keamanan_info->status_website }}</td>
-                                <td>{{ $keamanan_info->nama_petugas }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table> --}}
+                {{-- Table diisi melalui informasi-chart.js --}}
             </div>
         </div>
     </div>

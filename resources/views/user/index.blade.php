@@ -2,7 +2,9 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
+    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
+    <p class="mb-4">Daftar user yang terdaftar sebagai pengguna layanan Damamaya</p>
+
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">
@@ -14,23 +16,13 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                {{-- <button class="d-inline-block btn btn-sm btn-primary collapsed" href="#" data-toggle="collapse"
-                    data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
-                    <span>Pilihan <i class="fas fa-caret-down"></i></span>
-                </button>
-                <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="py-2 collapse-inner rounded">
-                        <a class="collapse-item btn btn-sm" href="buttons.html">Tambah User</a>
-                        <a class="collapse-item btn btn-sm" href="buttons.html">Clear User</a>
-                    </div>
-                </div> --}}
                 <a class="btn btn-sm btn-primary" href="{{ route('user.create') }}">
                     <i class="fas fa-user-plus"></i>
                 </a>
             </div>
 
             <div>
-                <form action="{{ route('user.search') }}" method="POST" class="form-inline mr-auto w-100 navbar-search">
+                {{-- <form action="{{ route('user.search') }}" method="POST" class="form-inline mr-auto w-100 navbar-search">
                     @csrf
                     <div class="input-group">
                         <input name="keyword" type="text" class="form-control form-control-sm bg-light small"
@@ -41,7 +33,7 @@
                             </button>
                         </div>
                     </div>
-                </form>
+                </form> --}}
             </div>
         </div>
         <div class="card-body">

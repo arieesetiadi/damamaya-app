@@ -66,7 +66,7 @@ class PengaduanAnggaranController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'tgl_pengaduan' => 'required',
+            'tanggal' => 'required',
             'nama_pelapor' => 'required|max:255',
             'topik' => 'required|max:255',
             'kategori' => 'required',
@@ -75,7 +75,7 @@ class PengaduanAnggaranController extends Controller
 
         // Insert data pengaduan anggaran dengan Model
         PengaduanAnggaran::create([
-            'tgl_pengaduan' => $request->tgl_pengaduan,
+            'tanggal' => $request->tanggal,
             'nama_pelapor' => $request->nama_pelapor,
             'topik' => $request->topik,
             'kategori' => $request->kategori,
@@ -141,7 +141,7 @@ class PengaduanAnggaranController extends Controller
         // Looping sebanyak periode tanggal
         foreach (CarbonPeriod::create($start, $end) as $p) {
             // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-            $chart['counts'][] = PengaduanAnggaran::where('tgl_pengaduan', $p->toDateString())->count();
+            $chart['counts'][] = PengaduanAnggaran::where('tanggal', $p->toDateString())->count();
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
@@ -150,9 +150,9 @@ class PengaduanAnggaranController extends Controller
 
         // Ambil data didalam periode untuk ditampilkan di table
         $chart['data'] = PengaduanAnggaran::whereBetween(
-            'tgl_pengaduan',
+            'tanggal',
             [$start->subDay('1'), $end]
-        )->orderBy('tgl_pengaduan', 'DESC')->get();
+        )->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($chart);
     }
