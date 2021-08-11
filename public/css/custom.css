@@ -55,3 +55,9 @@ td.w-nama-instansi {
 .h-table {
     height: 500px;
 }
+
+.shadow-bottom {
+    -webkit-box-shadow: 15px 0px 67px -27px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 15px 0px 67px -27px rgba(0, 0, 0, 0.75);
+    box-shadow: 15px 0px 67px -27px rgba(0, 0, 0, 0.75);
+}

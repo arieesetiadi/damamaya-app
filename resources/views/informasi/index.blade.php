@@ -35,7 +35,7 @@
                         @foreach ($data['instansi'] as $ins)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
-                                <td class="w-nama-instansi">{{ $ins->nama_pd }}</td>
+                                <td class="w-nama-instansi text-left">{{ $ins->nama_pd }}</td>
                                 @foreach ($data['years'] as $y)
                                     @php
                                         //Ambil tahun update instansi dari table layanan informasi

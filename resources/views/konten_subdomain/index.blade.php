@@ -20,11 +20,32 @@
             </div>
 
             <div>
+                <div class="row">
+                    <div id="subdomain-route" data-route="{{ route('subdomain.report') }}">
+                        <select id="subdomain-bulan" class="d-inline-block custom-select custom-select-sm">
+                            @foreach ($data['bulan_list'] as $bulan)
+                                @if ($data['bulan_now'] == $bulan['value'])
+                                    <option value="{{ $bulan['value'] }}" selected>{{ $bulan['name'] }}</option>
+                                @else
+                                    <option value="{{ $bulan['value'] }}">{{ $bulan['name'] }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mx-2">
+                        <input id="subdomain-tahun" type="number" value="{{ $data['tahun_now'] }}" min="0" step="1"
+                            class="form-control form-control-sm" />
+                    </div>
+                    <div>
+                        <button id="btn-subdomain" class="btn btn-primary btn-sm">Submit</button>
+                    </div>
+
+                </div>
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive table-subdomain">
-                <table class="table table-hover" id="dataTable">
+            <div id="subdomain-report-container" class="table-responsive table-subdomain">
+                {{-- <table class="table table-hover" id="dataTable">
                     <thead>
                         <tr id="tr-subdomain">
                             <th>No.</th>
@@ -105,7 +126,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>

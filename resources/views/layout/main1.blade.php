@@ -33,12 +33,13 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <div class="sidebar-brand-icon">
-                    <img width="125px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Damamaya">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center px-3"
+                href="{{ route('dashboard') }}">
+                <div class="sidebar-brand-icon bg-white w-100 rounded py-1">
+                    <img width="120px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Kominfo">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
                 </div>
                 {{-- <div class="sidebar-brand-text mx-3">DAMAMAYA</div> --}}
@@ -50,15 +51,15 @@
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('dashboard') }}">
-                    <i class="fas fa-fw fa-home"></i>
-                    <span class="text-dark">Dashboard</span></a>
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-dark">
+            <div class="sidebar-heading">
                 Layanan
             </div>
 
@@ -66,12 +67,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero"
                     aria-expanded="true" aria-controls="collapseZero">
-                    {{-- <i class="fas fa-list text-dark"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Pengaduan PRO</span>
+                    <i class="fas fa-list"></i>
+                    <span>Pengaduan PRO</span>
                 </a>
                 <div id="collapseZero" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-pro.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('pengaduan-pro.create') }}">Input</a>
@@ -84,12 +84,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
                     aria-expanded="true" aria-controls="collapseOne">
-                    {{-- <i class="fas fa-list text-dark"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Pengaduan Anggaran</span>
+                    <i class="fas fa-list"></i>
+                    <span>Pengaduan Anggaran</span>
                 </a>
                 <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-anggaran.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('pengaduan-anggaran.create') }}">Input</a>
@@ -103,10 +102,10 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
                     aria-expanded="true" aria-controls="collapseThree">
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Analisa Media</span>
+                    <span>Analisa Media</span>
                 </a>
                 <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('analisa-media.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('analisa-media.create') }}">Input</a>
@@ -119,12 +118,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
                     aria-expanded="true" aria-controls="collapseFour">
-                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Keamanan Informasi</span>
+                    <i class="fas fa-th-list"></i>
+                    <span>Keamanan Informasi</span>
                 </a>
                 <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
@@ -137,12 +135,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
-                    {{-- <i class="fas fa-list-ul text-dark"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Layanan Informasi</span>
+                    <i class="fas fa-list-ul"></i>
+                    <span>Layanan Informasi</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('informasi.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('informasi.create') }}">Input</a>
@@ -155,12 +152,11 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
                     aria-expanded="true" aria-controls="collapseFive">
-                    {{-- <i class="far fa-list-alt text-dark"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Konten Subdomain</span>
+                    <i class="far fa-list-alt"></i>
+                    <span>Konten Subdomain</span>
                 </a>
                 <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                    <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('konten-subdomain.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('konten-subdomain.create') }}">Input</a>
@@ -174,7 +170,7 @@
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
-                <div class="sidebar-heading text-dark">
+                <div class="sidebar-heading">
                     User
                 </div>
 
@@ -183,7 +179,7 @@
                     <a class="nav-link collapsed" href="{{ route('user.index') }}" aria-expanded="true"
                         aria-controls="collapseFive">
                         <i class="fas fa-user-tie"></i>
-                        <span class="text-dark">Kelola User</span>
+                        <span>Kelola User</span>
                     </a>
                 </li>
             @endif

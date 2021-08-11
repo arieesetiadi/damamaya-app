@@ -22,11 +22,23 @@ class KontenSubdomainController extends Controller
 
     public function index()
     {
+
         // Kirim data yang dibutuhkan ke halaman Report Konten Subdomain
         $data = [
             'title' => 'Konten Subdomain',
-            'konten_subdomain' => KontenSubdomain::limit(10)->get()->reverse()
+            'konten_subdomain' => KontenSubdomain::limit(10)
+                ->orderBy('id', 'DESC')->get(),
+            'bulan_now' => Carbon::now()->month,
+            'tahun_now' => Carbon::now()->year
         ];
+
+        // Ambil semua nama-nama bulan
+        for ($i = 1; $i <= 12; $i++) {
+            $data['bulan_list'][] = [
+                'name' => Carbon::now()->month($i)->monthName,
+                'value' => $i
+            ];
+        }
 
         return view('konten_subdomain.index', compact('data'));
     }
@@ -124,19 +136,17 @@ class KontenSubdomainController extends Controller
         //
     }
 
-    public static function chart()
+    public static function report(Request $request)
     {
-        $chart = [];
+        $data['report'] = KontenSubdomain::where([
+            ['bulan', $request->bulan],
+            ['tahun', $request->tahun]
+        ])->get();;
 
-        for ($i = 0; $i < 7; $i++) {
-            // Ambil tanggal dari $i hari kebelakang
-            $date = Carbon::now()->subRealDay($i)->toDateString();
-
-            // Ambil jumlah data aduan dan tanggal
-            $chart['counts'][] = KontenSubdomain::where('tanggal', $date)->count();
-            $chart['dates'][] = Carbon::now()->subRealDay($i)->isoFormat("dddd - D MMMM");
+        for ($i = 1; $i <= 12; $i++) {
+            $data['bulan_list'][] = Carbon::now()->month($i)->monthName;
         }
 
-        return response()->json($chart);
+        return response()->json($data);
     }
 }

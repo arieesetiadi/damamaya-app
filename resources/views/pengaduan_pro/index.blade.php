@@ -16,7 +16,7 @@
     <div id="chart-card-pro" data-route="{{ route('pro.chart') }}" class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 font-weight-bold text-primary">
+                <h6 class="m-0 font-weight-bold">
                     Grafik Jumlah Aduan PRO Denpasar
                 </h6>
             </div>
@@ -56,7 +56,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 mt-2 font-weight-bold text-primary">
+                <h6 class="m-0 mt-2 font-weight-bold">
                     Data Layanan Pengaduan PRO Denpasar
                 </h6>
             </div>

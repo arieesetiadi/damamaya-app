@@ -14,11 +14,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-6 p-5 d-flex justify-content-center">
-                <img class="w-50 left-img my-5" src="{{ asset('img/logo/kominfo.png') }}" alt="Library">
+                <img class="w-75 left-img my-5" src="{{ asset('img/logo/Damamaya.jpeg') }}" alt="Library">
             </div>
             <div class="col-6 p-5 d-flex align-items-center justify-content-center">
                 <div>
-                    <h3 class="text-center mb-4">Login</h3>
+                    <h3 class="text-center mb-4">Sign In</h3>
 
                     @if (session('failed'))
                         <small class="text-danger">{{ session('failed') }}</small>
@@ -49,7 +49,7 @@
                             </label>
                         </div>
 
-                        <button name="btnLogin" type="submit" class="btn btn-primary w-100">Login</button>
+                        <button name="btnLogin" type="submit" class="btn btn-dark w-100">Sign In</button>
                     </form>
 
                 </div>

@@ -47,6 +47,7 @@ Route::post('/anggaran-chart', [PengaduanAnggaranController::class, 'chart'])->n
 Route::post('/informasi-chart', [InformasiController::class, 'chart'])->name('informasi.chart');
 Route::post('/analisa-chart', [AnalisaMediaController::class, 'chart'])->name('analisa.chart');
 Route::post('/keamanan-chart', [KeamananInformasiController::class, 'chart'])->name('keamanan.chart');
+Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
 
 // Resources Routes
 Route::resources([
