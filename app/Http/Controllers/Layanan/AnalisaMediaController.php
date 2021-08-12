@@ -128,9 +128,9 @@ class AnalisaMediaController extends Controller
         //
     }
 
-    public function chart(Request $request)
+    public function report(Request $request)
     {
-        $chart = [];
+        $report = [];
 
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
@@ -141,12 +141,12 @@ class AnalisaMediaController extends Controller
 
             // Hitung jumlah data sesuai dengan tanggal dan kategori yang diinputkan
             if ($request->kategori == 'Semua') {
-                $chart['counts'][] = AnalisaMedia::where(
+                $report['counts'][] = AnalisaMedia::where(
                     'tanggal',
                     $p->toDateString()
                 )->count();
             } else {
-                $chart['counts'][] = AnalisaMedia::where([
+                $report['counts'][] = AnalisaMedia::where([
                     ['tanggal', $p->toDateString()],
                     ['kategori', $request->kategori]
                 ])->count();
@@ -154,15 +154,15 @@ class AnalisaMediaController extends Controller
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
 
         // Ambil data didalam periode untuk ditampilkan di table
-        $chart['data'] = AnalisaMedia::whereBetween(
+        $report['data'] = AnalisaMedia::whereBetween(
             'tanggal',
             [$start->subDay('1'), $end]
         )->orderBy('tanggal', 'DESC')->get();
 
-        return response()->json($chart);
+        return response()->json($report);
     }
 }

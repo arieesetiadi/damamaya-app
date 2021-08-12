@@ -12,16 +12,15 @@
     @endif
 
     {{-- Report Chart --}}
-    <div id="chart-card-anggaran" data-route="{{ route('anggaran.chart') }}" class="card shadow mb-4">
+    <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 font-weight-bold text-primary">
+                <h6 class="m-0 font-weight-bold">
                     Grafik Jumlah Aduan Anggaran
                 </h6>
             </div>
             <div>
                 <span>Periode :</span>
-                <input id="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
                         value="{{ $data['chart_period']['start'] }}">
@@ -31,11 +30,11 @@
                     <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
-                <button id="btn_period_anggaran" type="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button id="anggaran-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
         </div>
         <div class="card-body">
-            <div id="anggaran-chart-area" class="chart-area">
+            <div id="anggaran-chart-wrapper" class="chart-area">
                 <div class="chartjs-size-monitor">
                     <div class="chartjs-size-monitor-expand">
                         <div class=""></div>
@@ -44,8 +43,8 @@
                         <div class=""></div>
                     </div>
                 </div>
-                <canvas id="anggaran-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                    class="chartjs-render-monitor" data-route="{{ route('anggaran.chart') }}"></canvas>
+                <canvas id="anggaran-chart" style="display: block; height: 320px; width: 601px;" width="751"
+                    height="400"></canvas>
             </div>
             <hr>
         </div>
@@ -55,7 +54,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 mt-2 font-weight-bold text-primary">
+                <h6 class="m-0 mt-2 font-weight-bold">
                     Data Layanan Pengaduan Anggaran
                 </h6>
             </div>
@@ -65,7 +64,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="anggaran-table-container" class="table-responsive">
+            <div id="anggaran-table-wrapper" class="table-responsive">
                 {{-- Table diisi dari pengaduan-anggaran-chart.js --}}
             </div>
         </div>

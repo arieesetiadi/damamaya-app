@@ -42,11 +42,11 @@ Route::prefix('user/')->group(function () {
 Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
 
 // Chart Data Routes
-Route::post('/pro-chart', [PengaduanPROController::class, 'chart'])->name('pro.chart');
-Route::post('/anggaran-chart', [PengaduanAnggaranController::class, 'chart'])->name('anggaran.chart');
+Route::post('/pro-report', [PengaduanPROController::class, 'report'])->name('pro.report');
+Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])->name('anggaran.report');
 Route::post('/informasi-chart', [InformasiController::class, 'chart'])->name('informasi.chart');
-Route::post('/analisa-chart', [AnalisaMediaController::class, 'chart'])->name('analisa.chart');
-Route::post('/keamanan-chart', [KeamananInformasiController::class, 'chart'])->name('keamanan.chart');
+Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name('analisa.report');
+Route::post('/keamanan-report', [KeamananInformasiController::class, 'report'])->name('keamanan.report');
 Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
 
 // Resources Routes

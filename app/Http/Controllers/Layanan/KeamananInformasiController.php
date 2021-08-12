@@ -127,9 +127,9 @@ class KeamananInformasiController extends Controller
         //
     }
 
-    public static function chart(Request $request)
+    public static function report(Request $request)
     {
-        $chart = [];
+        $report = [];
 
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
@@ -157,35 +157,35 @@ class KeamananInformasiController extends Controller
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
 
         switch ($request->kategori) {
             case 'Normal':
-                $chart['counts']['normal'] = $normal;
+                $report['counts']['normal'] = $normal;
                 break;
 
             case 'Deface':
-                $chart['counts']['deface'] = $deface;
+                $report['counts']['deface'] = $deface;
                 break;
 
             case 'Tidak Bisa Diakses':
-                $chart['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
+                $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
                 break;
 
             default:
-                $chart['counts']['normal'] = $normal;
-                $chart['counts']['deface'] = $deface;
-                $chart['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
+                $report['counts']['normal'] = $normal;
+                $report['counts']['deface'] = $deface;
+                $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
                 break;
         }
 
         // Ambil data didalam periode untuk ditampilkan di table
-        $chart['data'] = KeamananInformasi::whereBetween(
+        $report['data'] = KeamananInformasi::whereBetween(
             'tanggal',
             [$start->subDay('1'), $end]
         )->orderBy('tanggal', 'DESC')->get();
 
-        return response()->json($chart);
+        return response()->json($report);
     }
 }

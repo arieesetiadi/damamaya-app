@@ -22,12 +22,9 @@ class KontenSubdomainController extends Controller
 
     public function index()
     {
-
         // Kirim data yang dibutuhkan ke halaman Report Konten Subdomain
         $data = [
             'title' => 'Konten Subdomain',
-            'konten_subdomain' => KontenSubdomain::limit(10)
-                ->orderBy('id', 'DESC')->get(),
             'bulan_now' => Carbon::now()->month,
             'tahun_now' => Carbon::now()->year
         ];
@@ -53,8 +50,18 @@ class KontenSubdomainController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Konten Subdomain
         $data = [
             'title' => 'Tambah Konten Subdomain',
-            'now' => Carbon::now()->toDateString()
+            'now' => Carbon::now()->toDateString(),
+            'bulan_now' => Carbon::now()->month,
+            'tahun_now' => Carbon::now()->year
         ];
+
+        // Ambil semua nama-nama bulan
+        for ($i = 1; $i <= 12; $i++) {
+            $data['bulan_list'][] = [
+                'name' => Carbon::now()->month($i)->monthName,
+                'value' => $i
+            ];
+        }
 
         return view('konten_subdomain.create', compact('data'));
     }
@@ -138,14 +145,12 @@ class KontenSubdomainController extends Controller
 
     public static function report(Request $request)
     {
-        $data['report'] = KontenSubdomain::where([
-            ['bulan', $request->bulan],
-            ['tahun', $request->tahun]
-        ])->get();;
-
-        for ($i = 1; $i <= 12; $i++) {
-            $data['bulan_list'][] = Carbon::now()->month($i)->monthName;
-        }
+        // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
+        $data['report'] = KontenSubdomain
+            ::whereMonth('tanggal', $request->bulan)
+            ->whereYear('tanggal', $request->tahun)
+            ->orderBy('tanggal', 'DESC')
+            ->get();
 
         return response()->json($data);
     }

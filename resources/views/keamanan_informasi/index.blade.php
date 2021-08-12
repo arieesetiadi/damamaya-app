@@ -12,18 +12,18 @@
     @endif
 
     {{-- Report Chart --}}
-    <div id="chart-card-keamanan" data-route="{{ route('keamanan.chart') }}" class="card shadow mb-4">
+    <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <h6 class="m-0 d-inline-block font-weight-bold text-primary">
+                        <h6 class="m-0 d-inline-block font-weight-bold">
                             Grafik Status
                         </h6>
                     </div>
                     <div class="col-lg-6">
                         {{-- Select Kategori --}}
-                        <select id="kategori_keamanan" class="d-inline-block custom-select custom-select-sm">
+                        <select id="keamanan-kategori" class="d-inline-block custom-select custom-select-sm">
                             <option selected>Semua</option>
                             <option>Normal</option>
                             <option>Deface</option>
@@ -34,7 +34,6 @@
             </div>
             <div>
                 <span>Periode :</span>
-                <input id="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
                         value="{{ $data['chart_period']['start'] }}">
@@ -44,11 +43,11 @@
                     <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
-                <button id="btn_period_keamanan" type="submit" class="btn btn-sm btn-primary">Submit</button>
+                <button id="keamanan-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-chart-area" class="chart-area">
+            <div id="keamanan-chart-wrapper" class="chart-area">
                 <div class="chartjs-size-monitor">
                     <div class="chartjs-size-monitor-expand">
                         <div class=""></div>
@@ -82,7 +81,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 mt-2 font-weight-bold text-primary">
+                <h6 class="m-0 mt-2 font-weight-bold">
                     Data Layanan Keamanan Informasi
                 </h6>
             </div>
@@ -91,7 +90,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-table-container" class="table-responsive">
+            <div id="keamanan-table-wrapper" class="table-responsive">
                 {{-- Table diisi melalui informasi-chart.js --}}
             </div>
         </div>

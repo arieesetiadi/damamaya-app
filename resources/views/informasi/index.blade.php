@@ -14,12 +14,12 @@
     {{-- Report Chart --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
-            <h6 class="m-0 mt-2 font-weight-bold text-primary">
+            <h6 class="m-0 mt-2 font-weight-bold">
                 Laporan Tahun Update Instansi
             </h6>
         </div>
         <div class="card-body">
-            <div class="table-responsive h-table">
+            <div id="instansi-table-wrapper" class="table-responsive h-table">
                 <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
@@ -79,7 +79,7 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
-                <h6 class="m-0 mt-2 font-weight-bold text-primary">
+                <h6 class="m-0 mt-2 font-weight-bold">
                     Data Layanan Informasi
                 </h6>
             </div>
@@ -88,7 +88,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div class="table-responsive h-table">
+            <div id="informasi-table-wrapper" class="table-responsive h-table">
                 <table class="table" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>

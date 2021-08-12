@@ -130,9 +130,9 @@ class PengaduanPROController extends Controller
         //
     }
 
-    public function chart(Request $request)
+    public function report(Request $request)
     {
-        $chart = [];
+        $report = [];
 
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
@@ -142,24 +142,24 @@ class PengaduanPROController extends Controller
         foreach (CarbonPeriod::create($start, $end) as $p) {
 
             // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-            $chart['counts'][] = PengaduanPRO::where('tanggal', $p->toDateString())->count();
+            $report['counts'][] = PengaduanPRO::where('tanggal', $p->toDateString())->count();
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $chart['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
 
         // Ambil data didalam periode untuk ditampilkan di table
-        $chart['data'] = PengaduanPRO::whereBetween(
+        $report['data'] = PengaduanPRO::whereBetween(
             'tanggal',
             [$start->subDay('1'), $end]
         )->orderBy('tanggal', 'DESC')->get();
 
-        // $chart['data'] = PengaduanPRO::where([
+        // $report['data'] = PengaduanPRO::where([
         //     ['tanggal', '>=', $start],
         //     ['tanggal', '<=', $end]
         // ])->orderBy('tanggal', 'DESC')->get();
 
-        return response()->json($chart);
+        return response()->json($report);
     }
 }

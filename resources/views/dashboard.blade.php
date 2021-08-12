@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
+    {{-- <h1 class="h3 mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1> --}}
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">
@@ -10,21 +10,22 @@
         </div>
     @endif
 
+    @php
+    $chart_height = 170;
+    @endphp
+
     {{-- Set tanggal Start dan End secara default selama 1 Minggu --}}
-    <input id="_token" type="hidden" value="{{ csrf_token() }}">
-    <input type="date" class="d-none form-control form-control-sm" id="start_date" name="start_date"
-        value="{{ $data['chart_period']['start'] }}">
-    <input type="date" class="d-none form-control form-control-sm" id="end_date" name="end_date"
-        value="{{ $data['chart_period']['end'] }}">
+    <input type="hidden" id="start_date" name="start_date" value="{{ $data['chart_period']['start'] }}">
+    <input type="hidden" id="end_date" name="end_date" value="{{ $data['chart_period']['end'] }}">
 
     <div class="row">
         <div class="col-6">
-            <div id="chart-card-pro" data-route="{{ route('pro.chart') }}" class="card shadow mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header">
                     Grafik Pengaduan PRO Denpasar
                 </div>
                 <div class="card-body">
-                    <div id="pro-chart-area" class="chart-area">
+                    <div id="pro-chart-wrapper" class="chart-area" style="height: {{ $chart_height }}px">
                         <div class="chartjs-size-monitor">
                             <div class="chartjs-size-monitor-expand">
                                 <div class=""></div>
@@ -36,18 +37,17 @@
                         <canvas id="pro-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
                             class="chartjs-render-monitor"></canvas>
                     </div>
-                    <hr>
                 </div>
             </div>
         </div>
 
         <div class="col-6">
-            <div id="chart-card-anggaran" data-route="{{ route('anggaran.chart') }}" class="card shadow mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header">
                     Grafik Pengaduan Anggaran
                 </div>
                 <div class="card-body">
-                    <div id="anggaran-chart-area" class="chart-area">
+                    <div id="anggaran-chart-wrapper" class="chart-area" style="height: {{ $chart_height }}px">
                         <div class="chartjs-size-monitor">
                             <div class="chartjs-size-monitor-expand">
                                 <div class=""></div>
@@ -59,7 +59,6 @@
                         <canvas id="anggaran-chart" style="display: block; height: 320px; width: 601px;" width="751"
                             height="400" class="chartjs-render-monitor"></canvas>
                     </div>
-                    <hr>
                 </div>
             </div>
         </div>
@@ -67,7 +66,7 @@
 
     <div class="row">
         <div class="col-6">
-            <div id="chart-card-analisa" data-route="{{ route('analisa.chart') }}" class="card shadow mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header d-flex justify-content-between">
                     <div class="pt-1">
                         Grafik Analisa Media
@@ -84,7 +83,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <div id="analisa-chart-area" class="chart-area">
+                    <div id="analisa-chart-wrapper" class="chart-area" style="height: {{ $chart_height }}px">
                         <div class="chartjs-size-monitor">
                             <div class="chartjs-size-monitor-expand">
                                 <div class=""></div>
@@ -96,23 +95,37 @@
                         <canvas id="analisa-chart" style="display: block; height: 320px; width: 601px;" width="751"
                             height="400" class="chartjs-render-monitor"></canvas>
                     </div>
-                    <hr>
-                    <div>
-                        <div class="d-inline-block mr-3">
-                            <span class="dot"></span>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div class="col-6">
-            <div id="chart-card-keamanan" data-route="{{ route('keamanan.chart') }}" class="card shadow mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    Grafik Keamanan Informasi
+                    <div class="row">
+                        <div class="col-5">
+                            Grafik Keamanan Informasi
+                        </div>
+                        <div class="col-7">
+                            <div class="d-flex justify-content-end">
+                                <div class="d-inline-block mr-3">
+                                    <span class="dot bg-primary"></span>
+                                    <small>Normal</small>
+                                </div>
+                                <div class="d-inline-block mr-3">
+                                    <span class="dot bg-danger"></span>
+                                    <small>Deface</small>
+                                </div>
+                                <div class="d-inline-block mr-3">
+                                    <span class="dot bg-dark"></span>
+                                    <small>Tidak Bisa Diakses</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
-                    <div id="keamanan-chart-area" class="chart-area">
+                    <div id="keamanan-chart-wrapper" class="chart-area" style="height: {{ $chart_height }}px">
                         <div class="chartjs-size-monitor">
                             <div class="chartjs-size-monitor-expand">
                                 <div class=""></div>
@@ -124,36 +137,8 @@
                         <canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751"
                             height="400" class="chartjs-render-monitor"></canvas>
                     </div>
-                    <hr>
-                    <div>
-                        <div class="d-inline-block mr-3">
-                            <span class="dot bg-primary"></span>
-                            Normal
-                        </div>
-                        <div class="d-inline-block mr-3">
-                            <span class="dot bg-danger"></span>
-                            Deface
-                        </div>
-                        <div class="d-inline-block mr-3">
-                            <span class="dot bg-dark"></span>
-                            Tidak Bisa Diakses
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    {{-- <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header">
-                    Grafik Layanan Informasi
-                </div>
-                <div class="card-body">
-                    <div class="my-5 py5">Isi Grafik</div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
 @endsection

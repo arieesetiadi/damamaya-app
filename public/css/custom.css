@@ -12,8 +12,8 @@ td {
 }
 
 .dot {
-    height: 10px;
-    width: 10px;
+    height: 8px;
+    width: 8px;
     border-radius: 50%;
     display: inline-block;
 }
@@ -23,8 +23,12 @@ td {
 }
 
 #tr-subdomain th {
-    min-width: 160px;
+    min-width: 110px;
     vertical-align: middle;
+}
+
+#tr-subdomain th.th-tanggal {
+    min-width: 130px;
 }
 
 .bg-sidebar-custom {

@@ -6,10 +6,17 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="get-instansi" content="{{ route('get.instansi') }}">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    {{-- Javascript request routes --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="get-instansi" content="{{ route('get.instansi') }}">
+    <meta name="pro-report-route" content="{{ route('pro.report') }}">
+    <meta name="anggaran-report-route" content="{{ route('anggaran.report') }}">
+    <meta name="analisa-report-route" content="{{ route('analisa.report') }}">
+    <meta name="keamanan-report-route" content="{{ route('keamanan.report') }}">
+    <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
 
     <title>{{ isset($data['title']) ? $data['title'] : 'Title' }} - Damamaya Cyber Monitor</title>
 
@@ -36,7 +43,8 @@
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon">
                     <img width="125px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
@@ -256,7 +264,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Damamaya Cyber Monitor 2020</span>
+                        <span>Copyright &copy; Damamaya Cyber Monitor 2021</span>
                     </div>
                 </div>
             </footer>
@@ -317,12 +325,12 @@
 
 
     {{-- Custom Charts --}}
-    <script src="{{ asset('js/chart/pengaduan-pro-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/pengaduan-anggaran-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/analisa-media-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/keamanan-informasi-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/dashboard-chart.js') }}"></script>
-    <script src="{{ asset('js/chart/konten-subdomain-chart.js') }}"></script>
+    <script src="{{ asset('js/report/pengaduan-pro-report.js') }}"></script>
+    <script src="{{ asset('js/report/pengaduan-anggaran-report.js') }}"></script>
+    <script src="{{ asset('js/report/analisa-media-report.js') }}"></script>
+    <script src="{{ asset('js/report/keamanan-informasi-report.js') }}"></script>
+    <script src="{{ asset('js/report/dashboard-report.js') }}"></script>
+    <script src="{{ asset('js/report/konten-subdomain-report.js') }}"></script>
 
     {{-- Form Autocomplete Script --}}
     <script src="{{ asset('js/autocomplete.js') }}"></script>
