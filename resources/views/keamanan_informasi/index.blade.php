@@ -2,8 +2,11 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
-    <p class="mb-4">Test Link (Sampling 10 Website / Hari)</p>
+    <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
+    <h4 class="d-inline-block mx-2">|</h4>
+    <p class="mb-4 d-inline-block">Test Link (Sampling 10 Website / Hari)</p>
+
+
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">

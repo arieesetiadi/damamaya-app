@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Heading -->
-    {{-- <h1 class="h3 mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1> --}}
+    <h4 class="mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">

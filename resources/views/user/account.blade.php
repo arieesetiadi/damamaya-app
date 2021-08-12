@@ -2,8 +2,8 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h3 class="mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}
-    </h3>
+    <h4 class="text-gray-800 mb-4">{{ isset($data['title']) ? $data['title'] : 'Title' }}
+    </h4>
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">

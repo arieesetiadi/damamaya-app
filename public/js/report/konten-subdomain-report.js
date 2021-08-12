@@ -40,8 +40,8 @@ function subdomain_report(bulan, tahun) {
                     <thead>
                         <tr id="tr-subdomain">
                             <th>No.</th>
-                            <th style="white-space: nowrap">Nama Instansi / Perangkat Daerah</th>
                             <th class="th-tanggal">Tanggal</th>
+                            <th style="white-space: nowrap">Nama Instansi / Perangkat Daerah</th>
                             <th>Survey Kepuasan Masyarakat</th>
                             <th>Agenda</th>
                             <th>Foto Kegiatan</th>
@@ -58,8 +58,8 @@ function subdomain_report(bulan, tahun) {
             $.each(data["report"], function (index, value) {
                 report_str += `<tr>
                                 <td>${index + 1}</td>
-                                <td>${value.nama_pd}</td>
                                 <td>${value.tanggal}</td>
+                                <td>${value.nama_pd}</td>
                                 <td>`;
 
                 if (value.survey_kepuasan_masyarakat == 1) {

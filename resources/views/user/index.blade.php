@@ -2,8 +2,9 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
-    <p class="mb-4">Daftar user yang terdaftar sebagai pengguna layanan Damamaya</p>
+    <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
+    <h4 class="d-inline-block mx-2">|</h4>
+    <p class="mb-4 d-inline-block">Daftar user yang terdaftar sebagai pengguna layanan Damamaya</p>
 
 
     @if (session('success'))

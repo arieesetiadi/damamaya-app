@@ -149,7 +149,7 @@ class KontenSubdomainController extends Controller
         $data['report'] = KontenSubdomain
             ::whereMonth('tanggal', $request->bulan)
             ->whereYear('tanggal', $request->tahun)
-            ->orderBy('tanggal', 'DESC')
+            ->orderBy('id', 'DESC')
             ->get();
 
         return response()->json($data);
