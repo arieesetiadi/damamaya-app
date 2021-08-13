@@ -2,8 +2,9 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
-    <p class="mb-4">Layanan Pengaduan Masyarakat Yang Memerlukan Dukungan Anggaran (TL Awal)</p>
+    <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
+    <h4 class="d-inline-block mx-2">|</h4>
+    <p class="mb-4 d-inline-block">Layanan Pengaduan Masyarakat Yang Memerlukan Dukungan Anggaran (TL Awal)</p>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
@@ -36,7 +37,7 @@
                             <label for="topik">Topik / Judul :</label>
                             <input id="topik" name="topik"
                                 class="form-control form-control-sm  @error('topik')  border-danger @enderror" type="text"
-                                placeholder="Nama pelapor" value="{{ old('topik') }}">
+                                placeholder="Topik" value="{{ old('topik') }}">
                             @error('topik')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

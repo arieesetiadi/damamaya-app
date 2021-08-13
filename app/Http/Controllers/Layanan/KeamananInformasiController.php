@@ -163,28 +163,40 @@ class KeamananInformasiController extends Controller
         switch ($request->kategori) {
             case 'Normal':
                 $report['counts']['normal'] = $normal;
+                $report['data'] = KeamananInformasi::where([
+                    ['tanggal', '>=', $start->subDay(1)],
+                    ['tanggal', '<=', $end],
+                    ['status_website', 'Normal']
+                ])->get();
                 break;
 
             case 'Deface':
                 $report['counts']['deface'] = $deface;
+                $report['data'] = KeamananInformasi::where([
+                    ['tanggal', '>=', $start->subDay(1)],
+                    ['tanggal', '<=', $end],
+                    ['status_website', 'Deface']
+                ])->get();
                 break;
 
             case 'Tidak Bisa Diakses':
                 $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
+                $report['data'] = KeamananInformasi::where([
+                    ['tanggal', '>=', $start->subDay(1)],
+                    ['tanggal', '<=', $end],
+                    ['status_website', 'Tidak Bisa Diakses']
+                ])->get();
                 break;
 
             default:
                 $report['counts']['normal'] = $normal;
                 $report['counts']['deface'] = $deface;
                 $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
-                break;
+                $report['data'] = KeamananInformasi::where([
+                    ['tanggal', '>=', $start->subDay(1)],
+                    ['tanggal', '<=', $end]
+                ])->get();
         }
-
-        // Ambil data didalam periode untuk ditampilkan di table
-        $report['data'] = KeamananInformasi::whereBetween(
-            'tanggal',
-            [$start->subDay('1'), $end]
-        )->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($report);
     }

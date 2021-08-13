@@ -32,7 +32,7 @@ class InformasiController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Layana  Informasi
         $data = [
             'title' => 'Layanan Informasi',
-            'informasi' => Informasi::limit(50)->get(),
+            'informasi' => Informasi::limit(50)->orderBy('id', 'DESC')->get(),
             'years' => array_reverse($years),
             'instansi' => DB::table('instansi')->orderBy('nama_pd', 'ASC')->get()
         ];

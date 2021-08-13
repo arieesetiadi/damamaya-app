@@ -49,7 +49,7 @@ class PengaduanAnggaranController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Pengaduan PRO
         $data = [
             'title' => 'Tambah Pengaduan Anggaran',
-            'kategori' => DB::table('kategori')->get(),
+            'kategori' => DB::table('kategori_pengaduan')->get(),
             'now' => Carbon::now()->toDateString()
         ];
 

@@ -65,7 +65,7 @@
         </div>
         <div class="card-body">
             <div id="pro-table-wrapper" class="table-responsive">
-                {{-- Table diisi melalui pengaduan-pro-chart.js --}}
+                {{-- Table diisi melalui pengaduan-pro-report.js --}}
             </div>
         </div>
     </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Layanan;
 
-use App\Http\Controllers\ChartController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -49,7 +48,7 @@ class PengaduanPROController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Pengaduan PRO
         $data = [
             'title' => 'Tambah Pengaduan PRO Denpasar',
-            'kategori' => DB::table('kategori')->get(),
+            'kategori' => DB::table('kategori_pengaduan')->get(),
             'now' => Carbon::now()->toDateString()
         ];
 

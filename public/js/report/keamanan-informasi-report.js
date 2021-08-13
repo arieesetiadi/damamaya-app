@@ -56,6 +56,8 @@ function keamanan_report(start_date, end_date, kategori) {
                 dates = report["dates"];
                 data = report["data"];
 
+                console.log(data);
+
                 $("#keamanan-chart").remove();
                 $("#keamanan-table").remove();
 

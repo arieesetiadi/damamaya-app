@@ -28,7 +28,7 @@ class AnalisaMediaController extends Controller
         $data = [
             'title' => 'Analisa Media',
             'analisa_media' => AnalisaMedia::all()->reverse(),
-            'kategori' => DB::table('kategori')->get(),
+            'kategori' => DB::table('kategori_analisa')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
@@ -48,7 +48,7 @@ class AnalisaMediaController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Analisa Media
         $data = [
             'title' => 'Tambah Analisa Media',
-            'kategori' => DB::table('kategori')->get(),
+            'kategori' => DB::table('kategori_analisa')->get(),
             'now' => Carbon::now()->toDateString()
         ];
 
@@ -145,23 +145,46 @@ class AnalisaMediaController extends Controller
                     'tanggal',
                     $p->toDateString()
                 )->count();
+
+                // Ambil data didalam periode untuk ditampilkan di table
+                // $report['data'] = AnalisaMedia::whereBetween(
+                //     'tanggal',
+                //     [$start->subDay('1'), $end]
+                // )
+                //     ->orderBy('tanggal', 'DESC')
+                //     ->get();
+                $report['data'] = AnalisaMedia::where([
+                    ['tanggal', '>=', $start],
+                    ['tanggal', '<=', $end]
+                ])
+                    ->orderBy('tanggal', 'DESC')
+                    ->get();
             } else {
                 $report['counts'][] = AnalisaMedia::where([
                     ['tanggal', $p->toDateString()],
                     ['kategori', $request->kategori]
                 ])->count();
+
+                // Ambil data didalam periode sesuai kategori untuk ditampilkan di table
+                $report['data'] = AnalisaMedia::where([
+                    ['tanggal', '>=', $start],
+                    ['tanggal', '<=', $end],
+                    ['kategori', $request->kategori]
+                ])
+                    ->orderBy('tanggal', 'DESC')
+                    ->get();
+                // $report['data'] = AnalisaMedia::whereBetween(
+                //     'tanggal',
+                //     [$start->subDay('1'), $end]
+                // )->where('kategori', $request->kategori)
+                //     ->orderBy('tanggal', 'DESC')
+                //     ->get();
             }
 
             // Ambil tanggal di looping saat ini
             // Tambah 8 jam agar sesuai format UTC +8 Beijing
             $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
         }
-
-        // Ambil data didalam periode untuk ditampilkan di table
-        $report['data'] = AnalisaMedia::whereBetween(
-            'tanggal',
-            [$start->subDay('1'), $end]
-        )->orderBy('tanggal', 'DESC')->get();
 
         return response()->json($report);
     }

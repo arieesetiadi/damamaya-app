@@ -11,7 +11,7 @@
     @endif
 
     @php
-    $chart_height = 170;
+    $chart_height = 200;
     @endphp
 
     {{-- Set tanggal Start dan End secara default selama 1 Minggu --}}
@@ -78,7 +78,7 @@
                                 <option>{{ $kategori->name }}</option>
                             @endforeach
                         </select>
-                        <button id="btn_period_analisa" type="submit"
+                        <button id="analisa-submit-period" type="submit"
                             class="d-inline-block btn btn-sm btn-primary ml-2">Submit</button>
                     </div>
                 </div>

@@ -26,7 +26,8 @@
                     </div>
                     <div class="col-lg-6">
                         {{-- Select Kategori --}}
-                        <select id="keamanan-kategori" class="d-inline-block custom-select custom-select-sm">
+                        <select style="width: 170px" id="keamanan-kategori"
+                            class="d-inline-block custom-select custom-select-sm">
                             <option selected>Semua</option>
                             <option>Normal</option>
                             <option>Deface</option>
