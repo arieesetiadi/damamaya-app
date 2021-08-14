@@ -29,7 +29,6 @@ class PengaduanAnggaranController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Pengaduan Anggaran
         $data = [
             'title' => 'Pengaduan Anggaran',
-            'pengaduan_anggaran' => PengaduanAnggaran::all()->reverse(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
@@ -137,22 +136,24 @@ class PengaduanAnggaranController extends Controller
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
-        foreach (CarbonPeriod::create($start, $end) as $p) {
+        foreach ($periods as $period) {
             // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-            $report['counts'][] = PengaduanAnggaran::where('tanggal', $p->toDateString())->count();
+            $report['counts'][] = PengaduanAnggaran::where('tanggal', $period->toDateString())->count();
 
             // Ambil tanggal di looping saat ini
-            // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $period->isoFormat('dddd - D/M');
         }
 
         // Ambil data didalam periode untuk ditampilkan di table
-        $report['data'] = PengaduanAnggaran::whereBetween(
-            'tanggal',
-            [$start->subDay('1'), $end]
-        )->orderBy('tanggal', 'DESC')->get();
+        // Menggunakan whereDate karena metode lain ada problem
+        $report['data'] = PengaduanAnggaran
+            ::whereDate('tanggal', '>=', $start)
+            ->whereDate('tanggal', '<=', $end)
+            ->orderBy('tanggal', 'DESC')
+            ->get();
 
         return response()->json($report);
     }

@@ -121,27 +121,4 @@ class InformasiController extends Controller
     {
         //
     }
-
-    public static function chart()
-    {
-        $chart = [];
-        $instansi = DB::table('instansi')->get();
-        $tahun_berjalan = Carbon::now()->addHour(8)->year;
-
-        foreach ($instansi as $i => $ins) {
-            $chart['instansi'][] = $ins->name;
-
-            $chart['tahun_update'][] =
-                Informasi::where('instansi', $ins->name)->get('tahun_update');
-
-            $chart['tahun_berjalan'][] = $tahun_berjalan;
-        }
-
-        // $chart = [
-        //     'instansi' => $instansi[0]->name,
-        //     'tahun_berjalan' => $tahun_berjalan
-        // ];
-
-        return response()->json($chart);
-    }
 }

@@ -20,7 +20,7 @@ class DashboardController extends Controller
             'title' => 'Dashboard',
             'kategori' => DB::table('kategori_analisa')->get(),
             'chart_period' => [
-                'start' => Carbon::now()->subDay('3')->toDateString(),
+                'start' => Carbon::now()->subDay('5')->toDateString(),
                 'end' => Carbon::now()->toDateString()
             ]
         ];

@@ -91,22 +91,26 @@
         <div class="card-body">
             <div id="informasi-table-wrapper" class="table-responsive h-table">
                 <table class="table" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Nama Instansi / Perangkat Daerah</th>
-                            <th>Tahun Update</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($data['informasi'] as $info)
+                    @if (count($data['informasi']) > 0)
+                        <thead>
                             <tr>
-                                <td>{{ $loop->index + 1 }}</td>
-                                <td>{{ $info->nama_pd }}</td>
-                                <td>{{ $info->tahun_update }}</td>
+                                <th>No.</th>
+                                <th>Nama Instansi / Perangkat Daerah</th>
+                                <th>Tahun Update</th>
                             </tr>
-                        @endforeach
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            @foreach ($data['informasi'] as $info)
+                                <tr>
+                                    <td>{{ $loop->index + 1 }}</td>
+                                    <td>{{ $info->nama_pd }}</td>
+                                    <td>{{ $info->tahun_update }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    @else
+                        <h4 class="text-secondary text-center">Data Tidak Ditemukan</h4>
+                    @endif
                 </table>
             </div>
         </div>

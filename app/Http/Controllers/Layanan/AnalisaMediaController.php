@@ -27,7 +27,6 @@ class AnalisaMediaController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Analisa Media
         $data = [
             'title' => 'Analisa Media',
-            'analisa_media' => AnalisaMedia::all()->reverse(),
             'kategori' => DB::table('kategori_analisa')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
@@ -135,55 +134,40 @@ class AnalisaMediaController extends Controller
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
-        foreach (CarbonPeriod::create($start, $end) as $p) {
-
-            // Hitung jumlah data sesuai dengan tanggal dan kategori yang diinputkan
+        foreach ($periods as $period) {
             if ($request->kategori == 'Semua') {
-                $report['counts'][] = AnalisaMedia::where(
-                    'tanggal',
-                    $p->toDateString()
-                )->count();
+                // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
+                $report['counts'][] = AnalisaMedia
+                    ::whereDate('tanggal', $period->toDateString())
+                    ->count();
 
-                // Ambil data didalam periode untuk ditampilkan di table
-                // $report['data'] = AnalisaMedia::whereBetween(
-                //     'tanggal',
-                //     [$start->subDay('1'), $end]
-                // )
-                //     ->orderBy('tanggal', 'DESC')
-                //     ->get();
-                $report['data'] = AnalisaMedia::where([
-                    ['tanggal', '>=', $start],
-                    ['tanggal', '<=', $end]
-                ])
+                // Ambil tanggal di looping saat ini
+                $report['data'] = AnalisaMedia
+                    ::whereDate('tanggal', '>=', $start)
+                    ->whereDate('tanggal', '<=', $end)
                     ->orderBy('tanggal', 'DESC')
                     ->get();
             } else {
-                $report['counts'][] = AnalisaMedia::where([
-                    ['tanggal', $p->toDateString()],
-                    ['kategori', $request->kategori]
-                ])->count();
+                // Hitung jumlah data sesuai dengan tanggal pada looping sekarang sesuai kategori
+                $report['counts'][] = AnalisaMedia
+                    ::whereDate('tanggal', $period->toDateString())
+                    ->where('kategori', $request->kategori)
+                    ->count();
 
                 // Ambil data didalam periode sesuai kategori untuk ditampilkan di table
-                $report['data'] = AnalisaMedia::where([
-                    ['tanggal', '>=', $start],
-                    ['tanggal', '<=', $end],
-                    ['kategori', $request->kategori]
-                ])
+                $report['data'] = AnalisaMedia
+                    ::whereDate('tanggal', '>=', $start)
+                    ->whereDate('tanggal', '<=', $end)
+                    ->where('kategori', $request->kategori)
                     ->orderBy('tanggal', 'DESC')
                     ->get();
-                // $report['data'] = AnalisaMedia::whereBetween(
-                //     'tanggal',
-                //     [$start->subDay('1'), $end]
-                // )->where('kategori', $request->kategori)
-                //     ->orderBy('tanggal', 'DESC')
-                //     ->get();
             }
 
             // Ambil tanggal di looping saat ini
-            // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $period->isoFormat('dddd - D/M');
         }
 
         return response()->json($report);

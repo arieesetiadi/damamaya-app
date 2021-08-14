@@ -3,6 +3,8 @@ $(function () {
         let start_date = $("#start_date").val();
         let end_date = $("#end_date").val();
 
+        console.log(start_date, end_date);
+
         $("#pro-submit-period").click(function () {
             start_date = $("#start_date").val();
             end_date = $("#end_date").val();

@@ -13,7 +13,7 @@ class CreatePengaduanProTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengaduan_pro', function (Blueprint $table) {
+        Schema::create('layanan_pengaduan_pro', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
             $table->string('nama_pelapor');

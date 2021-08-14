@@ -27,7 +27,6 @@ class KeamananInformasiController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Keamanan Informasi
         $data = [
             'title' => 'Keamanan Informasi',
-            'keamanan_informasi' => KeamananInformasi::all()->reverse(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
@@ -134,69 +133,86 @@ class KeamananInformasiController extends Controller
         // Ambil tanggal Start dan End untuk menentukan periode Chart
         $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
-        foreach (CarbonPeriod::create($start, $end) as $p) {
-            $normal[] =
-                KeamananInformasi::where([
-                    ['tanggal', $p->toDateString()],
-                    ['status_website', 'Normal']
-                ])->count();
+        foreach ($periods as $period) {
+            switch ($request->kategori) {
+                case 'Normal':
+                    // Data Chart Berstatus Normal
+                    $report['counts']['normal'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Normal')
+                        ->count();
 
-            $deface[] =
-                KeamananInformasi::where([
-                    ['tanggal', $p->toDateString()],
-                    ['status_website', 'Deface']
-                ])->count();
+                    // Data untuk Table yang berstatus Normal
+                    $report['data'] = KeamananInformasi
+                        ::whereDate('tanggal', '>=', $start)
+                        ->whereDate('tanggal', '<=', $end)
+                        ->where('status_website', 'Normal')
+                        ->orderBy('tanggal', 'DESC')
+                        ->get();
+                    break;
 
-            $tidak_bisa_diakses[] =
-                KeamananInformasi::where([
-                    ['tanggal', $p->toDateString()],
-                    ['status_website', 'Tidak Bisa Diakses']
-                ])->count();
+                case 'Deface':
+                    // Data Chart Berstatus Deface
+                    $report['counts']['deface'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Deface')
+                        ->count();
+
+                    // Data untuk Table yang berstatus Deface
+                    $report['data'] = KeamananInformasi
+                        ::whereDate('tanggal', '>=', $start)
+                        ->whereDate('tanggal', '<=', $end)
+                        ->where('status_website', 'Deface')
+                        ->orderBy('tanggal', 'DESC')
+                        ->get();
+                    break;
+
+                case 'Tidak Bisa Diakses':
+                    // Data Chart Berstatus Tidak Bisa Diakses
+                    $report['counts']['tidak_bisa_diakses'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Tidak Bisa Diakses')
+                        ->count();
+
+                    // Data untuk Table yang berstatus Tidak Bisa Diakses
+                    $report['data'] = KeamananInformasi
+                        ::whereDate('tanggal', '>=', $start)
+                        ->whereDate('tanggal', '<=', $end)
+                        ->where('status_website', 'Tidak Bisa Diakses')
+                        ->orderBy('tanggal', 'DESC')
+                        ->get();
+                    break;
+
+                default:
+                    // Data Chart Semua Status
+                    $report['counts']['normal'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Normal')
+                        ->count();
+                    $report['counts']['deface'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Deface')
+                        ->count();
+                    $report['counts']['tidak_bisa_diakses'][] = KeamananInformasi
+                        ::whereDate('tanggal', $period->toDateString())
+                        ->where('status_website', 'Tidak Bisa Diakses')
+                        ->count();
+
+                    // Data untuk Table untuk semua Status
+                    $report['data'] = KeamananInformasi
+                        ::whereDate('tanggal', '>=', $start)
+                        ->whereDate('tanggal', '<=', $end)
+                        ->orderBy('tanggal', 'DESC')
+                        ->get();
+            }
 
             // Ambil tanggal di looping saat ini
-            // Tambah 8 jam agar sesuai format UTC +8 Beijing
-            $report['dates'][] = $p->addHour('8')->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $period->isoFormat('dddd - D MMMM');
         }
 
-        switch ($request->kategori) {
-            case 'Normal':
-                $report['counts']['normal'] = $normal;
-                $report['data'] = KeamananInformasi::where([
-                    ['tanggal', '>=', $start->subDay(1)],
-                    ['tanggal', '<=', $end],
-                    ['status_website', 'Normal']
-                ])->get();
-                break;
-
-            case 'Deface':
-                $report['counts']['deface'] = $deface;
-                $report['data'] = KeamananInformasi::where([
-                    ['tanggal', '>=', $start->subDay(1)],
-                    ['tanggal', '<=', $end],
-                    ['status_website', 'Deface']
-                ])->get();
-                break;
-
-            case 'Tidak Bisa Diakses':
-                $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
-                $report['data'] = KeamananInformasi::where([
-                    ['tanggal', '>=', $start->subDay(1)],
-                    ['tanggal', '<=', $end],
-                    ['status_website', 'Tidak Bisa Diakses']
-                ])->get();
-                break;
-
-            default:
-                $report['counts']['normal'] = $normal;
-                $report['counts']['deface'] = $deface;
-                $report['counts']['tidak_bisa_diakses'] = $tidak_bisa_diakses;
-                $report['data'] = KeamananInformasi::where([
-                    ['tanggal', '>=', $start->subDay(1)],
-                    ['tanggal', '<=', $end]
-                ])->get();
-        }
 
         return response()->json($report);
     }
