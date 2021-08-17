@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Layanan\AnalisaMedia;
 use Illuminate\Support\Facades\Auth;
 
+use function PHPUnit\Framework\isNull;
+
 class AnalisaMediaController extends Controller
 {
     /**
@@ -136,15 +138,15 @@ class AnalisaMediaController extends Controller
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
         $periods = CarbonPeriod::create($start, $end);
 
-        // Looping sebanyak periode tanggal
         foreach ($periods as $period) {
-            if ($request->kategori == 'Semua') {
+            // Jika kategori == null, ambil semua data
+            if (is_null($request->kategori)) {
                 // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
                 $report['counts'][] = AnalisaMedia
                     ::whereDate('tanggal', $period->toDateString())
                     ->count();
 
-                // Ambil tanggal di looping saat ini
+                // Ambil semua data untuk ditampilkan pada table
                 $report['data'] = AnalisaMedia
                     ::whereDate('tanggal', '>=', $start)
                     ->whereDate('tanggal', '<=', $end)
@@ -157,7 +159,7 @@ class AnalisaMediaController extends Controller
                     ->where('kategori', $request->kategori)
                     ->count();
 
-                // Ambil data didalam periode sesuai kategori untuk ditampilkan di table
+                // Ambil data sesuai kategori untuk ditampilkan di table
                 $report['data'] = AnalisaMedia
                     ::whereDate('tanggal', '>=', $start)
                     ->whereDate('tanggal', '<=', $end)

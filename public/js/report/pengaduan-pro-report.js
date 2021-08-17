@@ -1,23 +1,31 @@
 $(function () {
-    if ($("#pro-chart").length) {
-        let start_date = $("#start_date").val();
-        let end_date = $("#end_date").val();
+    // Default property
+    let kategori = $("#pro-kategori option:selected").val();
+    let start_date = null;
+    let end_date = null;
 
-        console.log(start_date, end_date);
+    // Ketika kategori dirubah, ambil selected value nya
+    $("#pro-kategori").on("change", function () {
+        kategori = $("#pro-kategori option:selected").val();
+    });
+
+    if ($("#pro-chart").length) {
+        start_date = $("#start-date").val();
+        end_date = $("#end-date").val();
 
         $("#pro-submit-period").click(function () {
-            start_date = $("#start_date").val();
-            end_date = $("#end_date").val();
-            pro_report(start_date, end_date);
+            start_date = $("#start-date").val();
+            end_date = $("#end-date").val();
+            pro_report(start_date, end_date, kategori);
         });
 
         setInterval(() => {
-            pro_report(start_date, end_date);
+            pro_report(start_date, end_date, kategori);
         }, 60000);
     }
 });
 
-function pro_report(start_date, end_date) {
+function pro_report(start_date, end_date, kategori) {
     if ($("#pro-chart").length) {
         // Set new default font family and font color to mimic Bootstrap's default styling
         (Chart.defaults.global.defaultFontFamily = "Nunito"),
@@ -42,6 +50,7 @@ function pro_report(start_date, end_date) {
             data: {
                 start_date: start_date,
                 end_date: end_date,
+                kategori: kategori,
             },
             type: "POST",
             success: function (report) {

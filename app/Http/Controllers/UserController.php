@@ -117,6 +117,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         // Validasi data dari form input
@@ -135,7 +136,7 @@ class UserController extends Controller
             ]);
 
             // Update data user beserta password baru
-            User::find($id)->update([
+            User::where('id', $id)->update([
                 'username' => $request->username,
                 'name' => $request->name,
                 'email' => $request->email,

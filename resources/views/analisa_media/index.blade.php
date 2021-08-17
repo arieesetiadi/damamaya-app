@@ -25,9 +25,9 @@
                     <div class="col-lg-6">
                         {{-- Select Kategori --}}
                         <select id="analisa-kategori" class="d-inline-block custom-select custom-select-sm">
-                            <option selected>Semua</option>
+                            <option value="" selected>Semua</option>
                             @foreach ($data['kategori'] as $kategori)
-                                <option>{{ $kategori->name }}</option>
+                                <option value="{{ $kategori->name }}">{{ $kategori->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -38,12 +38,12 @@
                 <span>Periode :</span>
                 <input id="_token" type="hidden" value="{{ csrf_token() }}">
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
+                    <input type="date" class="form-control form-control-sm" id="start-date"
                         value="{{ $data['chart_period']['start'] }}">
                 </div>
                 <span class="d-inline-block mx-2"> - </span>
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
+                    <input type="date" class="form-control form-control-sm" id="end-date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
                 <button id="analisa-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>

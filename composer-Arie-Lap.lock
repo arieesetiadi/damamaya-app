@@ -870,10 +870,6 @@
                 "profiling",
                 "slim"
             ],
-            "support": {
-                "issues": "https://github.com/itsgoingd/clockwork/issues",
-                "source": "https://github.com/itsgoingd/clockwork/tree/v5.1.0"
-            },
             "funding": [
                 {
                     "url": "https://github.com/itsgoingd",
@@ -7075,5 +7071,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "1.1.0"
 }

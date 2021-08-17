@@ -1,18 +1,20 @@
 $(function () {
-    let bulan = $("#subdomain-bulan option:selected").val();
-    let tahun = $("#subdomain-tahun").val();
+    if ($("#subdomain-table-wrapper").length) {
+        let bulan = $("#subdomain-bulan option:selected").val();
+        let tahun = $("#subdomain-tahun").val();
 
-    subdomain_report(bulan, tahun);
-
-    $("#subdomain-bulan").on("change", function () {
-        bulan = $("#subdomain-bulan option:selected").text();
-    });
-
-    $("#subdomain-submit-filter").click(function () {
-        bulan = $("#subdomain-bulan option:selected").val();
-        tahun = $("#subdomain-tahun").val();
         subdomain_report(bulan, tahun);
-    });
+
+        $("#subdomain-bulan").on("change", function () {
+            bulan = $("#subdomain-bulan option:selected").text();
+        });
+
+        $("#subdomain-submit-filter").click(function () {
+            bulan = $("#subdomain-bulan option:selected").val();
+            tahun = $("#subdomain-tahun").val();
+            subdomain_report(bulan, tahun);
+        });
+    }
 });
 
 function subdomain_report(bulan, tahun) {

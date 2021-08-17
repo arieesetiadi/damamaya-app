@@ -15,8 +15,8 @@
     @endphp
 
     {{-- Set tanggal Start dan End secara default selama 1 Minggu --}}
-    <input type="hidden" id="start_date" name="start_date" value="{{ $data['chart_period']['start'] }}">
-    <input type="hidden" id="end_date" name="end_date" value="{{ $data['chart_period']['end'] }}">
+    <input type="hidden" id="start-date" value="{{ $data['chart_period']['start'] }}">
+    <input type="hidden" id="end-date" value="{{ $data['chart_period']['end'] }}">
 
     <div class="row">
         <div class="col-6">
@@ -72,14 +72,14 @@
                         Grafik Analisa Media
                     </div>
                     <div class="d-flex justify-content-end">
-                        <select id="kategori_analisa" class="d-inline-block custom-select custom-select-sm">
-                            <option selected>Semua</option>
-                            @foreach ($data['kategori'] as $kategori)
-                                <option>{{ $kategori->name }}</option>
-                            @endforeach
-                        </select>
-                        <button id="analisa-submit-period" type="submit"
-                            class="d-inline-block btn btn-sm btn-primary ml-2">Submit</button>
+                        {{-- <select id="analisa-kategori" class="d-inline-block custom-select custom-select-sm">
+                        <option selected>Semua</option>
+                        @foreach ($data['kategori'] as $kategori)
+                            <option>{{ $kategori->name }}</option>
+                        @endforeach
+                    </select>
+                    <button id="analisa-submit-period" type="submit"
+                        class="d-inline-block btn btn-sm btn-primary ml-2">Submit</button> --}}
                     </div>
                 </div>
                 <div class="card-body">

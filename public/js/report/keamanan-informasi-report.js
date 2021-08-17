@@ -8,12 +8,12 @@ $(function () {
     });
 
     if ($("#keamanan-chart").length) {
-        start_date = $("#start_date").val();
-        end_date = $("#end_date").val();
+        start_date = $("#start-date").val();
+        end_date = $("#end-date").val();
 
         $("#keamanan-submit-period").click(function () {
-            start_date = $("#start_date").val();
-            end_date = $("#end_date").val();
+            start_date = $("#start-date").val();
+            end_date = $("#end-date").val();
             keamanan_report(start_date, end_date, kategori);
         });
 
@@ -55,8 +55,6 @@ function keamanan_report(start_date, end_date, kategori) {
                 counts = report["counts"];
                 dates = report["dates"];
                 data = report["data"];
-
-                console.log(data);
 
                 $("#keamanan-chart").remove();
                 $("#keamanan-table").remove();

@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -18,7 +16,6 @@ class DashboardController extends Controller
         // Kirim data yang dibutuhkan ke halaman Dashboard
         $data = [
             'title' => 'Dashboard',
-            'kategori' => DB::table('kategori_analisa')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('5')->toDateString(),
                 'end' => Carbon::now()->toDateString()

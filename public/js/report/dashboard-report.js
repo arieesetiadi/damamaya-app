@@ -1,6 +1,6 @@
 $(function () {
-    start_date = $("#start_date").val();
-    end_date = $("#end_date").val();
+    start_date = $("#start-date").val();
+    end_date = $("#end-date").val();
 
     if ($("#pro-chart").length) {
         pro_report(start_date, end_date);
@@ -11,7 +11,7 @@ $(function () {
     }
 
     if ($("#analisa-chart").length) {
-        analisa_report(start_date, end_date, "Semua");
+        analisa_report(start_date, end_date);
     }
 
     if ($("#keamanan-chart").length) {

@@ -47,7 +47,7 @@ class KeamananInformasiController extends Controller
         $data = [
             'title' => 'Tambah Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
-            'now_time' => Carbon::now()->subHours(16)->toTimeString()
+            'now_time' => Carbon::now()->toTimeString()
         ];
 
         return view('keamanan_informasi.create', compact('data'));
@@ -210,7 +210,7 @@ class KeamananInformasiController extends Controller
             }
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D MMMM');
+            $report['dates'][] = $period->isoFormat('dddd - D/M');
         }
 
 

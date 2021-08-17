@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-use function GuzzleHttp\Promise\all;
 use App\Models\Layanan\PengaduanAnggaran;
 
 class PengaduanAnggaranController extends Controller
@@ -29,6 +28,7 @@ class PengaduanAnggaranController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Pengaduan Anggaran
         $data = [
             'title' => 'Pengaduan Anggaran',
+            'kategori' => DB::table('kategori_pengaduan')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
@@ -138,22 +138,40 @@ class PengaduanAnggaranController extends Controller
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
         $periods = CarbonPeriod::create($start, $end);
 
-        // Looping sebanyak periode tanggal
         foreach ($periods as $period) {
-            // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-            $report['counts'][] = PengaduanAnggaran::where('tanggal', $period->toDateString())->count();
+            // Jika kategori == null, ambil semua data
+            if (is_null($request->kategori)) {
+                // Data count untuk Chart
+                $report['counts'][] = PengaduanAnggaran
+                    ::whereDate('tanggal', $period->toDateString())
+                    ->count();
+
+                // Data untuk table
+                $report['data'] = PengaduanAnggaran
+                    ::whereDate('tanggal', '>=', $start)
+                    ->whereDate('tanggal', '<=', $end)
+                    ->orderBy('tanggal', 'DESC')
+                    ->get();
+            } else {
+                // Data count untuk Chart berdasarkan Kategori
+                $report['counts'][] = PengaduanAnggaran
+                    ::whereDate('tanggal', $period->toDateString())
+                    ->where('kategori', $request->kategori)
+                    ->count();
+
+                // Data untuk table berdasarkan Kategori
+                $report['data'] = PengaduanAnggaran
+                    ::whereDate('tanggal', '>=', $start)
+                    ->whereDate('tanggal', '<=', $end)
+                    ->where('kategori', $request->kategori)
+                    ->orderBy('tanggal', 'DESC')
+                    ->get();
+            }
+
 
             // Ambil tanggal di looping saat ini
             $report['dates'][] = $period->isoFormat('dddd - D/M');
         }
-
-        // Ambil data didalam periode untuk ditampilkan di table
-        // Menggunakan whereDate karena metode lain ada problem
-        $report['data'] = PengaduanAnggaran
-            ::whereDate('tanggal', '>=', $start)
-            ->whereDate('tanggal', '<=', $end)
-            ->orderBy('tanggal', 'DESC')
-            ->get();
 
         return response()->json($report);
     }

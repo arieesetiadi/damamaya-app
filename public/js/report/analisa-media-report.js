@@ -1,21 +1,21 @@
 $(function () {
     // Default property
-    let kategori = $("#analisa-kategori option:selected").text();
+    let kategori = $("#analisa-kategori option:selected").val();
     let start_date = null;
     let end_date = null;
 
     // Ketika kategori dirubah, ambil selected value nya
     $("#analisa-kategori").on("change", function () {
-        kategori = $("#analisa-kategori option:selected").text();
+        kategori = $("#analisa-kategori option:selected").val();
     });
 
     if ($("#analisa-chart").length) {
-        start_date = $("#start_date").val();
-        end_date = $("#end_date").val();
+        start_date = $("#start-date").val();
+        end_date = $("#end-date").val();
 
         $("#analisa-submit-period").click(function () {
-            start_date = $("#start_date").val();
-            end_date = $("#end_date").val();
+            start_date = $("#start-date").val();
+            end_date = $("#end-date").val();
             analisa_report(start_date, end_date, kategori);
         });
 

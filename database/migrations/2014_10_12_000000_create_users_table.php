@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('gender', ['l', 'p']);
             $table->integer('role_id');
             $table->string('password');
-            $table->string('remember_token');
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }

@@ -1,21 +1,32 @@
 $(function () {
+    // Default property
+    let kategori = $("#anggaran-kategori option:selected").val();
+    let start_date = null;
+    let end_date = null;
+
+    // Ketika kategori dirubah, ambil selected value nya
+    $("#anggaran-kategori").on("change", function () {
+        kategori = $("#anggaran-kategori option:selected").val();
+    });
+
     if ($("#anggaran-chart").length) {
-        let start_date = $("#start_date").val();
-        let end_date = $("#end_date").val();
+        // Default property
+        start_date = $("#start-date").val();
+        end_date = $("#end-date").val();
 
         $("#anggaran-submit-period").click(function () {
-            start_date = $("#start_date").val();
-            end_date = $("#end_date").val();
-            anggaran_report(start_date, end_date);
+            start_date = $("#start-date").val();
+            end_date = $("#end-date").val();
+            anggaran_report(start_date, end_date, kategori);
         });
 
         setInterval(() => {
-            anggaran_report(start_date, end_date);
+            anggaran_report(start_date, end_date, kategori);
         }, 60000);
     }
 });
 
-function anggaran_report(start_date, end_date) {
+function anggaran_report(start_date, end_date, kategori) {
     if ($("#anggaran-chart").length) {
         // Set new default font family and font color to mimic Bootstrap's default styling
         (Chart.defaults.global.defaultFontFamily = "Nunito"),
@@ -40,10 +51,10 @@ function anggaran_report(start_date, end_date) {
             data: {
                 start_date: start_date,
                 end_date: end_date,
+                kategori: kategori,
             },
             type: "POST",
             success: function (report) {
-                console.log();
                 counts = report["counts"];
                 dates = report["dates"];
                 data = report["data"];

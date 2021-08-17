@@ -15,20 +15,30 @@
     {{-- Report Chart --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
-            <div>
-                <h6 class="m-0 font-weight-bold">
-                    Grafik Jumlah Aduan Anggaran
-                </h6>
+            <div class="row">
+                <div class="col-6">
+                    <h6 class="m-0 font-weight-bold">
+                        Grafik Jumlah Aduan Anggaran
+                    </h6>
+                </div>
+                <div class="col-6">
+                    <select id="anggaran-kategori" class="d-inline-block custom-select custom-select-sm">
+                        <option value="" selected>Semua</option>
+                        @foreach ($data['kategori'] as $kategori)
+                            <option>{{ $kategori->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div>
                 <span>Periode :</span>
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
+                    <input type="date" class="form-control form-control-sm" id="start-date"
                         value="{{ $data['chart_period']['start'] }}">
                 </div>
                 <span class="d-inline-block mx-2"> - </span>
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
+                    <input type="date" class="form-control form-control-sm" id="end-date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
                 <button id="anggaran-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>

@@ -39,12 +39,12 @@
             <div>
                 <span>Periode :</span>
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="start_date" name="start_date"
+                    <input type="date" class="form-control form-control-sm" id="start-date"
                         value="{{ $data['chart_period']['start'] }}">
                 </div>
                 <span class="d-inline-block mx-2"> - </span>
                 <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="end_date" name="end_date"
+                    <input type="date" class="form-control form-control-sm" id="end-date"
                         value="{{ $data['chart_period']['end'] }}">
                 </div>
                 <button id="keamanan-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
