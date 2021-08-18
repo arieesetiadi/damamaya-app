@@ -6,8 +6,6 @@
     <h4 class="d-inline-block mx-2">|</h4>
     <p class="mb-4 d-inline-block">Test Link (Sampling 10 Website / Hari)</p>
 
-
-
     @if (session('success'))
         <div class="alert alert-primary" role="alert">
             {{ session('success') }}

@@ -7,6 +7,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
 
 class KeamananInformasiController extends Controller
@@ -67,7 +68,19 @@ class KeamananInformasiController extends Controller
             'jam' => 'required',
             'link_website' => 'required|max:255',
             'status_website' => 'required',
+            'capture' => 'image|mimes:png,jpg,jpeg,bmp'
         ]);
+
+        $capture = $request->file('capture');
+        $capture_name = strtolower($capture->getClientOriginalName());
+
+        Image::make($capture)
+            ->resize(1080, 1080, function ($constraint) {
+                $constraint->aspectRatio();
+            })
+            ->save(
+                public_path('img\capture\\') . time() . '_' . $capture_name
+            );
 
         // Insert data keamanan informasi dengan Model
         KeamananInformasi::create([
@@ -75,6 +88,8 @@ class KeamananInformasiController extends Controller
             'jam' => $request->jam,
             'link_website' => $request->link_website,
             'status_website' => $request->status_website,
+            'keterangan' => $request->keterangan,
+            'capture' => $capture_name,
             'nama_petugas' => Auth::user()->name
         ]);
 

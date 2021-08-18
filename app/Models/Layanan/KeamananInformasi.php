@@ -16,6 +16,8 @@ class KeamananInformasi extends Model
         'jam',
         'link_website',
         'status_website',
+        'keterangan',
+        'capture',
         'nama_petugas'
     ];
 }

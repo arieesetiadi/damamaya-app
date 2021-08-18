@@ -335,6 +335,9 @@
     {{-- Form Autocomplete Script --}}
     <script src="{{ asset('js/autocomplete.js') }}"></script>
 
+    {{-- Image Preview --}}
+    <script src="{{ asset('js/imagepreview.js') }}"></script>
+
 </body>
 
 </html>

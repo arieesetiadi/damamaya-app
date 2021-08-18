@@ -19,6 +19,8 @@ class CreateLayananKeamananInformasiTable extends Migration
             $table->time('jam');
             $table->string('link_website');
             $table->string('status_website');
+            $table->text('keterangan')->nullable();
+            $table->string('capture')->nullable();
             $table->string('nama_petugas');
             $table->timestamps();
         });

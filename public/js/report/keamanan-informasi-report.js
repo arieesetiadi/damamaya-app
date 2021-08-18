@@ -75,6 +75,7 @@ function keamanan_report(start_date, end_date, kategori) {
                                     <th>Jam</th>
                                     <th>Link Website</th>
                                     <th>Status Website</th>
+                                    <th>Capture</th>
                                     <th>Nama Petugas</th>
                                 </tr>
                             </thead>
@@ -87,8 +88,17 @@ function keamanan_report(start_date, end_date, kategori) {
                                 <td>${i + 1}</td>
                                 <td>${val.tanggal}</td>
                                 <td>${val.jam}</td>
-                                <td>${val.link_website}</td>
+                                <td>
+                                    <a target="_blank" href="${
+                                        val.link_website
+                                    }">
+                                        ${val.link_website}
+                                    </a>
+                                </td>
                                 <td>${val.status_website}</td>
+                                <td>
+                                    <a target="_blank" href="">View</a>
+                                </td>
                                 <td>${val.nama_petugas}</td>
                             </tr>
                         `;
