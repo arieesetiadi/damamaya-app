@@ -71,16 +71,27 @@ class KeamananInformasiController extends Controller
             'capture' => 'image|mimes:png,jpg,jpeg,bmp'
         ]);
 
+        // Ambil file capture dari form
         $capture = $request->file('capture');
-        $capture_name = strtolower($capture->getClientOriginalName());
 
-        Image::make($capture)
-            ->resize(1080, 1080, function ($constraint) {
+        // Buat nama baru untuk file gambar
+        $capture_name = strtolower(
+            time() . '_' . $capture->getClientOriginalName()
+        );
+
+        $capture_object = Image::make($capture);
+
+        // Resize gambar jika diatas  1MB
+        if ($capture_object->filesize() > 1000000) {
+            $capture_object->resize(1080, 1080, function ($constraint) {
                 $constraint->aspectRatio();
-            })
-            ->save(
-                public_path('img\capture\\') . time() . '_' . $capture_name
-            );
+            });
+        }
+
+        // Save gambar ke path tujuan
+        $capture_object->save(
+            public_path('img\capture\\') .  $capture_name
+        );
 
         // Insert data keamanan informasi dengan Model
         KeamananInformasi::create([
@@ -166,6 +177,7 @@ class KeamananInformasiController extends Controller
                         ->whereDate('tanggal', '<=', $end)
                         ->where('status_website', 'Normal')
                         ->orderBy('tanggal', 'DESC')
+                        ->orderBy('jam', 'DESC')
                         ->get();
                     break;
 
@@ -182,6 +194,7 @@ class KeamananInformasiController extends Controller
                         ->whereDate('tanggal', '<=', $end)
                         ->where('status_website', 'Deface')
                         ->orderBy('tanggal', 'DESC')
+                        ->orderBy('jam', 'DESC')
                         ->get();
                     break;
 
@@ -198,6 +211,7 @@ class KeamananInformasiController extends Controller
                         ->whereDate('tanggal', '<=', $end)
                         ->where('status_website', 'Tidak Bisa Diakses')
                         ->orderBy('tanggal', 'DESC')
+                        ->orderBy('jam', 'DESC')
                         ->get();
                     break;
 
@@ -221,6 +235,7 @@ class KeamananInformasiController extends Controller
                         ::whereDate('tanggal', '>=', $start)
                         ->whereDate('tanggal', '<=', $end)
                         ->orderBy('tanggal', 'DESC')
+                        ->orderBy('jam', 'DESC')
                         ->get();
             }
 

@@ -75,7 +75,7 @@ function keamanan_report(start_date, end_date, kategori) {
                                     <th>Jam</th>
                                     <th>Link Website</th>
                                     <th>Status Website</th>
-                                    <th>Capture</th>
+                                    <th>Detail</th>
                                     <th>Nama Petugas</th>
                                 </tr>
                             </thead>
@@ -97,7 +97,11 @@ function keamanan_report(start_date, end_date, kategori) {
                                 </td>
                                 <td>${val.status_website}</td>
                                 <td>
-                                    <a target="_blank" href="">View</a>
+                                    <a href="" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal" data-capture="${
+                                        val.capture
+                                    }" data-keterangan="${
+                            val.keterangan
+                        }">View</a>
                                 </td>
                                 <td>${val.nama_petugas}</td>
                             </tr>
@@ -114,6 +118,19 @@ function keamanan_report(start_date, end_date, kategori) {
 
                     $("#keamanan-table-wrapper").append(keamanan_table_str);
                 }
+
+                // Ketika tombol view diklik, ambil data capture dan keterangan untuk ditampilkan di modalbox
+                $(".detail-modal-link").on("click", function () {
+                    let capture = $(this).data("capture");
+                    let keterangan = $(this).data("keterangan");
+                    let path = $("#detail-capture").data("path") + capture;
+
+                    // Ubah source gambar di ModalBox
+                    $("#detail-capture").attr("src", path);
+
+                    // Masukan keterangan ke ModalBox
+                    $("#detail-keterangan").text(keterangan);
+                });
 
                 // Area Chart Example
                 var ctx = document.getElementById("keamanan-chart");
