@@ -1,41 +1,36 @@
 $(function () {
-    let kategori = $("#keamanan-kategori option:selected").text();
     let start_date = null;
     let end_date = null;
 
-    $("#keamanan-kategori").on("change", function () {
-        kategori = $("#keamanan-kategori option:selected").text();
-    });
-
-    if ($("#keamanan-chart").length) {
+    if ($("#tik-chart").length) {
         start_date = $("#start-date").val();
         end_date = $("#end-date").val();
 
-        $("#keamanan-submit-period").click(function () {
+        $("#tik-submit-period").click(function () {
             start_date = $("#start-date").val();
             end_date = $("#end-date").val();
-            keamanan_report(start_date, end_date, kategori);
+            tik_report(start_date, end_date);
         });
 
         setInterval(() => {
-            keamanan_report(start_date, end_date, kategori);
+            tik_report(start_date, end_date);
         }, 60000);
     }
 });
 
-function keamanan_report(start_date, end_date, kategori) {
-    if ($("#keamanan-chart").length) {
+function tik_report(start_date, end_date) {
+    if ($("#tik-chart").length) {
         // Set new default font family and font color to mimic Bootstrap's default styling
         (Chart.defaults.global.defaultFontFamily = "Nunito"),
             '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.global.defaultFontColor = "#858796";
 
         // Get dates Name
-        let url = $('meta[name="keamanan-report-route"]').attr("content");
+        let url = $('meta[name="tik-report-route"]').attr("content");
         let dates = [];
         let counts = [];
         let data = [];
-        let keamanan_table_str = ``;
+        let tik_table_str = ``;
 
         $.ajaxSetup({
             headers: {
@@ -48,7 +43,6 @@ function keamanan_report(start_date, end_date, kategori) {
             data: {
                 start_date: start_date,
                 end_date: end_date,
-                kategori: kategori,
             },
             type: "POST",
             success: function (report) {
@@ -56,18 +50,18 @@ function keamanan_report(start_date, end_date, kategori) {
                 dates = report["dates"];
                 data = report["data"];
 
-                $("#keamanan-chart").remove();
-                $("#keamanan-table").remove();
+                $("#tik-chart").remove();
+                $("#tik-table").remove();
 
-                let canvas_str = `<canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
+                let canvas_str = `<canvas id="tik-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
 
                 // Append new canvas
-                $("#keamanan-chart-wrapper").append(canvas_str);
+                $("#tik-chart-wrapper").append(canvas_str);
 
                 // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
                 if (data.length > 0) {
-                    keamanan_table_str = `
-                       <table class="table table-hover" id="keamanan-table">
+                    tik_table_str = `
+                       <table class="table table-hover" id="tik-table">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -83,7 +77,7 @@ function keamanan_report(start_date, end_date, kategori) {
                             `;
 
                     $.each(data, function (i, val) {
-                        keamanan_table_str += `
+                        tik_table_str += `
                             <tr>
                                 <td>${i + 1}</td>
                                 <td>${val.tanggal}</td>
@@ -108,15 +102,15 @@ function keamanan_report(start_date, end_date, kategori) {
                         `;
                     });
 
-                    keamanan_table_str += `</tbody></table>`;
+                    tik_table_str += `</tbody></table>`;
 
-                    $("#keamanan-table-wrapper").append(keamanan_table_str);
+                    $("#tik-table-wrapper").append(tik_table_str);
                 } else {
-                    keamanan_table_str = `
-                        <h4 id="keamanan-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
+                    tik_table_str = `
+                        <h4 id="tik-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
                     `;
 
-                    $("#keamanan-table-wrapper").append(keamanan_table_str);
+                    $("#tik-table-wrapper").append(tik_table_str);
                 }
 
                 // Ketika tombol view diklik, ambil data capture dan keterangan untuk ditampilkan di modalbox
@@ -133,43 +127,27 @@ function keamanan_report(start_date, end_date, kategori) {
                 });
 
                 // Area Chart Example
-                var ctx = document.getElementById("keamanan-chart");
+                var ctx = document.getElementById("tik-chart");
                 var myLineChart = new Chart(ctx, {
                     type: "line",
                     data: {
                         labels: dates,
                         datasets: [
                             {
-                                label: "Normal",
+                                label: "Tidak Bisa Diakses",
                                 lineTension: 0,
                                 backgroundColor: "rgba(78, 115, 223, 0.05)",
-                                borderColor: "rgba(78, 115, 223, 1)",
+                                borderColor: "rgba(0, 0, 0, 0.50)",
                                 pointRadius: 3,
-                                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                                pointBorderColor: "rgba(78, 115, 223, 1)",
+                                pointBackgroundColor: "rgba(0, 0, 0, 0.50)",
+                                pointBorderColor: "rgba(0, 0, 0, 0.50)",
                                 pointHoverRadius: 3,
                                 pointHoverBackgroundColor:
-                                    "rgba(78, 115, 223, 1)",
-                                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                                    "rgba(0, 0, 0, 0.50)",
+                                pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
                                 pointHitRadius: 10,
                                 pointBorderWidth: 2,
-                                data: counts["normal"],
-                            },
-                            {
-                                label: "Deface",
-                                lineTension: 0,
-                                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                                borderColor: "rgba(255, 191, 0, 1)",
-                                pointRadius: 3,
-                                pointBackgroundColor: "rgba(255, 191, 0, 1)",
-                                pointBorderColor: "rgba(255, 191, 0, 1)",
-                                pointHoverRadius: 3,
-                                pointHoverBackgroundColor:
-                                    "rgba(255, 191, 0, 1)",
-                                pointHoverBorderColor: "rgba(255, 191, 0, 1)",
-                                pointHitRadius: 10,
-                                pointBorderWidth: 2,
-                                data: counts["deface"],
+                                data: counts,
                             },
                         ],
                     },

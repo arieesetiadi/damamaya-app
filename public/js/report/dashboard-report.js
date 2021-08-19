@@ -17,4 +17,8 @@ $(function () {
     if ($("#keamanan-chart").length) {
         keamanan_report(start_date, end_date);
     }
+
+    if ($("#tik-chart").length) {
+        tik_report(start_date, end_date);
+    }
 });

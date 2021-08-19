@@ -104,7 +104,11 @@ class KeamananInformasiController extends Controller
             'nama_petugas' => Auth::user()->name
         ]);
 
-        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menambah Keamanan Informasi');
+        if ($request->status_website == 'Tidak Bisa Diakses') {
+            return redirect()->route('tik.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
+        }
+
+        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
     }
 
     /**
@@ -197,24 +201,6 @@ class KeamananInformasiController extends Controller
                         ->orderBy('jam', 'DESC')
                         ->get();
                     break;
-
-                case 'Tidak Bisa Diakses':
-                    // Data Chart Berstatus Tidak Bisa Diakses
-                    $report['counts']['tidak_bisa_diakses'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Tidak Bisa Diakses')
-                        ->count();
-
-                    // Data untuk Table yang berstatus Tidak Bisa Diakses
-                    $report['data'] = KeamananInformasi
-                        ::whereDate('tanggal', '>=', $start)
-                        ->whereDate('tanggal', '<=', $end)
-                        ->where('status_website', 'Tidak Bisa Diakses')
-                        ->orderBy('tanggal', 'DESC')
-                        ->orderBy('jam', 'DESC')
-                        ->get();
-                    break;
-
                 default:
                     // Data Chart Semua Status
                     $report['counts']['normal'][] = KeamananInformasi
@@ -225,15 +211,12 @@ class KeamananInformasiController extends Controller
                         ::whereDate('tanggal', $period->toDateString())
                         ->where('status_website', 'Deface')
                         ->count();
-                    $report['counts']['tidak_bisa_diakses'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Tidak Bisa Diakses')
-                        ->count();
 
                     // Data untuk Table untuk semua Status
                     $report['data'] = KeamananInformasi
                         ::whereDate('tanggal', '>=', $start)
                         ->whereDate('tanggal', '<=', $end)
+                        ->where('status_website', '!=', 'Tidak Bisa Diakses')
                         ->orderBy('tanggal', 'DESC')
                         ->orderBy('jam', 'DESC')
                         ->get();

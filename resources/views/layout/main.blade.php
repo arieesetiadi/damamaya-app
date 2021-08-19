@@ -17,6 +17,7 @@
     <meta name="analisa-report-route" content="{{ route('analisa.report') }}">
     <meta name="keamanan-report-route" content="{{ route('keamanan.report') }}">
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
+    <meta name="tik-report-route" content="{{ route('tik.report') }}">
 
     <title>{{ isset($data['title']) ? $data['title'] : 'Title' }} - Damamaya Cyber Monitor</title>
 
@@ -67,18 +68,18 @@
 
             <!-- Heading -->
             <div class="sidebar-heading text-dark">
-                Layanan
+                Bidang PIP
             </div>
 
             <!-- Nav Item - Layanan Pengaduan (PRO Denpasar) -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseZero"
-                    aria-expanded="true" aria-controls="collapseZero">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePro"
+                    aria-expanded="true" aria-controls="collapsePro">
                     {{-- <i class="fas fa-list text-dark"></i> --}}
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Pengaduan PRO</span>
                 </a>
-                <div id="collapseZero" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapsePro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-pro.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -90,13 +91,14 @@
 
             <!-- Nav Item - Layanan Pengaduan (Anggaran) -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="true" aria-controls="collapseOne">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnggaran"
+                    aria-expanded="true" aria-controls="collapseAnggaran">
                     {{-- <i class="fas fa-list text-dark"></i> --}}
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Pengaduan Anggaran</span>
                 </a>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseAnggaran" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-anggaran.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -108,12 +110,12 @@
 
             <!-- Nav Item - Analisa Media -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree"
-                    aria-expanded="true" aria-controls="collapseThree">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalisa"
+                    aria-expanded="true" aria-controls="collapseAnalisa">
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Analisa Media</span>
                 </a>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('analisa-media.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -123,33 +125,43 @@
                 </div>
             </li>
 
-            <!-- Nav Item - Keamanan Informasi -->
+            <!-- Nav Item - Konten Subdomain -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour"
-                    aria-expanded="true" aria-controls="collapseFour">
-                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubdomain"
+                    aria-expanded="true" aria-controls="collapseSubdomain">
+                    {{-- <i class="far fa-list-alt text-dark"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Keamanan Informasi</span>
+                    <span class="text-dark">Konten Subdomain</span>
                 </a>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseSubdomain" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('konten-subdomain.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                            <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
+                            <a class="collapse-item" href="{{ route('konten-subdomain.create') }}">Input</a>
                         @endif
                     </div>
                 </div>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading text-dark">
+                Bidang PKP
+            </div>
+
             <!-- Nav Item - Layanan Informasi -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformasi"
+                    aria-expanded="true" aria-controls="collapseInformasi">
                     {{-- <i class="fas fa-list-ul text-dark"></i> --}}
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Layanan Informasi</span>
                 </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseInformasi" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('informasi.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -159,20 +171,55 @@
                 </div>
             </li>
 
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading text-dark">
+                Bidang Persandian
+            </div>
+
             <!-- Nav Item - Keamanan Informasi -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive"
-                    aria-expanded="true" aria-controls="collapseFive">
-                    {{-- <i class="far fa-list-alt text-dark"></i> --}}
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKeamanan"
+                    aria-expanded="true" aria-controls="collapseKeamanan">
+                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Konten Subdomain</span>
+                    <span class="text-dark">Keamanan Informasi</span>
                 </a>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseKeamanan" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('konten-subdomain.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
-                            <a class="collapse-item" href="{{ route('konten-subdomain.create') }}">Input</a>
+                            <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
                         @endif
+                    </div>
+                </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading text-dark">
+                Bidang TIK
+            </div>
+
+            <!-- Nav Item - TIK -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTik"
+                    aria-expanded="true" aria-controls="collapseTik">
+                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
+                    <i class="fas fa-list-alt"></i>
+                    <span class="text-dark">Web Tidak Bisa Diakses</span>
+                </a>
+                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('tik.index') }}">Report</a>
+                        {{-- @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                            <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
+                        @endif --}}
                     </div>
                 </div>
             </li>
@@ -183,7 +230,7 @@
 
                 <!-- Heading -->
                 <div class="sidebar-heading text-dark">
-                    User
+                    Admin
                 </div>
 
                 <!-- Nav Item - Keamanan Informasi -->
@@ -329,8 +376,9 @@
     <script src="{{ asset('js/report/pengaduan-anggaran-report.js') }}"></script>
     <script src="{{ asset('js/report/analisa-media-report.js') }}"></script>
     <script src="{{ asset('js/report/keamanan-informasi-report.js') }}"></script>
-    <script src="{{ asset('js/report/dashboard-report.js') }}"></script>
+    <script src="{{ asset('js/report/bidang-tik-report.js') }}"></script>
     <script src="{{ asset('js/report/konten-subdomain-report.js') }}"></script>
+    <script src="{{ asset('js/report/dashboard-report.js') }}"></script>
 
     {{-- Form Autocomplete Script --}}
     <script src="{{ asset('js/autocomplete.js') }}"></script>

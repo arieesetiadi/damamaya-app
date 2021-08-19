@@ -1,16 +1,18 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\AutoCompleteController;
-use App\Http\Controllers\Layanan\AnalisaMediaController;
 use App\Http\Controllers\Layanan\InformasiController;
-use App\Http\Controllers\Layanan\KeamananInformasiController;
-use App\Http\Controllers\Layanan\KontenSubdomainController;
+use App\Http\Controllers\Layanan\AnalisaMediaController;
+use App\Http\Controllers\Layanan\BidangTIKController;
 use App\Http\Controllers\Layanan\PengaduanPROController;
+use App\Http\Controllers\Layanan\KontenSubdomainController;
+use App\Http\Controllers\Layanan\KeamananInformasiController;
 use App\Http\Controllers\Layanan\PengaduanAnggaranController;
 
 /*
@@ -47,6 +49,7 @@ Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])-
 Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name('analisa.report');
 Route::post('/keamanan-report', [KeamananInformasiController::class, 'report'])->name('keamanan.report');
 Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
+Route::post('/tik-report', [BidangTIKController::class, 'report'])->name('tik.report');
 
 // Resources Routes
 Route::resources([
@@ -58,3 +61,6 @@ Route::resources([
     'keamanan-informasi' => KeamananInformasiController::class,
     'konten-subdomain' => KontenSubdomainController::class
 ]);
+
+// Route untuk Bidang TIK
+Route::get('/bidang-tik', [BidangTIKController::class, 'index'])->name('tik.index');

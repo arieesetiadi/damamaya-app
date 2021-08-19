@@ -108,17 +108,13 @@
                         </div>
                         <div class="col-7">
                             <div class="d-flex justify-content-end">
-                                <div class="d-inline-block mr-3">
+                                <div class="d-inline-block mr-4">
                                     <span class="dot bg-primary"></span>
-                                    <small>Normal</small>
+                                    <span>Normal</span>
                                 </div>
-                                <div class="d-inline-block mr-3">
-                                    <span class="dot bg-danger"></span>
-                                    <small>Deface</small>
-                                </div>
-                                <div class="d-inline-block mr-3">
-                                    <span class="dot bg-dark"></span>
-                                    <small>Tidak Bisa Diakses</small>
+                                <div class="d-inline-block">
+                                    <span class="dot bg-warning"></span>
+                                    <span>Deface</span>
                                 </div>
                             </div>
                         </div>
