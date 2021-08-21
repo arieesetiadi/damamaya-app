@@ -97,7 +97,8 @@ function keamanan_report(start_date, end_date, kategori) {
                             </td>
                             <td>${val.status_website}</td>
                             <td>
-                                <a  href=""
+                                <a
+                                    href=""
                                     class="detail-modal-link"
                                     data-toggle="modal"
                                     data-target=".detail-modal"
@@ -124,8 +125,10 @@ function keamanan_report(start_date, end_date, kategori) {
 
                                 <button
                                     class="btn btn-sm btn-danger"
-                                    id="delete"
-                                    data-id="${val.id}">
+                                    id="delete-keamanan"
+                                    data-toggle="modal"
+                                    data-id="${val.id}"
+                                    data-target="#delete-modal">
                                     Delete
                                 </button>
                             </td>
@@ -148,7 +151,7 @@ function keamanan_report(start_date, end_date, kategori) {
                 }
 
                 // Ketika tombol view diklik, ambil data capture dan keterangan untuk ditampilkan di modalbox
-                $(".detail-modal-link").on("click", function () {
+                $("a.detail-modal-link").on("click", function () {
                     let capture = $(this).data("capture");
                     let keterangan = $(this).data("keterangan");
                     let path = $("#detail-capture").data("path") + capture;
@@ -160,17 +163,27 @@ function keamanan_report(start_date, end_date, kategori) {
                     $("#detail-keterangan").text(keterangan);
                 });
 
+                // Ketika tombol tindak lanjut diklik, kirim id keamanan informasi ke form tindak lanjut
                 $("button#tindak-lanjut").on("click", function () {
                     $("#id_keamanan").val($(this).data("id"));
                 });
 
-                $("#cancel-tindak-lanjut").on("click", function () {
-                    // Kosongkan form
+                // Ketika tombol cancel pada modal tindak lanjut ditekan
+                $("button#cancel-tindak-lanjut").on("click", function () {
+                    // Reset isi form
                     $("#form-tindak-lanjut")[0].reset();
 
                     // Hapus preview gambar
                     $("#capture-preview").remove();
                     $("#capture-label").text("Browse image..");
+                });
+
+                // Jika tombol delete ditekan, kirim id untuk proses penghapusan
+                $("button#delete-keamanan").on("click", function () {
+                    $("#form-delete").attr(
+                        "action",
+                        "/keamanan-informasi/" + $(this).data("id")
+                    );
                 });
 
                 // Area Chart Example

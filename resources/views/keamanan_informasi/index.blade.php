@@ -118,7 +118,7 @@
         </div>
     </div>
 
-    <!-- Detail Modal -->
+    <!-- Tindak Lanjut Modal -->
     <div class="modal fade tindak-modal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
         data-backdrop="static">
         <div class="modal-dialog modal-lg">
@@ -173,10 +173,33 @@
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button id="cancel-tindak-lanjut" type="button" class="btn btn-secondary"
-                            data-dismiss="modal">Cancel</button>
+                            data-dismiss="modal">Batal</button>
                     </div>
             </div>
             </form>
+        </div>
+    </div>
+
+    {{-- Delete Modal --}}
+    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Laporan</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Tekan OK untuk menghapus data.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <form id="form-delete" action="{{ route('keamanan-informasi.destroy', 1) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 @endsection

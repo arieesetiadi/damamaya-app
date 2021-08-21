@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
 use App\Models\Layanan\TindakLanjut;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class KeamananInformasiController extends Controller
 {
@@ -114,14 +116,6 @@ class KeamananInformasiController extends Controller
      */
     public function edit($id)
     {
-        // Kirim data yang dibutuhkan ke halaman Tambah Keamanan Informasi
-        $data = [
-            'title' => 'Tindak Lanjut Keamanan Informasi',
-            'now' => Carbon::now()->toDateString(),
-            'now_time' => Carbon::now()->toTimeString()
-        ];
-
-        return view('keamanan_informasi.tindak_lanjut', compact('data'));
     }
 
     /**
@@ -144,7 +138,26 @@ class KeamananInformasiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $keamanan_informasi = KeamananInformasi::where('id', $id);
+        $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
+
+        // Hapus file gambar di storage
+        $gambar_1 = $keamanan_informasi->get()[0]->capture;
+        $gambar_2 = $tindak_lanjut->get()[0]->capture;
+
+        $path_1 = public_path('img\capture\\') . $gambar_1;
+        $path_2 = public_path('img\capture\\') . $gambar_2;
+
+        File::delete($path_1);
+        File::delete($path_2);
+
+        // Hapus data di database tindak lanjut
+        $tindak_lanjut->delete();
+
+        // Hapus data utama
+        $keamanan_informasi->delete();
+
+        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');
     }
 
     public static function report(Request $request)
