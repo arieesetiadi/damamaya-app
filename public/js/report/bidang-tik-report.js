@@ -69,7 +69,7 @@ function tik_report(start_date, end_date) {
                                     <th>Jam</th>
                                     <th>Link Website</th>
                                     <th>Status Website</th>
-                                    <th>Detail</th>
+                                    <th>View</th>
                                     <th>Nama Petugas</th>
                                 </tr>
                             </thead>
@@ -95,7 +95,7 @@ function tik_report(start_date, end_date) {
                                         val.capture
                                     }" data-keterangan="${
                             val.keterangan
-                        }">View</a>
+                        }">Mirror</a>
                                 </td>
                                 <td>${val.nama_petugas}</td>
                             </tr>

@@ -75,8 +75,9 @@ function keamanan_report(start_date, end_date, kategori) {
                                     <th>Jam</th>
                                     <th>Link Website</th>
                                     <th>Status Website</th>
-                                    <th>Detail</th>
+                                    <th>View</th>
                                     <th>Nama Petugas</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -84,27 +85,51 @@ function keamanan_report(start_date, end_date, kategori) {
 
                     $.each(data, function (i, val) {
                         keamanan_table_str += `
-                            <tr>
-                                <td>${i + 1}</td>
-                                <td>${val.tanggal}</td>
-                                <td>${val.jam}</td>
-                                <td>
-                                    <a target="_blank" href="${
-                                        val.link_website
-                                    }">
-                                        ${val.link_website}
-                                    </a>
-                                </td>
-                                <td>${val.status_website}</td>
-                                <td>
-                                    <a href="" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal" data-capture="${
-                                        val.capture
-                                    }" data-keterangan="${
-                            val.keterangan
-                        }">View</a>
-                                </td>
-                                <td>${val.nama_petugas}</td>
-                            </tr>
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td>${val.tanggal}</td>
+                            <td>${val.jam}</td>
+                            <td>
+                                <a  target="_blank"
+                                    href="${val.link_website}">
+                                    ${val.link_website}
+                                </a>
+                            </td>
+                            <td>${val.status_website}</td>
+                            <td>
+                                <a  href=""
+                                    class="detail-modal-link"
+                                    data-toggle="modal"
+                                    data-target=".detail-modal"
+                                    data-capture="${val.capture}"
+                                    data-keterangan="${val.keterangan}">
+                                    Mirror
+                                </a>
+                            </td>
+                            <td>${val.nama_petugas}</td>
+                            <td>
+                                <button
+                                    ${val.is_tindak_lanjut ? "disabled" : ""}
+                                    class="btn btn-sm ${
+                                        val.is_tindak_lanjut
+                                            ? "btn-white"
+                                            : "btn-primary"
+                                    }"
+                                    id="tindak-lanjut"
+                                    data-toggle="modal"
+                                    data-id="${val.id}"
+                                    data-target=".tindak-modal">
+                                    Tindak Lanjut
+                                </button>
+
+                                <button
+                                    class="btn btn-sm btn-danger"
+                                    id="delete"
+                                    data-id="${val.id}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
                         `;
                     });
 
@@ -113,7 +138,10 @@ function keamanan_report(start_date, end_date, kategori) {
                     $("#keamanan-table-wrapper").append(keamanan_table_str);
                 } else {
                     keamanan_table_str = `
-                        <h4 id="keamanan-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
+                        <h4 id="keamanan-table"
+                            class="text-secondary text-center">
+                            Data Tidak Ditemukan
+                        </h4>
                     `;
 
                     $("#keamanan-table-wrapper").append(keamanan_table_str);
@@ -130,6 +158,19 @@ function keamanan_report(start_date, end_date, kategori) {
 
                     // Masukan keterangan ke ModalBox
                     $("#detail-keterangan").text(keterangan);
+                });
+
+                $("button#tindak-lanjut").on("click", function () {
+                    $("#id_keamanan").val($(this).data("id"));
+                });
+
+                $("#cancel-tindak-lanjut").on("click", function () {
+                    // Kosongkan form
+                    $("#form-tindak-lanjut")[0].reset();
+
+                    // Hapus preview gambar
+                    $("#capture-preview").remove();
+                    $("#capture-label").text("Browse image..");
                 });
 
                 // Area Chart Example

@@ -137,42 +137,16 @@ class PengaduanPROController extends Controller
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
         $periods = CarbonPeriod::create($start, $end);
 
-        foreach ($periods as $period) {
-            // Jika kategori == null, ambil semua data
-            if (is_null($request->kategori)) {
-                // Data count untuk Chart
-                $report['counts'][] = PengaduanPRO
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->count();
+        foreach ($periods as $date) {
+            // Data count untuk Chart 
+            $report['counts'][] = PengaduanPRO::getCountByDate($date, $request->kategori);
 
-                // Data untuk table
-                $report['data'] = PengaduanPRO
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            } else {
-                // Data count untuk Chart berdasarkan Kategori
-                $report['counts'][] = PengaduanPRO
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->where('kategori', $request->kategori)
-                    ->count();
-
-                // Data untuk table berdasarkan Kategori
-                $report['data'] = PengaduanPRO
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->where('kategori', $request->kategori)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            }
-
+            // Data untuk Tabel
+            $report['data'] = PengaduanPRO::getDataByPeriod($start, $end, $request->kategori);
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D/M');
+            $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
-
-
 
         return response()->json($report);
     }

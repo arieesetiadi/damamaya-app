@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
+use App\Models\Layanan\TindakLanjut;
 
 class KeamananInformasiController extends Controller
 {
@@ -28,6 +29,8 @@ class KeamananInformasiController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Keamanan Informasi
         $data = [
             'title' => 'Keamanan Informasi',
+            'now' => Carbon::now()->toDateString(),
+            'now_time' => Carbon::now()->toTimeString(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
@@ -71,27 +74,8 @@ class KeamananInformasiController extends Controller
             'capture' => 'image|mimes:png,jpg,jpeg,bmp'
         ]);
 
-        // Ambil file capture dari form
-        $capture = $request->file('capture');
-
-        // Buat nama baru untuk file gambar
-        $capture_name = strtolower(
-            time() . '_' . $capture->getClientOriginalName()
-        );
-
-        $capture_object = Image::make($capture);
-
-        // Resize gambar jika diatas  1MB
-        if ($capture_object->filesize() > 1000000) {
-            $capture_object->resize(1080, 1080, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        // Save gambar ke path tujuan
-        $capture_object->save(
-            public_path('img\capture\\') .  $capture_name
-        );
+        // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
+        $capture_name = self::upload_image($request->file('capture'));
 
         // Insert data keamanan informasi dengan Model
         KeamananInformasi::create([
@@ -130,7 +114,14 @@ class KeamananInformasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Kirim data yang dibutuhkan ke halaman Tambah Keamanan Informasi
+        $data = [
+            'title' => 'Tindak Lanjut Keamanan Informasi',
+            'now' => Carbon::now()->toDateString(),
+            'now_time' => Carbon::now()->toTimeString()
+        ];
+
+        return view('keamanan_informasi.tindak_lanjut', compact('data'));
     }
 
     /**
@@ -142,7 +133,7 @@ class KeamananInformasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd([$request->all, $id]);
     }
 
     /**
@@ -166,67 +157,60 @@ class KeamananInformasiController extends Controller
         $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
-        foreach ($periods as $period) {
+        foreach ($periods as $date) {
             switch ($request->kategori) {
                 case 'Normal':
                     // Data Chart Berstatus Normal
-                    $report['counts']['normal'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Normal')
-                        ->count();
+                    $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, 'Normal');
 
                     // Data untuk Table yang berstatus Normal
-                    $report['data'] = KeamananInformasi
-                        ::whereDate('tanggal', '>=', $start)
-                        ->whereDate('tanggal', '<=', $end)
-                        ->where('status_website', 'Normal')
-                        ->orderBy('tanggal', 'DESC')
-                        ->orderBy('jam', 'DESC')
-                        ->get();
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, 'Normal');
                     break;
 
                 case 'Deface':
                     // Data Chart Berstatus Deface
-                    $report['counts']['deface'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Deface')
-                        ->count();
+                    $report['counts']['deface'][] = KeamananInformasi::getCountByDate($date, 'Deface');
 
                     // Data untuk Table yang berstatus Deface
-                    $report['data'] = KeamananInformasi
-                        ::whereDate('tanggal', '>=', $start)
-                        ->whereDate('tanggal', '<=', $end)
-                        ->where('status_website', 'Deface')
-                        ->orderBy('tanggal', 'DESC')
-                        ->orderBy('jam', 'DESC')
-                        ->get();
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, 'Deface');
                     break;
                 default:
                     // Data Chart Semua Status
-                    $report['counts']['normal'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Normal')
-                        ->count();
-                    $report['counts']['deface'][] = KeamananInformasi
-                        ::whereDate('tanggal', $period->toDateString())
-                        ->where('status_website', 'Deface')
-                        ->count();
+                    $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, 'Normal');
+                    $report['counts']['deface'][] = KeamananInformasi::getCountByDate($date, 'Deface');
 
                     // Data untuk Table untuk semua Status
-                    $report['data'] = KeamananInformasi
-                        ::whereDate('tanggal', '>=', $start)
-                        ->whereDate('tanggal', '<=', $end)
-                        ->where('status_website', '!=', 'Tidak Bisa Diakses')
-                        ->orderBy('tanggal', 'DESC')
-                        ->orderBy('jam', 'DESC')
-                        ->get();
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end);
             }
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D/M');
+            $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
 
-
         return response()->json($report);
+    }
+
+    public static function upload_image($image)
+    {
+        // Buat nama baru untuk file gambar
+        $capture_name = strtolower(
+            time() . '_' . $image->getClientOriginalName()
+        );
+
+        $capture_object = Image::make($image);
+
+        // Resize gambar jika diatas  1MB
+        if ($capture_object->filesize() > 1000000) {
+            $capture_object->resize(1080, 1080, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
+
+        // Save gambar ke path tujuan
+        $capture_object->save(
+            public_path('img\capture\\') .  $capture_name
+        );
+
+        return $capture_name;
     }
 }

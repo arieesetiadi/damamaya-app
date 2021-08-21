@@ -71,7 +71,7 @@
         </div>
         <div class="card-body">
             <div id="tik-table-wrapper" class="table-responsive">
-                {{-- Table diisi melalui informasi-chart.js --}}
+                {{-- Table diisi melalui bidang-tik-report.js --}}
             </div>
         </div>
     </div>

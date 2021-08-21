@@ -14,6 +14,7 @@ use App\Http\Controllers\Layanan\PengaduanPROController;
 use App\Http\Controllers\Layanan\KontenSubdomainController;
 use App\Http\Controllers\Layanan\KeamananInformasiController;
 use App\Http\Controllers\Layanan\PengaduanAnggaranController;
+use App\Http\Controllers\Layanan\TindakLanjutController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +44,7 @@ Route::prefix('user/')->group(function () {
 // Auto Complete Nama Instansi
 Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
 
-// Chart Data Routes
+// Report Data Routes
 Route::post('/pro-report', [PengaduanPROController::class, 'report'])->name('pro.report');
 Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])->name('anggaran.report');
 Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name('analisa.report');
@@ -59,7 +60,8 @@ Route::resources([
     'informasi' => InformasiController::class,
     'analisa-media' => AnalisaMediaController::class,
     'keamanan-informasi' => KeamananInformasiController::class,
-    'konten-subdomain' => KontenSubdomainController::class
+    'konten-subdomain' => KontenSubdomainController::class,
+    'tindak-lanjut' => TindakLanjutController::class
 ]);
 
 // Route untuk Bidang TIK

@@ -138,39 +138,15 @@ class PengaduanAnggaranController extends Controller
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
         $periods = CarbonPeriod::create($start, $end);
 
-        foreach ($periods as $period) {
-            // Jika kategori == null, ambil semua data
-            if (is_null($request->kategori)) {
-                // Data count untuk Chart
-                $report['counts'][] = PengaduanAnggaran
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->count();
+        foreach ($periods as $date) {
+            // Data count untuk Chart 
+            $report['counts'][] = PengaduanAnggaran::getCountByDate($date, $request->kategori);
 
-                // Data untuk table
-                $report['data'] = PengaduanAnggaran
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            } else {
-                // Data count untuk Chart berdasarkan Kategori
-                $report['counts'][] = PengaduanAnggaran
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->where('kategori', $request->kategori)
-                    ->count();
-
-                // Data untuk table berdasarkan Kategori
-                $report['data'] = PengaduanAnggaran
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->where('kategori', $request->kategori)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            }
-
+            // Data untuk Tabel
+            $report['data'] = PengaduanAnggaran::getDataByPeriod($start, $end, $request->kategori);
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D/M');
+            $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
 
         return response()->json($report);

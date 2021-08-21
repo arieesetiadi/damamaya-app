@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLayananKeamananInformasiTable extends Migration
+class CreateLayananTindakLanjutTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,14 @@ class CreateLayananKeamananInformasiTable extends Migration
      */
     public function up()
     {
-        Schema::create('layanan_keamanan_informasi', function (Blueprint $table) {
+        Schema::create('layanan_tindak_lanjut', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_keamanan');
             $table->date('tanggal');
             $table->time('jam');
-            $table->string('link_website');
-            $table->string('status_website');
             $table->text('keterangan')->nullable();
             $table->string('capture')->nullable();
             $table->string('nama_petugas');
-            $table->boolean('is_tindak_lanjut')->nullable();
             $table->timestamps();
         });
     }
@@ -34,6 +32,6 @@ class CreateLayananKeamananInformasiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('layanan_keamanan_informasi');
+        Schema::dropIfExists('layanan_tindak_lanjut');
     }
 }

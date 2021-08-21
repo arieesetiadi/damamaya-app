@@ -138,38 +138,15 @@ class AnalisaMediaController extends Controller
         $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
         $periods = CarbonPeriod::create($start, $end);
 
-        foreach ($periods as $period) {
-            // Jika kategori == null, ambil semua data
-            if (is_null($request->kategori)) {
-                // Hitung jumlah data sesuai dengan tanggal pada looping sekarang
-                $report['counts'][] = AnalisaMedia
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->count();
+        foreach ($periods as $date) {
+            // Data count untuk Chart 
+            $report['counts'][] = AnalisaMedia::getCountByDate($date, $request->kategori);
 
-                // Ambil semua data untuk ditampilkan pada table
-                $report['data'] = AnalisaMedia
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            } else {
-                // Hitung jumlah data sesuai dengan tanggal pada looping sekarang sesuai kategori
-                $report['counts'][] = AnalisaMedia
-                    ::whereDate('tanggal', $period->toDateString())
-                    ->where('kategori', $request->kategori)
-                    ->count();
-
-                // Ambil data sesuai kategori untuk ditampilkan di table
-                $report['data'] = AnalisaMedia
-                    ::whereDate('tanggal', '>=', $start)
-                    ->whereDate('tanggal', '<=', $end)
-                    ->where('kategori', $request->kategori)
-                    ->orderBy('tanggal', 'DESC')
-                    ->get();
-            }
+            // Data untuk Tabel
+            $report['data'] = AnalisaMedia::getDataByPeriod($start, $end, $request->kategori);
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D/M');
+            $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
 
         return response()->json($report);
