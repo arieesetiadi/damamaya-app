@@ -16,7 +16,7 @@ class AnalisaMedia extends Model
         'issue_lokal',
         'issue_nasional',
         'kategori',
-        'nama_petugas'
+        'id_user'
     ];
 
     public static function getCountByDate($date, $kategori = null)
@@ -40,18 +40,34 @@ class AnalisaMedia extends Model
         if (is_null($kategori)) {
             return
                 self
-                ::whereDate('tanggal', '>=', $start)
+                ::from('layanan_analisa_media AS A')
+                ->join(
+                    'users AS B',
+                    'A.id_user',
+                    '=',
+                    'B.id'
+                )
+                ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
                 ->orderBy('tanggal', 'DESC')
+                ->select('A.*', 'B.name')
                 ->get();
         }
 
         return
             self
-            ::whereDate('tanggal', '>=', $start)
+            ::from('layanan_analisa_media AS A')
+            ->join(
+                'users AS B',
+                'A.id_user',
+                '=',
+                'B.id'
+            )
+            ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('kategori', $kategori)
             ->orderBy('tanggal', 'DESC')
+            ->select('A.*', 'B.name')
             ->get();
     }
 }

@@ -37,6 +37,7 @@
                         <th>Response Time</th>
                         <th>Aksi</th>
                     </tr>
+
                     @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
@@ -44,9 +45,11 @@
                             <td>{{ $tindak_lanjut->tanggal }}</td>
                             <td>{{ $tindak_lanjut->jam }}</td>
                             <td>
-                                <a href="#">Mirror</a>
+                                <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
+                                    data-capture="{{ $tindak_lanjut->capture }}"
+                                    data-keterangan="{{ $tindak_lanjut->keterangan }}">Mirror</a>
                             </td>
-                            <td>{{ $tindak_lanjut->nama_petugas }}</td>
+                            <td>{{ $tindak_lanjut->name }}</td>
                             <td>{{ $data['carbon']->diffInDays($tindak_lanjut->tanggal_laporan) }} Hari</td>
                             <td>
                                 <button class="btn btn-sm btn-primary">Edit</button>

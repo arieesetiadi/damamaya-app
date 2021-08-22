@@ -87,7 +87,7 @@ class KeamananInformasiController extends Controller
             'status_website' => $request->status_website,
             'keterangan' => $request->keterangan,
             'capture' => $capture_name,
-            'nama_petugas' => Auth::user()->name
+            'id_user' => Auth::user()->id
         ]);
 
         if ($request->status_website == 'Tidak Bisa Diakses') {
@@ -143,13 +143,13 @@ class KeamananInformasiController extends Controller
 
         // Hapus file gambar di storage
         $gambar_1 = $keamanan_informasi->get()[0]->capture;
-        $gambar_2 = $tindak_lanjut->get()[0]->capture;
+        // $gambar_2 = $tindak_lanjut->get()[0]->capture;
 
         $path_1 = public_path('img\capture\\') . $gambar_1;
-        $path_2 = public_path('img\capture\\') . $gambar_2;
+        // $path_2 = public_path('img\capture\\') . $gambar_2;
 
         File::delete($path_1);
-        File::delete($path_2);
+        // File::delete($path_2);
 
         // Hapus data di database tindak lanjut
         $tindak_lanjut->delete();

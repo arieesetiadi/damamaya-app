@@ -19,6 +19,9 @@
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
     <meta name="tik-report-route" content="{{ route('tik.report') }}">
 
+    {{-- Data Role User --}}
+    <meta name="user-role" content="{{ Auth::user()->role_id }}">
+
     <title>{{ isset($data['title']) ? $data['title'] : 'Title' }} - Damamaya Cyber Monitor</title>
 
     <!-- Custom fonts for this template-->
@@ -377,6 +380,7 @@
     <script src="{{ asset('js/report/keamanan-informasi-report.js') }}"></script>
     <script src="{{ asset('js/report/bidang-tik-report.js') }}"></script>
     <script src="{{ asset('js/report/konten-subdomain-report.js') }}"></script>
+    <script src="{{ asset('js/report/tindak-lanjut-report.js') }}"></script>
     <script src="{{ asset('js/report/dashboard-report.js') }}"></script>
 
     {{-- Form Autocomplete Script --}}

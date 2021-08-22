@@ -19,7 +19,7 @@ class CreateAnalisaMediaTable extends Migration
             $table->string('issue_lokal');
             $table->string('issue_nasional');
             $table->string('kategori');
-            $table->string('nama_petugas');
+            $table->foreignId('id_user');
             $table->timestamps();
         });
     }

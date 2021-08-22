@@ -21,7 +21,7 @@ class CreateLayananKeamananInformasiTable extends Migration
             $table->string('status_website');
             $table->text('keterangan')->nullable();
             $table->string('capture')->nullable();
-            $table->string('nama_petugas');
+            $table->foreignId('id_user');
             $table->boolean('is_tindak_lanjut')->nullable();
             $table->timestamps();
         });

@@ -91,7 +91,7 @@ function analisa_report(start_date, end_date, kategori) {
                                 <td>${val.issue_lokal}</td>
                                 <td>${val.issue_nasional}</td>
                                 <td>${val.kategori}</td>
-                                <td>${val.nama_petugas}</td>
+                                <td>${val.name}</td>
                             </tr>
                         `;
                     });

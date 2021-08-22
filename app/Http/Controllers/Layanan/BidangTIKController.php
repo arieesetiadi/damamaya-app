@@ -31,24 +31,16 @@ class BidangTIKController extends Controller
         $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
-        foreach ($periods as $period) {
+        foreach ($periods as $date) {
             // Data Chart Berstatus Tidak Bisa Diakses
-            $report['counts'][] = KeamananInformasi
-                ::whereDate('tanggal', $period->toDateString())
-                ->where('status_website', 'Tidak Bisa Diakses')
-                ->count();
+            $report['counts'][] = KeamananInformasi::getCountByDate($date, 'Tidak Bisa Diakses');
 
             // Data untuk Table yang berstatus Tidak Bisa Diakses
-            $report['data'] = KeamananInformasi
-                ::whereDate('tanggal', '>=', $start)
-                ->whereDate('tanggal', '<=', $end)
-                ->where('status_website', 'Tidak Bisa Diakses')
-                ->orderBy('tanggal', 'DESC')
-                ->orderBy('jam', 'DESC')
-                ->get();
+            $report['data'] =
+                KeamananInformasi::getDataByPeriod($start, $end, 'Tidak Bisa Diakses');
 
             // Ambil tanggal di looping saat ini
-            $report['dates'][] = $period->isoFormat('dddd - D/M');
+            $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
 
         return response()->json($report);

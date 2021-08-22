@@ -97,7 +97,7 @@ function tik_report(start_date, end_date) {
                             val.keterangan
                         }">Mirror</a>
                                 </td>
-                                <td>${val.nama_petugas}</td>
+                                <td>${val.name}</td>
                             </tr>
                         `;
                     });

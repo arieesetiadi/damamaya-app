@@ -18,7 +18,7 @@ class KeamananInformasi extends Model
         'status_website',
         'keterangan',
         'capture',
-        'nama_petugas',
+        'id_user',
         'is_tindak_lanjut'
     ];
 
@@ -43,21 +43,37 @@ class KeamananInformasi extends Model
         if (is_null($kategori)) {
             return
                 self
-                ::whereDate('tanggal', '>=', $start)
+                ::from('layanan_keamanan_informasi AS A')
+                ->join(
+                    'users AS B',
+                    'A.id_user',
+                    '=',
+                    'B.id'
+                )
+                ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
                 ->where('status_website', '!=', 'Tidak Bisa Diakses')
                 ->orderBy('tanggal', 'DESC')
                 ->orderBy('jam', 'DESC')
+                ->select('A.*', 'B.name')
                 ->get();
         }
 
         return
             self
-            ::whereDate('tanggal', '>=', $start)
+            ::from('layanan_keamanan_informasi AS A')
+            ->join(
+                'users AS B',
+                'A.id_user',
+                '=',
+                'B.id'
+            )
+            ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('status_website', $kategori)
             ->orderBy('tanggal', 'DESC')
             ->orderBy('jam', 'DESC')
+            ->select('A.*', 'B.name')
             ->get();
     }
 }

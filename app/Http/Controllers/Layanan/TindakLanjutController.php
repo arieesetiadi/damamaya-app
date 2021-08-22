@@ -19,25 +19,9 @@ class TindakLanjutController extends Controller
      */
     public function index()
     {
-        $tindak_lanjut = TindakLanjut
-            ::from('layanan_tindak_lanjut AS A')
-            ->join(
-                'layanan_keamanan_informasi AS B',
-                'A.id_keamanan',
-                '=',
-                'B.id'
-            )
-            ->select(
-                'A.*',
-                'B.link_website',
-                'B.jam AS jam_laporan',
-                'B.tanggal AS tanggal_laporan',
-            )
-            ->get();
-
         $data = [
             'title' => 'Report Tindak Lanjut',
-            'tindak_lanjut' => $tindak_lanjut,
+            'tindak_lanjut' => TindakLanjut::getData(),
             'carbon' => Carbon::now()
         ];
 

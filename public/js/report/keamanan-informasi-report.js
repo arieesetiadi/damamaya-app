@@ -35,6 +35,7 @@ function keamanan_report(start_date, end_date, kategori) {
         let dates = [];
         let counts = [];
         let data = [];
+        let user_role = 0;
         let keamanan_table_str = ``;
 
         $.ajaxSetup({
@@ -55,6 +56,7 @@ function keamanan_report(start_date, end_date, kategori) {
                 counts = report["counts"];
                 dates = report["dates"];
                 data = report["data"];
+                user_role = $("meta[name='user-role']").attr("content");
 
                 $("#keamanan-chart").remove();
                 $("#keamanan-table").remove();
@@ -76,12 +78,18 @@ function keamanan_report(start_date, end_date, kategori) {
                                     <th>Link Website</th>
                                     <th>Status Website</th>
                                     <th>View</th>
-                                    <th>Nama Petugas</th>
-                                    <th>Aksi</th>
+                                    <th>Nama Petugas</th>`;
+
+                    // Tampilkan menu Aksi jika user adalah Admin atau Petugas
+                    if (user_role == 1 || user_role == 2) {
+                        keamanan_table_str += `<th>Aksi</th>`;
+                    }
+
+                    keamanan_table_str += `
                                 </tr>
-                            </thead>
-                            <tbody>
-                            `;
+                                    </thead>
+                                    <tbody>
+                                    `;
 
                     $.each(data, function (i, val) {
                         keamanan_table_str += `
@@ -107,8 +115,11 @@ function keamanan_report(start_date, end_date, kategori) {
                                     Mirror
                                 </a>
                             </td>
-                            <td>${val.nama_petugas}</td>
-                            <td>
+                            <td>${val.name}</td>`;
+
+                        // Tampilkan tombol tindak lanjut dan delete jika user Admin atau Petugas
+                        if (user_role == 1 || user_role == 2) {
+                            keamanan_table_str += `<td>
                                 <button
                                     ${val.is_tindak_lanjut ? "disabled" : ""}
                                     class="btn btn-sm ${
@@ -134,6 +145,7 @@ function keamanan_report(start_date, end_date, kategori) {
                             </td>
                         </tr>
                         `;
+                        }
                     });
 
                     keamanan_table_str += `</tbody></table>`;

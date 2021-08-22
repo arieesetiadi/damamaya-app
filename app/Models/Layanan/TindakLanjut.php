@@ -17,6 +17,36 @@ class TindakLanjut extends Model
         'jam',
         'keterangan',
         'capture',
-        'nama_petugas'
+        'id_user'
     ];
+
+
+    public static function getData()
+    {
+        return
+            self
+            ::from('layanan_tindak_lanjut AS A')
+            ->join(
+                'layanan_keamanan_informasi AS B',
+                'A.id_keamanan',
+                '=',
+                'B.id'
+            )
+            ->join(
+                'users AS C',
+                'A.id_user',
+                '=',
+                'C.id'
+            )
+            ->orderBy('tanggal', 'DESC')
+            ->orderBy('jam', 'DESC')
+            ->select(
+                'A.*',
+                'B.link_website',
+                'B.jam AS jam_laporan',
+                'B.tanggal AS tanggal_laporan',
+                'C.name as name'
+            )
+            ->get();
+    }
 }
