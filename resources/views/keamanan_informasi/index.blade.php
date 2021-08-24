@@ -185,7 +185,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Laporan</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Keamanan Informasi</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -193,7 +193,7 @@
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <form id="form-delete" action="{{ route('keamanan-informasi.destroy', 1) }}" method="POST">
+                    <form id="form-delete" action="{{ route('keamanan-informasi.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <button type="submit" class="btn btn-primary">OK</button>

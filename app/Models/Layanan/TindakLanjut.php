@@ -20,6 +20,7 @@ class TindakLanjut extends Model
         'id_user'
     ];
 
+    protected $guarded = [];
 
     public static function getData()
     {

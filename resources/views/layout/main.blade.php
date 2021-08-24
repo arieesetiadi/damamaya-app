@@ -18,6 +18,7 @@
     <meta name="keamanan-report-route" content="{{ route('keamanan.report') }}">
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
     <meta name="tik-report-route" content="{{ route('tik.report') }}">
+    <meta name="tindak-lanjut-get" content="{{ route('tindak-lanjut.get') }}">
 
     {{-- Data Role User --}}
     <meta name="user-role" content="{{ Auth::user()->role_id }}">

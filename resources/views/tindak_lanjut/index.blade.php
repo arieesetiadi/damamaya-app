@@ -29,6 +29,7 @@
                 <table class="table container-fluid">
                     <tr>
                         <th>No.</th>
+                        <th>ID</th>
                         <th>Link Website</th>
                         <th>Tanggal Penindakan</th>
                         <th>Jam Penindakan</th>
@@ -41,6 +42,7 @@
                     @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ $tindak_lanjut->id }}</td>
                             <td>{{ $tindak_lanjut->link_website }}</td>
                             <td>{{ $tindak_lanjut->tanggal }}</td>
                             <td>{{ $tindak_lanjut->jam }}</td>
@@ -52,8 +54,13 @@
                             <td>{{ $tindak_lanjut->name }}</td>
                             <td>{{ $data['carbon']->diffInDays($tindak_lanjut->tanggal_laporan) }} Hari</td>
                             <td>
-                                <button class="btn btn-sm btn-primary">Edit</button>
-                                <button class="btn btn-sm btn-danger">Hapus</button>
+                                <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
+                                    data-id="{{ $tindak_lanjut->id }}"
+                                    data-target="#edit-tindak-lanjut-modal">Edit</button>
+
+                                <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
+                                    data-id="{{ $tindak_lanjut->id }}"
+                                    data-target="#delete-tindak-lanjut-modal">Hapus</button>
                             </td>
                         </tr>
                     @endforeach
@@ -88,23 +95,23 @@
     </div>
 
     <!-- Edit Modal -->
-    {{-- <div class="modal fade tindak-modal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
-        data-backdrop="static">
+    <div class="modal fade" id="edit-tindak-lanjut-modal" tabindex="-1" role="dialog" aria-hidden="true"
+        data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
+                <form id="form-edit-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input id="id_keamanan" type="hidden" name="id_keamanan" value="">
+                    <input type="hidden" name="_method" value="PUT">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
                     </div>
+
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="tanggal">Tanggal :</label>
                             <input id="tanggal" name="tanggal"
-                                class="form-control  @error('tanggal')  border-danger @enderror" type="date"
-                                value="{{ $data['now'] }}">
+                                class="form-control  @error('tanggal')  border-danger @enderror" type="date" value="">
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -113,15 +120,14 @@
                         <div class="mb-3">
                             <label for="jam">Jam :</label>
                             <input id="jam" name="jam" class="form-control  @error('jam')  border-danger @enderror"
-                                type="time" value="{{ $data['now_time'] }}">
+                                type="time" value="" step="any">
                             @error('jam')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan Tindak Lanjut :</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan"
-                                rows="4">{{ old('keterangan') }}</textarea>
+                            <textarea name="keterangan" class="form-control" id="keterangan" rows="4"></textarea>
                         </div>
 
                         <div>
@@ -134,11 +140,12 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                             <div class="d-flex mt-1">
-                                <div class="w-100" id="capture-preview-wrapper"></div>
+                                <div class="w-100" id="capture-preview-wrapper" data-path="{{ asset('img/capture\\') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class=" modal-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button id="cancel-tindak-lanjut" type="button" class="btn btn-secondary"
                             data-dismiss="modal">Cancel</button>
@@ -146,5 +153,28 @@
             </div>
             </form>
         </div>
-    </div> --}}
+    </div>
+
+    {{-- Delete Modal --}}
+    <div class="modal fade" id="delete-tindak-lanjut-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Tindak Lanjut</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Tekan OK untuk menghapus data.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <form id="form-delete" action="{{ route('tindak-lanjut.destroy', 0) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <button type="submit" class="btn btn-primary">OK</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

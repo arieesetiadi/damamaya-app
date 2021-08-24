@@ -1,6 +1,5 @@
 <?php
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -51,6 +50,7 @@ Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name(
 Route::post('/keamanan-report', [KeamananInformasiController::class, 'report'])->name('keamanan.report');
 Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
 Route::post('/tik-report', [BidangTIKController::class, 'report'])->name('tik.report');
+Route::get('/tindak-lanjut-get', [TindakLanjutController::class, 'get_data'])->name('tindak-lanjut.get');
 
 // Resources Routes
 Route::resources([

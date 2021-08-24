@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Layanan\TindakLanjut;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
 
@@ -65,7 +66,7 @@ class TindakLanjutController extends Controller
             'jam' => $request->jam,
             'keterangan' => $request->keterangan,
             'capture' => $capture_name,
-            'nama_petugas' => Auth::user()->name
+            'id_user' => Auth::user()->id
         ]);
 
         KeamananInformasi::find($request->id_keamanan)->update([
@@ -106,7 +107,37 @@ class TindakLanjutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validasi data dari form input
+        $request->validate([
+            'tanggal' => 'required',
+            'jam' => 'required',
+            'keterangan' => 'required',
+            'capture' => 'image|mimes:png,jpg,jpeg,bmp'
+        ]);
+
+        if (!is_null($request->file('capture'))) {
+            // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
+            $capture_name = self::upload_image($request->file('capture'));
+
+            // Update data keamanan informasi dengan Model
+            TindakLanjut::where('id',  $id)->update([
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam,
+                'keterangan' => $request->keterangan,
+                'capture' => $capture_name,
+                'id_user' => Auth::user()->id
+            ]);
+        } else {
+            // Update data keamanan informasi dengan Model
+            TindakLanjut::where('id',  $id)->update([
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam,
+                'keterangan' => $request->keterangan,
+                'id_user' => Auth::user()->id
+            ]);
+        }
+
+        return redirect()->route('tindak-lanjut.index')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
     }
 
     /**
@@ -117,7 +148,23 @@ class TindakLanjutController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tindak_lanjut = TindakLanjut::where('id', $id);
+
+        // Hapus file gambar di storage
+        $gambar = $tindak_lanjut->get()[0]->capture;
+        $path = public_path('img\capture\\') . $gambar;
+        File::delete($path);
+
+        // Ubah is_tindak_lanjut pada Keamanan Informasi menjadi false
+        $id_keamanan = $tindak_lanjut->get()[0]->id_keamanan;
+        KeamananInformasi::where('id', $id_keamanan)->update([
+            'is_tindak_lanjut' => 0
+        ]);
+
+        // Hapus data di database tindak lanjut
+        $tindak_lanjut->delete();
+
+        return redirect()->route('tindak-lanjut.index')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
     }
 
     public static function upload_image($image)
@@ -142,5 +189,14 @@ class TindakLanjutController extends Controller
         );
 
         return $capture_name;
+    }
+
+    public function get_data(Request $request)
+    {
+        $id = $request->id;
+
+        $data = TindakLanjut::where('id', $id)->get()[0];
+
+        return response()->json($data);
     }
 }

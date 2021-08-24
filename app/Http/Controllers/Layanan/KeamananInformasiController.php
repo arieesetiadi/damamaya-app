@@ -28,14 +28,17 @@ class KeamananInformasiController extends Controller
 
     public function index()
     {
+        $start = Carbon::now()->subDay('6')->toDateString();
+        $end = Carbon::now()->toDateString();
+
         // Kirim data yang dibutuhkan ke halaman Report Keamanan Informasi
         $data = [
             'title' => 'Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
             'now_time' => Carbon::now()->toTimeString(),
             'chart_period' => [
-                'start' => Carbon::now()->subDay('6')->toDateString(),
-                'end' => Carbon::now()->toDateString()
+                'start' => $start,
+                'end' => $end
             ]
         ];
 
@@ -139,7 +142,7 @@ class KeamananInformasiController extends Controller
     public function destroy($id)
     {
         $keamanan_informasi = KeamananInformasi::where('id', $id);
-        $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
+        // $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
 
         // Hapus file gambar di storage
         $gambar_1 = $keamanan_informasi->get()[0]->capture;
@@ -152,7 +155,7 @@ class KeamananInformasiController extends Controller
         // File::delete($path_2);
 
         // Hapus data di database tindak lanjut
-        $tindak_lanjut->delete();
+        // $tindak_lanjut->delete();
 
         // Hapus data utama
         $keamanan_informasi->delete();
