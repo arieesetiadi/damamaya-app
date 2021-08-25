@@ -148,7 +148,7 @@ class KeamananInformasiController extends Controller
         $gambar_1 = $keamanan_informasi->get()[0]->capture;
         // $gambar_2 = $tindak_lanjut->get()[0]->capture;
 
-        $path_1 = public_path('img\capture\\') . $gambar_1;
+        $path_1 = public_path('img\capture\laporan\\') . $gambar_1;
         // $path_2 = public_path('img\capture\\') . $gambar_2;
 
         File::delete($path_1);
@@ -224,7 +224,7 @@ class KeamananInformasiController extends Controller
 
         // Save gambar ke path tujuan
         $capture_object->save(
-            public_path('img\capture\\') .  $capture_name
+            public_path('img\capture\laporan\\') .  $capture_name
         );
 
         return $capture_name;

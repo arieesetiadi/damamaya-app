@@ -29,30 +29,37 @@
                 <table class="table container-fluid">
                     <tr>
                         <th>No.</th>
-                        <th>ID</th>
                         <th>Link Website</th>
                         <th>Tanggal Penindakan</th>
                         <th>Jam Penindakan</th>
                         <th>View</th>
-                        <th>Petugas</th>
                         <th>Response Time</th>
+                        <th>Petugas</th>
                         <th>Aksi</th>
                     </tr>
 
                     @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
                         <tr>
                             <td>{{ $loop->index + 1 }}</td>
-                            <td>{{ $tindak_lanjut->id }}</td>
-                            <td>{{ $tindak_lanjut->link_website }}</td>
+
+                            <td>
+                                <a href="{{ $tindak_lanjut->link_website }}" target="_blank">
+                                    {{ $tindak_lanjut->link_website }}
+                                </a>
+                            </td>
+
                             <td>{{ $tindak_lanjut->tanggal }}</td>
                             <td>{{ $tindak_lanjut->jam }}</td>
+
                             <td>
                                 <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
                                     data-capture="{{ $tindak_lanjut->capture }}"
-                                    data-keterangan="{{ $tindak_lanjut->keterangan }}">Mirror</a>
+                                    data-keterangan="{{ $tindak_lanjut->keterangan }}">Detail</a>
                             </td>
+
+                            <td>{{ $tindak_lanjut->response_time }} Hari</td>
                             <td>{{ $tindak_lanjut->name }}</td>
-                            <td>{{ $data['carbon']->diffInDays($tindak_lanjut->tanggal_laporan) }} Hari</td>
+
                             <td>
                                 <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
                                     data-id="{{ $tindak_lanjut->id }}"
@@ -83,8 +90,8 @@
                 </div>
                 <div class="modal-body">
                     <div id="detail-capture-wrapper" class="mx-2">
-                        <img class="w-100 rounded shadow" id="detail-capture" data-path="{{ asset('img/capture\\') }}"
-                            src="" alt="Capture Website">
+                        <img class="w-100 rounded shadow" id="detail-capture"
+                            data-path="{{ asset('img/capture/tindak_lanjut\\') }}" src="" alt="Capture Website">
                     </div>
                     <hr>
                     <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
@@ -140,7 +147,8 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                             <div class="d-flex mt-1">
-                                <div class="w-100" id="capture-preview-wrapper" data-path="{{ asset('img/capture\\') }}">
+                                <div class="w-100" id="capture-preview-wrapper"
+                                    data-path="{{ asset('img/capture/tindak_lanjut\\') }}">
                                 </div>
                             </div>
                         </div>

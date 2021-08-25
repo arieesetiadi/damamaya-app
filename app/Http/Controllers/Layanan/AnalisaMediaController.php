@@ -78,7 +78,7 @@ class AnalisaMediaController extends Controller
             'issue_lokal' => $request->issue_lokal,
             'issue_nasional' => $request->issue_nasional,
             'kategori' => $request->kategori,
-            'nama_petugas' => Auth::user()->name,
+            'id_user' => Auth::user()->id,
         ]);
 
         return redirect()->route('analisa-media.index')->with('success', 'Berhasil Menambah Analisa Media');

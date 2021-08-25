@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Models\Layanan\PengaduanPRO;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Facades\Auth;
 
 class PengaduanPROController extends Controller
 {
@@ -77,7 +78,8 @@ class PengaduanPROController extends Controller
             'nama_pelapor' => $request->nama_pelapor,
             'topik' => $request->topik,
             'kategori' => $request->kategori,
-            'nama_pd' => $request->nama_pd
+            'nama_pd' => $request->nama_pd,
+            'id_user' => Auth::user()->id
         ]);
 
         return redirect()->route('pengaduan-pro.index')->with('success', 'Berhasil Menambah Pengaduan');

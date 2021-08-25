@@ -97,6 +97,7 @@
                                 <th>No.</th>
                                 <th>Nama Instansi / Perangkat Daerah</th>
                                 <th>Tahun Update</th>
+                                <th>Nama Petugas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,6 +106,7 @@
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $info->nama_pd }}</td>
                                     <td>{{ $info->tahun_update }}</td>
+                                    <td>{{ $info->name }}</td>
                                 </tr>
                             @endforeach
                         </tbody>

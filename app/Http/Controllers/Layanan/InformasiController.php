@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Layanan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Layanan\Informasi;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class InformasiController extends Controller
 {
@@ -32,7 +33,7 @@ class InformasiController extends Controller
         // Kirim data yang dibutuhkan ke halaman Report Layana  Informasi
         $data = [
             'title' => 'Layanan Informasi',
-            'informasi' => Informasi::limit(50)->orderBy('id', 'DESC')->get(),
+            'informasi' => Informasi::getData(),
             'years' => array_reverse($years),
             'instansi' => DB::table('instansi')->orderBy('nama_pd', 'ASC')->get()
         ];
@@ -72,6 +73,7 @@ class InformasiController extends Controller
         Informasi::create([
             'nama_pd' => $request->nama_pd,
             'tahun_update' => $request->tahun_update,
+            'id_user' => Auth::user()->id
         ]);
 
         return redirect()->route('informasi.index')->with('success', 'Berhasil Menambah Layanan Informasi');

@@ -11,5 +11,17 @@ class Informasi extends Model
 
     protected $table = "layanan_informasi";
 
-    protected $fillable = ['nama_pd', 'tahun_update'];
+    protected $fillable = ['nama_pd', 'tahun_update', 'id_user'];
+
+    public static function getData()
+    {
+        return
+            self
+            ::from('layanan_informasi AS A')
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
+            ->limit(50)
+            ->orderBy('id', 'DESC')
+            ->select('A.*', 'B.name')
+            ->get();
+    }
 }

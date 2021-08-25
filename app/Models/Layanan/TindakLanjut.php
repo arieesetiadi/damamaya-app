@@ -17,6 +17,7 @@ class TindakLanjut extends Model
         'jam',
         'keterangan',
         'capture',
+        'response_time',
         'id_user'
     ];
 

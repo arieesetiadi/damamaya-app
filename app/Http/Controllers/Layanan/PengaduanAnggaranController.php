@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
 use App\Models\Layanan\PengaduanAnggaran;
+use Illuminate\Support\Facades\Auth;
 
 class PengaduanAnggaranController extends Controller
 {
@@ -78,7 +79,8 @@ class PengaduanAnggaranController extends Controller
             'nama_pelapor' => $request->nama_pelapor,
             'topik' => $request->topik,
             'kategori' => $request->kategori,
-            'nama_pd' => $request->nama_pd
+            'nama_pd' => $request->nama_pd,
+            'id_user' => Auth::user()->id
         ]);
 
         return redirect()->route('pengaduan-anggaran.index')->with('success', 'Berhasil Menambah Pengaduan');

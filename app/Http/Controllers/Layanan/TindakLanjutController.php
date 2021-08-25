@@ -23,7 +23,6 @@ class TindakLanjutController extends Controller
         $data = [
             'title' => 'Report Tindak Lanjut',
             'tindak_lanjut' => TindakLanjut::getData(),
-            'carbon' => Carbon::now()
         ];
 
         return view('tindak_lanjut.index', compact('data'));
@@ -59,6 +58,12 @@ class TindakLanjutController extends Controller
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
         $capture_name = self::upload_image($request->file('capture'));
 
+        // Hitung response time penindak lanjutan
+        $tanggal_laporan = KeamananInformasi::where('id', $request->id_keamanan)->get()[0]->tanggal;
+        $tanggal_tindak_lanjut = Carbon::createFromFormat('Y-m-d', $request->tanggal);
+
+        $response_time = $tanggal_tindak_lanjut->diffInDays($tanggal_laporan);
+
         // Insert data keamanan informasi dengan Model
         TindakLanjut::create([
             'id_keamanan' => $request->id_keamanan,
@@ -66,6 +71,7 @@ class TindakLanjutController extends Controller
             'jam' => $request->jam,
             'keterangan' => $request->keterangan,
             'capture' => $capture_name,
+            'response_time' => $response_time,
             'id_user' => Auth::user()->id
         ]);
 
@@ -152,7 +158,7 @@ class TindakLanjutController extends Controller
 
         // Hapus file gambar di storage
         $gambar = $tindak_lanjut->get()[0]->capture;
-        $path = public_path('img\capture\\') . $gambar;
+        $path = public_path('img\capture\tindak_lanjut\\') . $gambar;
         File::delete($path);
 
         // Ubah is_tindak_lanjut pada Keamanan Informasi menjadi false
@@ -185,7 +191,7 @@ class TindakLanjutController extends Controller
 
         // Save gambar ke path tujuan
         $capture_object->save(
-            public_path('img\capture\\') .  $capture_name
+            public_path('img\capture\tindak_lanjut\\') .  $capture_name
         );
 
         return $capture_name;

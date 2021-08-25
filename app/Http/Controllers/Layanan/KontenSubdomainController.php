@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Layanan\KontenSubdomain;
+use Illuminate\Support\Facades\Auth;
 
 class KontenSubdomainController extends Controller
 {
@@ -93,6 +94,7 @@ class KontenSubdomainController extends Controller
             'struktur_organisasi' => $request->struktur_organisasi == 'on' ? 1 : 0,
             'tupoksi' => $request->tupoksi == 'on' ? 1 : 0,
             'transparansi_anggaran' => $request->transparansi_anggaran == 'on' ? 1 : 0,
+            'id_user' => Auth::user()->id
         ]);
 
         return redirect()->route('konten-subdomain.index')->with('success', 'Berhasil Menambah Konten Subdomain');
@@ -146,11 +148,7 @@ class KontenSubdomainController extends Controller
     public static function report(Request $request)
     {
         // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
-        $data['report'] = KontenSubdomain
-            ::whereMonth('tanggal', $request->bulan)
-            ->whereYear('tanggal', $request->tahun)
-            ->orderBy('id', 'DESC')
-            ->get();
+        $data['report'] = KontenSubdomain::getData($request->bulan, $request->tahun);
 
         return response()->json($data);
     }

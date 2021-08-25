@@ -20,6 +20,7 @@ class CreatePengaduanAnggaranTable extends Migration
             $table->string('topik');
             $table->string('kategori');
             $table->string('nama_pd');
+            $table->foreignId('id_user');
             $table->timestamps();
         });
     }

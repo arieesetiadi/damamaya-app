@@ -17,6 +17,7 @@ class CreateInformasiTable extends Migration
             $table->id();
             $table->string('nama_pd');
             $table->year('tahun_update');
+            $table->foreignId('id_user');
             $table->timestamps();
         });
     }

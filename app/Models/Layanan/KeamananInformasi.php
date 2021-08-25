@@ -44,12 +44,7 @@ class KeamananInformasi extends Model
             return
                 self
                 ::from('layanan_keamanan_informasi AS A')
-                ->join(
-                    'users AS B',
-                    'A.id_user',
-                    '=',
-                    'B.id'
-                )
+                ->join('users AS B', 'A.id_user', '=', 'B.id')
                 ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
                 ->where('status_website', '!=', 'Tidak Bisa Diakses')
@@ -62,12 +57,7 @@ class KeamananInformasi extends Model
         return
             self
             ::from('layanan_keamanan_informasi AS A')
-            ->join(
-                'users AS B',
-                'A.id_user',
-                '=',
-                'B.id'
-            )
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
             ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('status_website', $kategori)

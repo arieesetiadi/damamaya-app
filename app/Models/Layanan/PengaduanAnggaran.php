@@ -17,6 +17,7 @@ class PengaduanAnggaran extends Model
         'topik',
         'kategori',
         'nama_pd',
+        'id_user'
     ];
 
     public static function getCountByDate($date, $kategori = null)
@@ -40,18 +41,24 @@ class PengaduanAnggaran extends Model
         if (is_null($kategori)) {
             return
                 self
-                ::whereDate('tanggal', '>=', $start)
+                ::from('layanan_pengaduan_anggaran AS A')
+                ->join('users AS B', 'A.id_user', '=', 'B.id')
+                ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
                 ->orderBy('tanggal', 'DESC')
+                ->select('A.*', 'B.name')
                 ->get();
         }
 
         return
             self
-            ::whereDate('tanggal', '>=', $start)
+            ::from('layanan_pengaduan_anggaran AS A')
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
+            ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('kategori', $kategori)
             ->orderBy('tanggal', 'DESC')
+            ->select('A.*', 'B.name')
             ->get();
     }
 }

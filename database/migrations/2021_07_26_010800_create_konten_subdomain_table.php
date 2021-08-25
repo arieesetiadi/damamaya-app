@@ -25,6 +25,7 @@ class CreateKontenSubdomainTable extends Migration
             $table->boolean('struktur_organisasi');
             $table->boolean('tupoksi');
             $table->boolean('transparansi_anggaran');
+            $table->foreignId('id_user');
             $table->timestamps();
         });
     }

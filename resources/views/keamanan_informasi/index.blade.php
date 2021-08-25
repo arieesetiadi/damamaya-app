@@ -107,8 +107,8 @@
                 </div>
                 <div class="modal-body">
                     <div id="detail-capture-wrapper" class="mx-2">
-                        <img class="w-100 rounded shadow" id="detail-capture" data-path="{{ asset('img/capture\\') }}"
-                            src="" alt="Capture Website">
+                        <img class="w-100 rounded shadow" id="detail-capture"
+                            data-path="{{ asset('img/capture/laporan\\') }}" src="" alt="Capture Website">
                     </div>
                     <hr>
                     <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>

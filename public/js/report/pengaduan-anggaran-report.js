@@ -79,6 +79,7 @@ function anggaran_report(start_date, end_date, kategori) {
                                 <th class="w-custom-sm">Topik</th>
                                 <th class="w-custom-sm">Kategori</th>
                                 <th>Nama Instansi / Perangkat Daerah</th>
+                                <th>Nama Petugas</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -93,6 +94,7 @@ function anggaran_report(start_date, end_date, kategori) {
                             <td>${val.topik}</td>
                             <td>${val.kategori}</td>
                             <td>${val.nama_pd}</td>
+                            <td>${val.name}</td>
                         </tr>
                         `;
                     });

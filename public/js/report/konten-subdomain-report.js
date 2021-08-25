@@ -44,6 +44,7 @@ function subdomain_report(bulan, tahun) {
                             <tr id="tr-subdomain">
                                 <th>No.</th>
                                 <th class="th-tanggal">Tanggal</th>
+                                <th>Nama Petugas</th>
                                 <th style="white-space: nowrap">Nama Instansi / Perangkat Daerah</th>
                                 <th>Survey Kepuasan Masyarakat</th>
                                 <th>Agenda</th>
@@ -62,6 +63,7 @@ function subdomain_report(bulan, tahun) {
                     subdomain_table_str += `<tr>
                                     <td>${index + 1}</td>
                                     <td>${value.tanggal}</td>
+                                    <td>${value.name}</td>
                                     <td>${value.nama_pd}</td>
                                     <td>`;
 
