@@ -142,23 +142,23 @@ class KeamananInformasiController extends Controller
     public function destroy($id)
     {
         $keamanan_informasi = KeamananInformasi::where('id', $id);
-        // $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
+        $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
 
-        // Hapus file gambar di storage
+        // Hapus file gambar dari Keamanan Informasi
         $gambar_1 = $keamanan_informasi->get()[0]->capture;
-        // $gambar_2 = $tindak_lanjut->get()[0]->capture;
-
         $path_1 = public_path('img\capture\laporan\\') . $gambar_1;
-        // $path_2 = public_path('img\capture\\') . $gambar_2;
 
         File::delete($path_1);
-        // File::delete($path_2);
-
-        // Hapus data di database tindak lanjut
-        // $tindak_lanjut->delete();
-
-        // Hapus data utama
         $keamanan_informasi->delete();
+
+        // Jika ada data Tindak Lanjut, hapus file gambar dari Tindak Lanjut
+        if ($tindak_lanjut->count() > 0) {
+            $gambar_2 = $tindak_lanjut->get()[0]->capture;
+            $path_2 = public_path('img\capture\tindak_lanjut\\') . $gambar_2;
+
+            File::delete($path_2);
+            $tindak_lanjut->delete();
+        }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');
     }
