@@ -115,27 +115,39 @@ function keamanan_report(start_date, end_date, kategori) {
                                     Mirror
                                 </a>
                             </td>
-                            <td>${val.name}</td>`;
+                            <td>${val.name}</td>
+                            <td class="d-flex justify-content-end">`;
 
-                        // Tampilkan tombol tindak lanjut dan delete jika user Admin atau Petugas
+                        // Munculkan tombol tindak lanjut dan delete jika user Admin atau Petugas
                         if (user_role == 1 || user_role == 2) {
-                            keamanan_table_str += `<td>
-                                <button
-                                    ${val.is_tindak_lanjut ? "disabled" : ""}
-                                    class="btn btn-sm ${
-                                        val.is_tindak_lanjut
-                                            ? "btn-white"
-                                            : "btn-primary"
-                                    }"
-                                    id="tindak-lanjut"
-                                    data-toggle="modal"
-                                    data-id="${val.id}"
-                                    data-target=".tindak-modal">
-                                    Tindak Lanjut
-                                </button>
+                            // Matikan tombol Tindak Lanjut
+                            // Jika sudah ditindak lanjuti atau status website sudah Normal
+                            if (
+                                val.is_tindak_lanjut ||
+                                val.status_website == "Normal"
+                            ) {
+                                keamanan_table_str += `
+                                    <button
+                                        disabled
+                                        class="btn btn-sm btn-white"
+                                        id="tindak-lanjut">
+                                        Tindak
+                                    </button>`;
+                            } else {
+                                keamanan_table_str += `
+                                    <button
+                                        class="btn btn-sm btn-primary"
+                                        id="tindak-lanjut"
+                                        data-toggle="modal"
+                                        data-id="${val.id}"
+                                        data-target=".tindak-modal">
+                                        Tindak
+                                    </button>`;
+                            }
 
+                            keamanan_table_str += `
                                 <button
-                                    class="btn btn-sm btn-danger"
+                                    class="btn btn-sm btn-danger ml-2"
                                     id="delete-keamanan"
                                     data-toggle="modal"
                                     data-id="${val.id}"

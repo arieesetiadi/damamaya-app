@@ -65,3 +65,7 @@ td.w-nama-instansi {
     -moz-box-shadow: 15px 0px 67px -27px rgba(0, 0, 0, 0.75);
     box-shadow: 15px 0px 67px -27px rgba(0, 0, 0, 0.75);
 }
+
+.modal-xl {
+    max-width: 80%;
+}

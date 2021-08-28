@@ -27,50 +27,55 @@
         <div class="card-body">
             <div id="keamanan-table-wrapper" class="table-responsive">
                 <table class="table container-fluid">
-                    <tr>
-                        <th>No.</th>
-                        <th>Link Website</th>
-                        <th>Tanggal Penindakan</th>
-                        <th>Jam Penindakan</th>
-                        <th>View</th>
-                        <th>Response Time</th>
-                        <th>Petugas</th>
-                        <th>Aksi</th>
-                    </tr>
-
-                    @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
+                    @if (count($data['tindak_lanjut']) > 0)
                         <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-
-                            <td>
-                                <a href="{{ $tindak_lanjut->link_website }}" target="_blank">
-                                    {{ $tindak_lanjut->link_website }}
-                                </a>
-                            </td>
-
-                            <td>{{ $tindak_lanjut->tanggal }}</td>
-                            <td>{{ $tindak_lanjut->jam }}</td>
-
-                            <td>
-                                <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
-                                    data-capture="{{ $tindak_lanjut->capture }}"
-                                    data-keterangan="{{ $tindak_lanjut->keterangan }}">Detail</a>
-                            </td>
-
-                            <td>{{ $tindak_lanjut->response_time }} Hari</td>
-                            <td>{{ $tindak_lanjut->name }}</td>
-
-                            <td>
-                                <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
-                                    data-id="{{ $tindak_lanjut->id }}"
-                                    data-target="#edit-tindak-lanjut-modal">Edit</button>
-
-                                <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
-                                    data-id="{{ $tindak_lanjut->id }}"
-                                    data-target="#delete-tindak-lanjut-modal">Hapus</button>
-                            </td>
+                            <th>No.</th>
+                            <th>Link Website</th>
+                            <th>Tanggal Penindakan</th>
+                            <th>Jam Penindakan</th>
+                            <th>View</th>
+                            <th>Response Time</th>
+                            <th>Petugas</th>
+                            <th>Aksi</th>
                         </tr>
-                    @endforeach
+                        @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+
+                                <td>
+                                    <a href="{{ $tindak_lanjut->link_website }}" target="_blank">
+                                        {{ $tindak_lanjut->link_website }}
+                                    </a>
+                                </td>
+
+                                <td>{{ $tindak_lanjut->tanggal }}</td>
+                                <td>{{ $tindak_lanjut->jam }}</td>
+
+                                <td>
+                                    <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
+                                        data-capture="{{ $tindak_lanjut->capture }}"
+                                        data-keterangan="{{ $tindak_lanjut->keterangan }}">Mirror</a>
+                                </td>
+
+                                <td>{{ $tindak_lanjut->response_time }} Hari</td>
+                                <td>{{ $tindak_lanjut->name }}</td>
+
+                                <td>
+                                    <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
+                                        data-id="{{ $tindak_lanjut->id }}"
+                                        data-target="#edit-tindak-lanjut-modal">Edit</button>
+
+                                    <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
+                                        data-id="{{ $tindak_lanjut->id }}"
+                                        data-target="#delete-tindak-lanjut-modal">Hapus</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <h4 id="keamanan-table" class="text-secondary text-center">
+                            Data Tidak Ditemukan
+                        </h4>
+                    @endif
                 </table>
             </div>
         </div>
@@ -80,7 +85,7 @@
 
     <!-- Mirror Modal -->
     <div class="modal fade detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Capture Detail</h5>
