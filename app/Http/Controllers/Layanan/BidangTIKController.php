@@ -14,6 +14,8 @@ class BidangTIKController extends Controller
     {
         $data = [
             'title' => 'Bidang TIK',
+            'now' => Carbon::now()->toDateString(),
+            'now_time' => Carbon::now()->toTimeString(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()

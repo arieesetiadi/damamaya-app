@@ -195,7 +195,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
-                        <a class="collapse-item" href="{{ route('tindak-lanjut.index') }}">Report Tindak
+                        <a class="collapse-item" href="{{ route('tindak-lanjut.index-persandian') }}">Report Tindak
                             Lanjut</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
@@ -223,6 +223,8 @@
                 <div id="collapseTik" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('tik.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('tindak-lanjut.index-tik') }}">Report Tindak
+                            Lanjut</a>
                     </div>
                 </div>
             </li>

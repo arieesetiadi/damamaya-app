@@ -120,20 +120,12 @@ function keamanan_report(start_date, end_date, kategori) {
 
                         // Munculkan tombol tindak lanjut dan delete jika user Admin atau Petugas
                         if (user_role == 1 || user_role == 2) {
-                            // Matikan tombol Tindak Lanjut
-                            // Jika sudah ditindak lanjuti atau status website sudah Normal
+                            // Hidupkan tombol Tindak Lanjut
+                            // Jika belum ditindak lanjut atau status selain Normal
                             if (
-                                val.is_tindak_lanjut ||
-                                val.status_website == "Normal"
+                                !val.is_tindak_lanjut ||
+                                !val.status_website == "Normal"
                             ) {
-                                keamanan_table_str += `
-                                    <button
-                                        disabled
-                                        class="btn btn-sm btn-white"
-                                        id="tindak-lanjut">
-                                        Tindak
-                                    </button>`;
-                            } else {
                                 keamanan_table_str += `
                                     <button
                                         class="btn btn-sm btn-primary"
@@ -147,16 +139,15 @@ function keamanan_report(start_date, end_date, kategori) {
 
                             keamanan_table_str += `
                                 <button
-                                    class="btn btn-sm btn-danger ml-2"
-                                    id="delete-keamanan"
-                                    data-toggle="modal"
-                                    data-id="${val.id}"
-                                    data-target="#delete-modal">
-                                    Delete
-                                </button>
-                            </td>
-                        </tr>
-                        `;
+                                        class="btn btn-sm btn-danger ml-2"
+                                        id="delete-keamanan"
+                                        data-toggle="modal"
+                                        data-id="${val.id}"
+                                        data-target="#delete-modal">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>`;
                         }
                     });
 

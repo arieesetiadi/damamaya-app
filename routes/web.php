@@ -14,6 +14,7 @@ use App\Http\Controllers\Layanan\KontenSubdomainController;
 use App\Http\Controllers\Layanan\KeamananInformasiController;
 use App\Http\Controllers\Layanan\PengaduanAnggaranController;
 use App\Http\Controllers\Layanan\TindakLanjutController;
+use App\Models\Layanan\TindakLanjut;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,10 @@ Route::post('/keamanan-report', [KeamananInformasiController::class, 'report'])-
 Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
 Route::post('/tik-report', [BidangTIKController::class, 'report'])->name('tik.report');
 Route::get('/tindak-lanjut-get', [TindakLanjutController::class, 'get_data'])->name('tindak-lanjut.get');
+
+// Tindak Lanjut Routes
+Route::get('tindak-lanjut-persandian', [TindakLanjutController::class, 'index_persandian'])->name('tindak-lanjut.index-persandian');
+Route::get('tindak-lanjut-tik', [TindakLanjutController::class, 'index_tik'])->name('tindak-lanjut.index-tik');
 
 // Resources Routes
 Route::resources([

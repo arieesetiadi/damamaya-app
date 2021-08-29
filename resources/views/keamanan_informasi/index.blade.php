@@ -127,6 +127,7 @@
                     enctype="multipart/form-data">
                     @csrf
                     <input id="id_keamanan" type="hidden" name="id_keamanan" value="">
+                    <input id="bidang" type="hidden" name="bidang" value="persandian">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
@@ -196,6 +197,8 @@
                     <form id="form-delete" action="" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
+                        <input id="bidang" type="hidden" name="bidang" value="persandian">
+
                         <button type="submit" class="btn btn-primary">OK</button>
                     </form>
                 </div>

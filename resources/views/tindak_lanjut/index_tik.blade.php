@@ -4,7 +4,7 @@
     <!-- Page Heading -->
     <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
     <h4 class="d-inline-block mx-2">|</h4>
-    <p class="mb-4 d-inline-block">Daftar website yang tidak bisa diakses</p>
+    <p class="mb-4 d-inline-block">Riwayat website yang sudah ditindak lanjuti</p>
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">
@@ -12,57 +12,12 @@
         </div>
     @endif
 
-    {{-- Report Chart --}}
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <div>
-                <h6 class="m-0 d-inline-block font-weight-bold">
-                    Grafik Status
-                </h6>
-            </div>
-            <div>
-                <span>Periode :</span>
-                <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="start-date"
-                        value="{{ $data['chart_period']['start'] }}">
-                </div>
-                <span class="d-inline-block mx-2"> - </span>
-                <div class="form-group d-inline-block">
-                    <input type="date" class="form-control form-control-sm" id="end-date"
-                        value="{{ $data['chart_period']['end'] }}">
-                </div>
-                <button id="tik-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
-            </div>
-        </div>
-        <div class="card-body">
-            <div id="tik-chart-wrapper" class="chart-area">
-                <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
-                    </div>
-                    <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
-                    </div>
-                </div>
-                <canvas id="tik-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                    class="chartjs-render-monitor"></canvas>
-            </div>
-            <hr>
-            <div>
-                <div class="d-inline-block mr-3">
-                    <span class="dot bg-dark"></span>
-                    Tidak Bisa Diakses
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Report Table  -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold">
-                    Data Web Tidak Bisa Diakses
+                    Data Tindak Lanjut
                 </h6>
             </div>
 
@@ -70,15 +25,70 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="tik-table-wrapper" class="table-responsive">
-                {{-- Table diisi melalui bidang-tik-report.js --}}
+            <div id="keamanan-table-wrapper" class="table-responsive">
+                <table class="table container-fluid">
+                    @if (count($data['tindak_lanjut']) > 0)
+                        <tr>
+                            <th>No.</th>
+                            <th>Link Website</th>
+                            <th>Tanggal Penindakan</th>
+                            <th>Jam Penindakan</th>
+                            <th>View</th>
+                            <th>Response Time</th>
+                            <th>Petugas</th>
+
+                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                <th>Aksi</th>
+                            @endif
+                        </tr>
+                        @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
+                            <tr>
+                                <td>{{ $loop->index + 1 }}</td>
+
+                                <td>
+                                    <a href="{{ $tindak_lanjut->link_website }}" target="_blank">
+                                        {{ $tindak_lanjut->link_website }}
+                                    </a>
+                                </td>
+
+                                <td>{{ $tindak_lanjut->tanggal }}</td>
+                                <td>{{ $tindak_lanjut->jam }}</td>
+
+                                <td>
+                                    <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
+                                        data-capture="{{ $tindak_lanjut->capture }}"
+                                        data-keterangan="{{ $tindak_lanjut->keterangan }}">Mirror</a>
+                                </td>
+
+                                <td>{{ $tindak_lanjut->response_time }} Hari</td>
+                                <td>{{ $tindak_lanjut->name }}</td>
+
+                                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
+                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-target="#edit-tindak-lanjut-modal">Edit</button>
+
+                                        <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
+                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-target="#delete-tindak-lanjut-modal">Hapus</button>
+                                    </td>
+                                @endif
+                            </tr>
+                        @endforeach
+                    @else
+                        <h4 id="keamanan-table" class="text-secondary text-center">
+                            Data Tidak Ditemukan
+                        </h4>
+                    @endif
+                </table>
             </div>
         </div>
     </div>
 
 
 
-    <!-- Detail modal -->
+    <!-- Mirror Modal -->
     <div class="modal fade detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
@@ -91,7 +101,7 @@
                 <div class="modal-body">
                     <div id="detail-capture-wrapper" class="mx-2">
                         <img class="w-100 rounded shadow" id="detail-capture"
-                            data-path="{{ asset('img/capture/laporan\\') }}" src="" alt="Capture Website">
+                            data-path="{{ asset('img/capture/tindak_lanjut\\') }}" src="" alt="Capture Website">
                     </div>
                     <hr>
                     <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
@@ -101,26 +111,26 @@
         </div>
     </div>
 
-    <!-- Tindak Lanjut Modal -->
-    <div class="modal fade tindak-modal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
-        data-backdrop="static">
+    <!-- Edit Modal -->
+    <div class="modal fade" id="edit-tindak-lanjut-modal" tabindex="-1" role="dialog" aria-hidden="true"
+        data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
-                    enctype="multipart/form-data">
+                <form id="form-edit-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <input id="id_keamanan" type="hidden" name="id_keamanan" value="">
+                    <input type="hidden" name="_method" value="PUT">
                     <input id="bidang" type="hidden" name="bidang" value="tik">
+
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
                     </div>
+
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="tanggal">Tanggal :</label>
                             <input id="tanggal" name="tanggal"
-                                class="form-control  @error('tanggal')  border-danger @enderror" type="date"
-                                value="{{ $data['now'] }}">
+                                class="form-control  @error('tanggal')  border-danger @enderror" type="date" value="">
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -129,15 +139,14 @@
                         <div class="mb-3">
                             <label for="jam">Jam :</label>
                             <input id="jam" name="jam" class="form-control  @error('jam')  border-danger @enderror"
-                                type="time" value="{{ $data['now_time'] }}">
+                                type="time" value="" step="any">
                             @error('jam')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="keterangan">Keterangan Tindak Lanjut :</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan"
-                                rows="4">{{ old('keterangan') }}</textarea>
+                            <textarea name="keterangan" class="form-control" id="keterangan" rows="4"></textarea>
                         </div>
 
                         <div>
@@ -150,14 +159,16 @@
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                             <div class="d-flex mt-1">
-                                <div class="w-100" id="capture-preview-wrapper"></div>
+                                <div class="w-100" id="capture-preview-wrapper"
+                                    data-path="{{ asset('img/capture/tindak_lanjut\\') }}">
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
+                    <div class=" modal-footer">
                         <button type="submit" class="btn btn-primary">Submit</button>
                         <button id="cancel-tindak-lanjut" type="button" class="btn btn-secondary"
-                            data-dismiss="modal">Batal</button>
+                            data-dismiss="modal">Cancel</button>
                     </div>
             </div>
             </form>
@@ -165,11 +176,11 @@
     </div>
 
     {{-- Delete Modal --}}
-    <div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal fade" id="delete-tindak-lanjut-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Keamanan Informasi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Tindak Lanjut</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -177,7 +188,7 @@
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <form id="form-delete" action="" method="POST">
+                    <form id="form-delete" action="{{ route('tindak-lanjut.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <input id="bidang" type="hidden" name="bidang" value="tik">

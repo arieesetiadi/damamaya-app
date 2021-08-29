@@ -28,17 +28,14 @@ class KeamananInformasiController extends Controller
 
     public function index()
     {
-        $start = Carbon::now()->subDay('6')->toDateString();
-        $end = Carbon::now()->toDateString();
-
         // Kirim data yang dibutuhkan ke halaman Report Keamanan Informasi
         $data = [
             'title' => 'Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
             'now_time' => Carbon::now()->toTimeString(),
             'chart_period' => [
-                'start' => $start,
-                'end' => $end
+                'start' => Carbon::now()->subDay('6')->toDateString(),
+                'end' => Carbon::now()->toDateString()
             ]
         ];
 
@@ -139,7 +136,7 @@ class KeamananInformasiController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $keamanan_informasi = KeamananInformasi::where('id', $id);
         $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
@@ -158,6 +155,10 @@ class KeamananInformasiController extends Controller
 
             File::delete($path_2);
             $tindak_lanjut->delete();
+        }
+
+        if ($request->bidang == 'tik') {
+            return redirect()->route('tik.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');
         }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');

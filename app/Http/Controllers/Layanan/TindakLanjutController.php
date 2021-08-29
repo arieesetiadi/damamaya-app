@@ -18,14 +18,24 @@ class TindakLanjutController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index_persandian()
     {
         $data = [
-            'title' => 'Report Tindak Lanjut',
-            'tindak_lanjut' => TindakLanjut::getData(),
+            'title' => 'Report Tindak Lanjut Bidang Persandian',
+            'tindak_lanjut' => TindakLanjut::getDataByBidang('persandian'),
         ];
 
-        return view('tindak_lanjut.index', compact('data'));
+        return view('tindak_lanjut.index_persandian', compact('data'));
+    }
+
+    public function index_tik()
+    {
+        $data = [
+            'title' => 'Report Tindak Lanjut Bidang TIK',
+            'tindak_lanjut' => TindakLanjut::getDataByBidang('tik'),
+        ];
+
+        return view('tindak_lanjut.index_tik', compact('data'));
     }
 
     /**
@@ -78,6 +88,10 @@ class TindakLanjutController extends Controller
         KeamananInformasi::find($request->id_keamanan)->update([
             'is_tindak_lanjut' => 1
         ]);
+
+        if ($request->bidang == 'tik') {
+            return redirect()->route('tik.index')->with('success', 'Berhasil Melakukan Tindak Lanjut');
+        }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Melakukan Tindak Lanjut');
     }
@@ -143,7 +157,11 @@ class TindakLanjutController extends Controller
             ]);
         }
 
-        return redirect()->route('tindak-lanjut.index')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
+        if ($request->bidang == 'tik') {
+            return redirect()->route('tindak-lanjut.index-tik')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
+        }
+
+        return redirect()->route('tindak-lanjut.index-persandian')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
     }
 
     /**
@@ -152,7 +170,7 @@ class TindakLanjutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $tindak_lanjut = TindakLanjut::where('id', $id);
 
@@ -163,6 +181,7 @@ class TindakLanjutController extends Controller
 
         // Ubah is_tindak_lanjut pada Keamanan Informasi menjadi false
         $id_keamanan = $tindak_lanjut->get()[0]->id_keamanan;
+        // dd($id_keamanan);
         KeamananInformasi::where('id', $id_keamanan)->update([
             'is_tindak_lanjut' => 0
         ]);
@@ -170,7 +189,11 @@ class TindakLanjutController extends Controller
         // Hapus data di database tindak lanjut
         $tindak_lanjut->delete();
 
-        return redirect()->route('tindak-lanjut.index')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
+        if ($request->bidang == 'tik') {
+            return redirect()->route('tindak-lanjut.index-tik')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
+        }
+
+        return redirect()->route('tindak-lanjut.index-persandian')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
     }
 
     public static function upload_image($image)

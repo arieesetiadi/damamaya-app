@@ -36,7 +36,10 @@
                             <th>View</th>
                             <th>Response Time</th>
                             <th>Petugas</th>
-                            <th>Aksi</th>
+
+                            @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                <th>Aksi</th>
+                            @endif
                         </tr>
                         @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
                             <tr>
@@ -60,15 +63,17 @@
                                 <td>{{ $tindak_lanjut->response_time }} Hari</td>
                                 <td>{{ $tindak_lanjut->name }}</td>
 
-                                <td>
-                                    <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
-                                        data-id="{{ $tindak_lanjut->id }}"
-                                        data-target="#edit-tindak-lanjut-modal">Edit</button>
+                                @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+                                    <td>
+                                        <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
+                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-target="#edit-tindak-lanjut-modal">Edit</button>
 
-                                    <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
-                                        data-id="{{ $tindak_lanjut->id }}"
-                                        data-target="#delete-tindak-lanjut-modal">Hapus</button>
-                                </td>
+                                        <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
+                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-target="#delete-tindak-lanjut-modal">Hapus</button>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
                     @else
@@ -114,6 +119,7 @@
                 <form id="form-edit-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="PUT">
+                    <input id="bidang" type="hidden" name="bidang" value="persandian">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
@@ -184,6 +190,7 @@
                     <form id="form-delete" action="{{ route('tindak-lanjut.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
+                        <input id="bidang" type="hidden" name="bidang" value="persandian">
                         <button type="submit" class="btn btn-primary">OK</button>
                     </form>
                 </div>

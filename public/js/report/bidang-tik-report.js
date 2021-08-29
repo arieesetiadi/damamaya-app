@@ -49,6 +49,7 @@ function tik_report(start_date, end_date) {
                 counts = report["counts"];
                 dates = report["dates"];
                 data = report["data"];
+                user_role = $("meta[name='user-role']").attr("content");
 
                 $("#tik-chart").remove();
                 $("#tik-table").remove();
@@ -71,10 +72,13 @@ function tik_report(start_date, end_date) {
                                     <th>Status Website</th>
                                     <th>View</th>
                                     <th>Nama Petugas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                             `;
+
+                    if (user_role == 1 || user_role == 2) {
+                        tik_table_str += `<th>Aksi</th>`;
+                    }
+
+                    tik_table_str += `</tr></thead><tbody>`;
 
                     $.each(data, function (i, val) {
                         tik_table_str += `
@@ -83,23 +87,60 @@ function tik_report(start_date, end_date) {
                                 <td>${val.tanggal}</td>
                                 <td>${val.jam}</td>
                                 <td>
-                                    <a target="_blank" href="${
-                                        val.link_website
-                                    }">
+                                    <a
+                                        target="_blank"
+                                        href="${val.link_website}">
                                         ${val.link_website}
                                     </a>
                                 </td>
                                 <td>${val.status_website}</td>
                                 <td>
-                                    <a href="" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal" data-capture="${
-                                        val.capture
-                                    }" data-keterangan="${
-                            val.keterangan
-                        }">Mirror</a>
+                                    <a
+                                        href=""
+                                        class="detail-modal-link" data-toggle="modal"
+                                        data-target=".detail-modal"
+                                        data-capture="${val.capture}" 
+                                        data-keterangan="${val.keterangan}">
+                                        Mirror
+                                    </a>
                                 </td>
                                 <td>${val.name}</td>
-                            </tr>
-                        `;
+                                <td class="d-flex justify-content-end">`;
+
+                        if (user_role == 1 || user_role == 2) {
+                            if (val.is_tindak_lanjut) {
+                                tik_table_str += `
+                                    <button
+                                        class="d-none btn btn-sm btn-white"
+                                        id="tindak-lanjut">
+                                        Tindak
+                                    </button>`;
+                            } else {
+                                tik_table_str += `
+                                    <button
+                                        class="btn btn-sm btn-primary"
+                                        id="tindak-lanjut"
+                                        data-toggle="modal"
+                                        data-id="${val.id}"
+                                        data-target=".tindak-modal">
+                                        Tindak
+                                    </button>`;
+                            }
+
+                            tik_table_str += `
+                                <button
+                                        class="btn btn-sm btn-danger ml-2"
+                                        id="delete-keamanan"
+                                        data-toggle="modal"
+                                        data-id="${val.id}"
+                                        data-target="#delete-modal">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>`;
+                        }
+
+                        tik_table_str += `</tr>`;
                     });
 
                     tik_table_str += `</tbody></table>`;
@@ -124,6 +165,29 @@ function tik_report(start_date, end_date) {
 
                     // Masukan keterangan ke ModalBox
                     $("#detail-keterangan").text(keterangan);
+                });
+
+                // Ketika tombol tindak lanjut diklik, kirim id keamanan informasi ke form tindak lanjut
+                $("button#tindak-lanjut").on("click", function () {
+                    $("#id_keamanan").val($(this).data("id"));
+                });
+
+                // Ketika tombol cancel pada modal tindak lanjut ditekan
+                $("button#cancel-tindak-lanjut").on("click", function () {
+                    // Reset isi form
+                    $("#form-tindak-lanjut")[0].reset();
+
+                    // Hapus preview gambar
+                    $("#capture-preview").remove();
+                    $("#capture-label").text("Browse image..");
+                });
+
+                // Jika tombol delete ditekan, kirim id untuk proses penghapusan
+                $("button#delete-keamanan").on("click", function () {
+                    $("#form-delete").attr(
+                        "action",
+                        "/keamanan-informasi/" + $(this).data("id")
+                    );
                 });
 
                 // Area Chart Example
