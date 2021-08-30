@@ -38,10 +38,10 @@
             <div id="tik-chart-wrapper" class="chart-area">
                 <div class="chartjs-size-monitor">
                     <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
+                        <div class="___class_+?17___"></div>
                     </div>
                     <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
+                        <div class="___class_+?19___"></div>
                     </div>
                 </div>
                 <canvas id="tik-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
@@ -109,7 +109,7 @@
                 <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <input id="id_keamanan" type="hidden" name="id_keamanan" value="">
+                    <input id="id-keamanan" type="hidden" name="id_keamanan" value="">
                     <input id="bidang" type="hidden" name="bidang" value="tik">
 
                     <div class="modal-header">

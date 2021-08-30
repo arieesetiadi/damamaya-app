@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ImageController;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
@@ -32,11 +33,9 @@ class KeamananInformasiController extends Controller
         $data = [
             'title' => 'Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
-            'now_time' => Carbon::now()->toTimeString(),
-            'chart_period' => [
-                'start' => Carbon::now()->subDay('6')->toDateString(),
-                'end' => Carbon::now()->toDateString()
-            ]
+            'nowTime' => Carbon::now()->toTimeString(),
+            'periodStart' => Carbon::now()->subDay('6')->toDateString(),
+            'periodEnd' => Carbon::now()->toDateString()
         ];
 
         return view('keamanan_informasi.index', compact('data'));
@@ -53,7 +52,7 @@ class KeamananInformasiController extends Controller
         $data = [
             'title' => 'Tambah Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
-            'now_time' => Carbon::now()->toTimeString()
+            'nowTime' => Carbon::now()->toTimeString()
         ];
 
         return view('keamanan_informasi.create', compact('data'));
@@ -71,26 +70,29 @@ class KeamananInformasiController extends Controller
         $request->validate([
             'tanggal' => 'required',
             'jam' => 'required',
-            'link_website' => 'required|max:255',
-            'status_website' => 'required',
+            'linkWebsite' => 'required|max:255',
+            'statusWebsite' => 'required',
             'capture' => 'image|mimes:png,jpg,jpeg,bmp'
         ]);
 
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
-        $capture_name = self::upload_image($request->file('capture'));
+        $captureName = ImageController::store(
+            $request->file('capture'),
+            public_path('img\capture\laporan\\')
+        );
 
         // Insert data keamanan informasi dengan Model
         KeamananInformasi::create([
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
-            'link_website' => $request->link_website,
-            'status_website' => $request->status_website,
+            'link_website' => $request->linkWebsite,
+            'status_website' => $request->statusWebsite,
             'keterangan' => $request->keterangan,
-            'capture' => $capture_name,
+            'capture' => $captureName,
             'id_user' => Auth::user()->id
         ]);
 
-        if ($request->status_website == 'Tidak Bisa Diakses') {
+        if ($request->statusWebsite == 'Tidak Bisa Diakses') {
             return redirect()->route('tik.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
         }
 
@@ -138,23 +140,23 @@ class KeamananInformasiController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $keamanan_informasi = KeamananInformasi::where('id', $id);
-        $tindak_lanjut = TindakLanjut::where('id_keamanan', $id);
+        $keamananInformasi = KeamananInformasi::where('id', $id);
+        $tindakLanjut = TindakLanjut::where('id_keamanan', $id);
 
         // Hapus file gambar dari Keamanan Informasi
-        $gambar_1 = $keamanan_informasi->get()[0]->capture;
-        $path_1 = public_path('img\capture\laporan\\') . $gambar_1;
+        $keamananInformasiCapture = $keamananInformasi->get()[0]->capture;
+        $keamananInformasiPath = public_path('img\capture\laporan\\') . $keamananInformasiCapture;
 
-        File::delete($path_1);
-        $keamanan_informasi->delete();
+        File::delete($keamananInformasiPath);
+        $keamananInformasi->delete();
 
         // Jika ada data Tindak Lanjut, hapus file gambar dari Tindak Lanjut
-        if ($tindak_lanjut->count() > 0) {
-            $gambar_2 = $tindak_lanjut->get()[0]->capture;
-            $path_2 = public_path('img\capture\tindak_lanjut\\') . $gambar_2;
+        if ($tindakLanjut->count() > 0) {
+            $tindakLanjutCapture = $tindakLanjut->get()[0]->capture;
+            $tindakLanjutPath = public_path('img\capture\tindak_lanjut\\') . $tindakLanjutCapture;
 
-            File::delete($path_2);
-            $tindak_lanjut->delete();
+            File::delete($tindakLanjutPath);
+            $tindakLanjut->delete();
         }
 
         if ($request->bidang == 'tik') {
@@ -207,27 +209,11 @@ class KeamananInformasiController extends Controller
         return response()->json($report);
     }
 
-    public static function upload_image($image)
+    public function storeTindakLanjut()
     {
-        // Buat nama baru untuk file gambar
-        $capture_name = strtolower(
-            time() . '_' . $image->getClientOriginalName()
-        );
+    }
 
-        $capture_object = Image::make($image);
-
-        // Resize gambar jika diatas  1MB
-        if ($capture_object->filesize() > 1000000) {
-            $capture_object->resize(1080, 1080, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        // Save gambar ke path tujuan
-        $capture_object->save(
-            public_path('img\capture\laporan\\') .  $capture_name
-        );
-
-        return $capture_name;
+    public function indexTindakLanjut()
+    {
     }
 }

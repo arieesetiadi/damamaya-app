@@ -180,7 +180,7 @@ function keamanan_report(start_date, end_date, kategori) {
 
                 // Ketika tombol tindak lanjut diklik, kirim id keamanan informasi ke form tindak lanjut
                 $("button#tindak-lanjut").on("click", function () {
-                    $("#id_keamanan").val($(this).data("id"));
+                    $("#id-keamanan").val($(this).data("id"));
                 });
 
                 // Ketika tombol cancel pada modal tindak lanjut ditekan

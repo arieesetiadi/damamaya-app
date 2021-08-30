@@ -37,12 +37,12 @@
                 <span>Periode :</span>
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="start-date"
-                        value="{{ $data['chart_period']['start'] }}">
+                        value="{{ $data['periodStart'] }}">
                 </div>
                 <span class="d-inline-block mx-2"> - </span>
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="end-date"
-                        value="{{ $data['chart_period']['end'] }}">
+                        value="{{ $data['periodEnd'] }}">
                 </div>
                 <button id="keamanan-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
@@ -51,10 +51,10 @@
             <div id="keamanan-chart-wrapper" class="chart-area">
                 <div class="chartjs-size-monitor">
                     <div class="chartjs-size-monitor-expand">
-                        <div class=""></div>
+                        <div class="___class_+?21___"></div>
                     </div>
                     <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
+                        <div class="___class_+?23___"></div>
                     </div>
                 </div>
                 <canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
@@ -126,12 +126,13 @@
                 <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <input id="id_keamanan" type="hidden" name="id_keamanan" value="">
+                    <input id="id-keamanan" type="hidden" name="idKeamanan" value="">
                     <input id="bidang" type="hidden" name="bidang" value="persandian">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
                     </div>
+
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="tanggal">Tanggal :</label>
@@ -146,7 +147,7 @@
                         <div class="mb-3">
                             <label for="jam">Jam :</label>
                             <input id="jam" name="jam" class="form-control  @error('jam')  border-danger @enderror"
-                                type="time" value="{{ $data['now_time'] }}">
+                                type="time" value="{{ $data['nowTime'] }}">
                             @error('jam')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

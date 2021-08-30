@@ -47,4 +47,12 @@ class BidangTIKController extends Controller
 
         return response()->json($report);
     }
+
+    public function storeTindakLanjut()
+    {
+    }
+
+    public function indexTindakLanjut()
+    {
+    }
 }

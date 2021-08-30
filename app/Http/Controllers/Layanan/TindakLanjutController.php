@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Layanan;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ImageController;
 use App\Models\Layanan\TindakLanjut;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
 
 class TindakLanjutController extends Controller
@@ -66,26 +66,27 @@ class TindakLanjutController extends Controller
         ]);
 
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
-        $capture_name = self::upload_image($request->file('capture'));
+        $captureName = ImageController::store($request->file('capture'), 1000000, 1080);
 
         // Hitung response time penindak lanjutan
-        $tanggal_laporan = KeamananInformasi::where('id', $request->id_keamanan)->get()[0]->tanggal;
-        $tanggal_tindak_lanjut = Carbon::createFromFormat('Y-m-d', $request->tanggal);
+        $idKeamanan = $request->input('idKeamanan');
+        $tanggalLaporan = KeamananInformasi::where('id', $idKeamanan)->get()[0]->tanggal;
+        $tanggalTindakLanjut = Carbon::createFromFormat('Y-m-d', $request->tanggal);
 
-        $response_time = $tanggal_tindak_lanjut->diffInDays($tanggal_laporan);
+        $responseTime = $tanggalTindakLanjut->diffInDays($tanggalLaporan);
 
         // Insert data keamanan informasi dengan Model
         TindakLanjut::create([
-            'id_keamanan' => $request->id_keamanan,
+            'id_keamanan' => $idKeamanan,
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
             'keterangan' => $request->keterangan,
-            'capture' => $capture_name,
-            'response_time' => $response_time,
+            'capture' => $captureName,
+            'response_time' => $responseTime,
             'id_user' => Auth::user()->id
         ]);
 
-        KeamananInformasi::find($request->id_keamanan)->update([
+        KeamananInformasi::find($idKeamanan)->update([
             'is_tindak_lanjut' => 1
         ]);
 
@@ -137,14 +138,15 @@ class TindakLanjutController extends Controller
 
         if (!is_null($request->file('capture'))) {
             // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
-            $capture_name = self::upload_image($request->file('capture'));
+            $captureName = ImageController::store($request->file('capture'), 1000000, 1080);
+
 
             // Update data keamanan informasi dengan Model
             TindakLanjut::where('id',  $id)->update([
                 'tanggal' => $request->tanggal,
                 'jam' => $request->jam,
                 'keterangan' => $request->keterangan,
-                'capture' => $capture_name,
+                'capture' => $captureName,
                 'id_user' => Auth::user()->id
             ]);
         } else {
@@ -196,31 +198,7 @@ class TindakLanjutController extends Controller
         return redirect()->route('tindak-lanjut.index-persandian')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
     }
 
-    public static function upload_image($image)
-    {
-        // Buat nama baru untuk file gambar
-        $capture_name = strtolower(
-            time() . '_' . $image->getClientOriginalName()
-        );
-
-        $capture_object = Image::make($image);
-
-        // Resize gambar jika diatas  1MB
-        if ($capture_object->filesize() > 1000000) {
-            $capture_object->resize(1080, 1080, function ($constraint) {
-                $constraint->aspectRatio();
-            });
-        }
-
-        // Save gambar ke path tujuan
-        $capture_object->save(
-            public_path('img\capture\tindak_lanjut\\') .  $capture_name
-        );
-
-        return $capture_name;
-    }
-
-    public function get_data(Request $request)
+    public function getData(Request $request)
     {
         $id = $request->id;
 
