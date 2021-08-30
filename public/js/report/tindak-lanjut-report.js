@@ -14,10 +14,7 @@ $(function () {
 
     // Jika tombol delete ditekan, kirim id untuk proses penghapusan
     $("button#delete-tindak-lanjut").on("click", function () {
-        $("#form-delete").attr(
-            "action",
-            "/tindak-lanjut/" + $(this).data("id")
-        );
+        $("#form-delete input#id").val($(this).data("id"));
     });
 
     $("#edit-tindak-lanjut").on("click", function () {

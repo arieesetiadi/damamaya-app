@@ -48,8 +48,7 @@
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon">
                     <img width="125px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
@@ -83,7 +82,8 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Pengaduan PRO</span>
                 </a>
-                <div id="collapsePro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapsePro" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-pro.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -119,7 +119,8 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Analisa Media</span>
                 </a>
-                <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('analisa-media.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -195,7 +196,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
-                        <a class="collapse-item" href="{{ route('tindak-lanjut.index-persandian') }}">Report Tindak
+                        <a class="collapse-item" href="{{ route('keamanan-informasi-tindak.index') }}">Report
+                            Tindak
                             Lanjut</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
@@ -220,10 +222,12 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Web Tidak Bisa Diakses</span>
                 </a>
-                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('tik.index') }}">Report</a>
-                        <a class="collapse-item" href="{{ route('tindak-lanjut.index-tik') }}">Report Tindak
+                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses-tindak.index') }}">Report
+                            Tindak
                             Lanjut</a>
                     </div>
                 </div>

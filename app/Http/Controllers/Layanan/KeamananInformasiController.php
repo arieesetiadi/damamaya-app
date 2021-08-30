@@ -7,6 +7,7 @@ use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\TindakLanjutController;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\Layanan\KeamananInformasi;
@@ -207,13 +208,5 @@ class KeamananInformasiController extends Controller
         }
 
         return response()->json($report);
-    }
-
-    public function storeTindakLanjut()
-    {
-    }
-
-    public function indexTindakLanjut()
-    {
     }
 }

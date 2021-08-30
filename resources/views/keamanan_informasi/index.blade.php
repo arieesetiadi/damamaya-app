@@ -123,11 +123,10 @@
         data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
+                <form id="form-tindak-lanjut" action="{{ route('keamanan-informasi-tindak.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <input id="id-keamanan" type="hidden" name="idKeamanan" value="">
-                    <input id="bidang" type="hidden" name="bidang" value="persandian">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>

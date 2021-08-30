@@ -14,6 +14,10 @@ use App\Http\Controllers\Layanan\KontenSubdomainController;
 use App\Http\Controllers\Layanan\KeamananInformasiController;
 use App\Http\Controllers\Layanan\PengaduanAnggaranController;
 use App\Http\Controllers\Layanan\TindakLanjutController;
+use App\Http\Controllers\Layanan\WebTidakBisaDiaksesController;
+use App\Http\Controllers\TindakLanjut\KeamananInformasiController as TindakLanjutKeamananInformasiController;
+use App\Http\Controllers\TindakLanjut\WebTidakBisaDiaksesController as TindakLanjutWebTidakBisaDiaksesController;
+use App\Models\Layanan\KeamananInformasi;
 use App\Models\Layanan\TindakLanjut;
 
 /*
@@ -29,6 +33,9 @@ use App\Models\Layanan\TindakLanjut;
 // Dashboard Route
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+// Auto Complete Nama Instansi
+Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
+
 // Auth Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('login');
@@ -41,9 +48,6 @@ Route::prefix('user/')->group(function () {
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
 });
 
-// Auto Complete Nama Instansi
-Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
-
 // Report Data Routes
 Route::post('/pro-report', [PengaduanPROController::class, 'report'])->name('pro.report');
 Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])->name('anggaran.report');
@@ -53,10 +57,6 @@ Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->
 Route::post('/tik-report', [BidangTIKController::class, 'report'])->name('tik.report');
 Route::get('/tindak-lanjut-get', [TindakLanjutController::class, 'getData'])->name('tindak-lanjut.get');
 
-// Tindak Lanjut Routes
-Route::get('tindak-lanjut-persandian', [TindakLanjutController::class, 'index_persandian'])->name('tindak-lanjut.index-persandian');
-Route::get('tindak-lanjut-tik', [TindakLanjutController::class, 'index_tik'])->name('tindak-lanjut.index-tik');
-
 // Resources Routes
 Route::resources([
     'user' => UserController::class,
@@ -65,9 +65,8 @@ Route::resources([
     'informasi' => InformasiController::class,
     'analisa-media' => AnalisaMediaController::class,
     'keamanan-informasi' => KeamananInformasiController::class,
+    'keamanan-informasi-tindak' => TindakLanjutKeamananInformasiController::class,
     'konten-subdomain' => KontenSubdomainController::class,
-    'tindak-lanjut' => TindakLanjutController::class
+    'web-tidak-bisa-diakses' => WebTidakBisaDiaksesController::class,
+    'web-tidak-bisa-diakses-tindak' => TindakLanjutWebTidakBisaDiaksesController::class,
 ]);
-
-// Route untuk Bidang TIK
-Route::get('/bidang-tik', [BidangTIKController::class, 'index'])->name('tik.index');

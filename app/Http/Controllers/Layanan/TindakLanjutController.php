@@ -66,7 +66,10 @@ class TindakLanjutController extends Controller
         ]);
 
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
-        $captureName = ImageController::store($request->file('capture'), 1000000, 1080);
+        $captureName = ImageController::store(
+            $request->file('capture'),
+            public_path('img\capture\laporan\\')
+        );
 
         // Hitung response time penindak lanjutan
         $idKeamanan = $request->input('idKeamanan');
