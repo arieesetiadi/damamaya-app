@@ -19,7 +19,7 @@ $(function () {
 
     $("#edit-tindak-lanjut").on("click", function () {
         let id = $(this).data("id");
-        let url = $('meta[name="tindak-lanjut-get"]').attr("content");
+        let url = $('meta[name="keamanan-informasi-get"]').attr("content");
 
         // Ambil data tindak lanjut berdasarkan ID
         $.ajax({
@@ -31,10 +31,7 @@ $(function () {
             success: function (data) {
                 $("#capture-preview").remove();
 
-                // Ubah url action pada form
-                let form_action = "/tindak-lanjut/" + id;
-
-                $("#form-edit-tindak-lanjut").attr("action", form_action);
+                $("#form-edit-tindak-lanjut input#id").val(id);
 
                 // Masukan data kedalam modal edit tindak lanjut
                 $("#tanggal").val(data.tanggal);

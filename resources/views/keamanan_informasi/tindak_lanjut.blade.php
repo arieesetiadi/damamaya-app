@@ -116,10 +116,14 @@
         data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-edit-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
+                <form id="form-edit-tindak-lanjut" action="{{ route('keamanan-informasi-tindak.update', 0) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" name="_method" value="PUT">
+
+                    <input id="id" type="hidden" name="id" value="">
+
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>

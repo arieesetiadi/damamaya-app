@@ -201,12 +201,12 @@ class TindakLanjutController extends Controller
         return redirect()->route('tindak-lanjut.index-persandian')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
     }
 
-    public function getData(Request $request)
-    {
-        $id = $request->id;
+    // public function getData(Request $request)
+    // {
+    //     $id = $request->id;
 
-        $data = TindakLanjut::where('id', $id)->get()[0];
+    //     $data = TindakLanjut::where('id', $id)->get()[0];
 
-        return response()->json($data);
-    }
+    //     return response()->json($data);
+    // }
 }

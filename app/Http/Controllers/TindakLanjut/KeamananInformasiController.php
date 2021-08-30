@@ -117,7 +117,45 @@ class KeamananInformasiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validasi data dari form input
+        $request->validate([
+            'tanggal' => 'required',
+            'jam' => 'required',
+            'keterangan' => 'required',
+            'capture' => 'image|mimes:png,jpg,jpeg,bmp'
+        ]);
+
+        if (!is_null($request->file('capture'))) {
+            // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
+            $captureName = ImageController::store(
+                $request->file('capture'),
+                public_path('img\capture\tindak_lanjut\\')
+            );
+
+            // Hapus file gambar lama di storage
+            $gambar = TindakLanjut::where('id', $request->id)->get()[0]->capture;
+            $path = public_path('img\capture\tindak_lanjut\\') . $gambar;
+            File::delete($path);
+
+            // Update data keamanan informasi dengan Model
+            TindakLanjut::where('id',  $request->id)->update([
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam,
+                'keterangan' => $request->keterangan,
+                'capture' => $captureName,
+                'id_user' => Auth::user()->id
+            ]);
+        } else {
+            // Update data keamanan informasi dengan Model
+            TindakLanjut::where('id',  $request->id)->update([
+                'tanggal' => $request->tanggal,
+                'jam' => $request->jam,
+                'keterangan' => $request->keterangan,
+                'id_user' => Auth::user()->id
+            ]);
+        }
+
+        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
     }
 
     /**

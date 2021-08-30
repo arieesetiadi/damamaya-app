@@ -209,4 +209,13 @@ class KeamananInformasiController extends Controller
 
         return response()->json($report);
     }
+
+    public function getData(Request $request)
+    {
+        $id = $request->id;
+
+        $data = TindakLanjut::where('id', $id)->get()[0];
+
+        return response()->json($data);
+    }
 }
