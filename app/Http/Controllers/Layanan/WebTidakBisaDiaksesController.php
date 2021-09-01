@@ -20,11 +20,9 @@ class WebTidakBisaDiaksesController extends Controller
         $data = [
             'title' => 'Bidang TIK',
             'now' => Carbon::now()->toDateString(),
-            'now_time' => Carbon::now()->toTimeString(),
-            'chart_period' => [
-                'start' => Carbon::now()->subDay('6')->toDateString(),
-                'end' => Carbon::now()->toDateString()
-            ]
+            'nowTime' => Carbon::now()->toTimeString(),
+            'periodStart' => Carbon::now()->subDay('6')->toDateString(),
+            'periodEnd' => Carbon::now()->toDateString()
         ];
 
         return view('web_tidak_bisa_diakses.index', compact('data'));

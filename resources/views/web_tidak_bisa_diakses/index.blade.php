@@ -24,12 +24,12 @@
                 <span>Periode :</span>
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="start-date"
-                        value="{{ $data['chart_period']['start'] }}">
+                        value="{{ $data['periodStart'] }}">
                 </div>
                 <span class="d-inline-block mx-2"> - </span>
                 <div class="form-group d-inline-block">
                     <input type="date" class="form-control form-control-sm" id="end-date"
-                        value="{{ $data['chart_period']['end'] }}">
+                        value="{{ $data['periodEnd'] }}">
                 </div>
                 <button id="tik-submit-period" type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
@@ -106,7 +106,7 @@
         data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
+                <form id="form-tindak-lanjut" action="{{ route('web-tidak-bisa-diakses-tindak.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <input id="id-keamanan" type="hidden" name="id_keamanan" value="">
@@ -129,7 +129,7 @@
                         <div class="mb-3">
                             <label for="jam">Jam :</label>
                             <input id="jam" name="jam" class="form-control  @error('jam')  border-danger @enderror"
-                                type="time" value="{{ $data['now_time'] }}">
+                                type="time" value="{{ $data['nowTime'] }}">
                             @error('jam')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

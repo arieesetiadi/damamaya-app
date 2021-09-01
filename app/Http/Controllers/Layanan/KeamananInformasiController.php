@@ -94,7 +94,7 @@ class KeamananInformasiController extends Controller
         ]);
 
         if ($request->statusWebsite == 'Tidak Bisa Diakses') {
-            return redirect()->route('tik.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
+            return redirect()->route('web-tidak-bisa-diakses.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
         }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
