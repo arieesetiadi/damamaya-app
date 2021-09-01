@@ -119,9 +119,7 @@
                 <form id="form-edit-tindak-lanjut" action="{{ route('keamanan-informasi-tindak.update', 0) }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
-
                     <input type="hidden" name="_method" value="PUT">
-
                     <input id="id" type="hidden" name="id" value="">
 
 

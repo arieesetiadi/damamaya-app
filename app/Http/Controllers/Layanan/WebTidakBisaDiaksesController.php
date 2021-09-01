@@ -6,6 +6,8 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Layanan\TindakLanjut;
+use Illuminate\Support\Facades\File;
 use App\Models\Layanan\KeamananInformasi;
 
 class WebTidakBisaDiaksesController extends Controller
@@ -89,9 +91,28 @@ class WebTidakBisaDiaksesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $keamananInformasi = KeamananInformasi::where('id', $request->id);
+        $tindakLanjut = TindakLanjut::where('id_keamanan', $request->id);
+
+        // Hapus file gambar dari Keamanan Informasi
+        $keamananInformasiCapture = $keamananInformasi->get()[0]->capture;
+        $keamananInformasiPath = public_path('img\capture\laporan\\') . $keamananInformasiCapture;
+
+        File::delete($keamananInformasiPath);
+        $keamananInformasi->delete();
+
+        // Jika ada data Tindak Lanjut, hapus file gambar dari Tindak Lanjut
+        if ($tindakLanjut->count() > 0) {
+            $tindakLanjutCapture = $tindakLanjut->get()[0]->capture;
+            $tindakLanjutPath = public_path('img\capture\tindak_lanjut\\') . $tindakLanjutCapture;
+
+            File::delete($tindakLanjutPath);
+            $tindakLanjut->delete();
+        }
+
+        return redirect()->route('web-tidak-bisa-diakses.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');
     }
 
     public function report(Request $request)
@@ -115,13 +136,5 @@ class WebTidakBisaDiaksesController extends Controller
         }
 
         return response()->json($report);
-    }
-
-    public function storeTindakLanjut()
-    {
-    }
-
-    public function indexTindakLanjut()
-    {
     }
 }

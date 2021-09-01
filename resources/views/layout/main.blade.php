@@ -195,7 +195,7 @@
                 <div id="collapseKeamanan" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report Laporan</a>
                         <a class="collapse-item" href="{{ route('keamanan-informasi-tindak.index') }}">Report
                             Tindak
                             Lanjut</a>
@@ -225,7 +225,8 @@
                 <div id="collapseTik" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses.index') }}">Report</a>
+                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses.index') }}">Report
+                            Laporan</a>
                         <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses-tindak.index') }}">Report
                             Tindak
                             Lanjut</a>

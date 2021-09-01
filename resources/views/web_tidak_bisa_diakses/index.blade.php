@@ -109,8 +109,7 @@
                 <form id="form-tindak-lanjut" action="{{ route('web-tidak-bisa-diakses-tindak.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
-                    <input id="id-keamanan" type="hidden" name="id_keamanan" value="">
-                    <input id="bidang" type="hidden" name="bidang" value="tik">
+                    <input id="id-keamanan" type="hidden" name="idKeamanan" value="">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
@@ -177,10 +176,11 @@
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <form id="form-delete" action="" method="POST">
+                    <form id="form-delete" action="{{ route('web-tidak-bisa-diakses.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
-                        <input id="bidang" type="hidden" name="bidang" value="tik">
+                        <input id="id" type="hidden" name="id" value="">
+
                         <button type="submit" class="btn btn-primary">OK</button>
                     </form>
                 </div>

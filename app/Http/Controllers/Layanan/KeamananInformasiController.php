@@ -141,8 +141,8 @@ class KeamananInformasiController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        $keamananInformasi = KeamananInformasi::where('id', $id);
-        $tindakLanjut = TindakLanjut::where('id_keamanan', $id);
+        $keamananInformasi = KeamananInformasi::where('id', $request->id);
+        $tindakLanjut = TindakLanjut::where('id_keamanan', $request->id);
 
         // Hapus file gambar dari Keamanan Informasi
         $keamananInformasiCapture = $keamananInformasi->get()[0]->capture;
@@ -158,10 +158,6 @@ class KeamananInformasiController extends Controller
 
             File::delete($tindakLanjutPath);
             $tindakLanjut->delete();
-        }
-
-        if ($request->bidang == 'tik') {
-            return redirect()->route('tik.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');
         }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menghapus Data Keamanan Informasi');

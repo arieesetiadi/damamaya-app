@@ -195,10 +195,7 @@ function keamanan_report(start_date, end_date, kategori) {
 
                 // Jika tombol delete ditekan, kirim id untuk proses penghapusan
                 $("button#delete-keamanan").on("click", function () {
-                    $("#form-delete").attr(
-                        "action",
-                        "/keamanan-informasi/" + $(this).data("id")
-                    );
+                    $("#form-delete input#id").val($(this).data("id"));
                 });
 
                 // Area Chart Example

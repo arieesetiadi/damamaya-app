@@ -27,7 +27,7 @@
         <div class="card-body">
             <div id="keamanan-table-wrapper" class="table-responsive">
                 <table class="table container-fluid">
-                    @if (count($data['tindak_lanjut']) > 0)
+                    @if (count($data['tindakLanjut']) > 0)
                         <tr>
                             <th>No.</th>
                             <th>Link Website</th>
@@ -41,36 +41,36 @@
                                 <th>Aksi</th>
                             @endif
                         </tr>
-                        @foreach ($data['tindak_lanjut'] as $tindak_lanjut)
+                        @foreach ($data['tindakLanjut'] as $tindakLanjut)
                             <tr>
                                 <td>{{ $loop->index + 1 }}</td>
 
                                 <td>
-                                    <a href="{{ $tindak_lanjut->link_website }}" target="_blank">
-                                        {{ $tindak_lanjut->link_website }}
+                                    <a href="{{ $tindakLanjut->link_website }}" target="_blank">
+                                        {{ $tindakLanjut->link_website }}
                                     </a>
                                 </td>
 
-                                <td>{{ $tindak_lanjut->tanggal }}</td>
-                                <td>{{ $tindak_lanjut->jam }}</td>
+                                <td>{{ $tindakLanjut->tanggal }}</td>
+                                <td>{{ $tindakLanjut->jam }}</td>
 
                                 <td>
                                     <a href="#" class="detail-modal-link" data-toggle="modal" data-target=".detail-modal"
-                                        data-capture="{{ $tindak_lanjut->capture }}"
-                                        data-keterangan="{{ $tindak_lanjut->keterangan }}">Mirror</a>
+                                        data-capture="{{ $tindakLanjut->capture }}"
+                                        data-keterangan="{{ $tindakLanjut->keterangan }}">Mirror</a>
                                 </td>
 
-                                <td>{{ $tindak_lanjut->response_time }} Hari</td>
-                                <td>{{ $tindak_lanjut->name }}</td>
+                                <td>{{ $tindakLanjut->response_time }} Hari</td>
+                                <td>{{ $tindakLanjut->name }}</td>
 
                                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                     <td>
                                         <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
-                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-id="{{ $tindakLanjut->id }}"
                                             data-target="#edit-tindak-lanjut-modal">Edit</button>
 
                                         <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
-                                            data-id="{{ $tindak_lanjut->id }}"
+                                            data-id="{{ $tindakLanjut->id }}"
                                             data-target="#delete-tindak-lanjut-modal">Hapus</button>
                                     </td>
                                 @endif
@@ -116,11 +116,11 @@
         data-keyboard="false" data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-edit-tindak-lanjut" action="" method="POST" enctype="multipart/form-data">
+                <form id="form-edit-tindak-lanjut" action="{{ route('web-tidak-bisa-diakses-tindak.update', 0) }}"
+                    method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="_method" value="PUT">
-                    <input id="bidang" type="hidden" name="bidang" value="tik">
-
+                    <input id="id" type="hidden" name="id" value="">
 
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
@@ -188,10 +188,11 @@
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
-                    <form id="form-delete" action="{{ route('tindak-lanjut.destroy', 0) }}" method="POST">
+                    <form id="form-delete" action="{{ route('web-tidak-bisa-diakses-tindak.destroy', 0) }}"
+                        method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
-                        <input id="bidang" type="hidden" name="bidang" value="tik">
+                        <input id="id" type="hidden" name="id" value="">
                         <button type="submit" class="btn btn-primary">OK</button>
                     </form>
                 </div>
