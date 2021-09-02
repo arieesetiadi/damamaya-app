@@ -17,7 +17,7 @@
     <meta name="analisa-report-route" content="{{ route('analisa.report') }}">
     <meta name="keamanan-report-route" content="{{ route('keamanan.report') }}">
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
-    <meta name="tik-report-route" content="{{ route('tik.report') }}">
+    <meta name="web-tidak-bisa-diakses-report-route" content="{{ route('web-tidak-bisa-diakses.report') }}">
     <meta name="keamanan-informasi-get" content="{{ route('keamanan-informasi.get') }}">
 
     {{-- Data Role User --}}
@@ -48,7 +48,8 @@
         <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="{{ route('dashboard') }}">
                 <div class="sidebar-brand-icon">
                     <img width="125px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
@@ -82,8 +83,7 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Pengaduan PRO</span>
                 </a>
-                <div id="collapsePro" class="collapse" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
+                <div id="collapsePro" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('pengaduan-pro.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -119,8 +119,7 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Analisa Media</span>
                 </a>
-                <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
+                <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('analisa-media.index') }}">Report</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
@@ -222,8 +221,7 @@
                     <i class="fas fa-list-alt"></i>
                     <span class="text-dark">Web Tidak Bisa Diakses</span>
                 </a>
-                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
+                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses.index') }}">Report
                             Laporan</a>
@@ -386,7 +384,7 @@
     <script src="{{ asset('js/report/pengaduan-anggaran-report.js') }}"></script>
     <script src="{{ asset('js/report/analisa-media-report.js') }}"></script>
     <script src="{{ asset('js/report/keamanan-informasi-report.js') }}"></script>
-    <script src="{{ asset('js/report/bidang-tik-report.js') }}"></script>
+    <script src="{{ asset('js/report/web-tidak-bisa-diakses-report.js') }}"></script>
     <script src="{{ asset('js/report/konten-subdomain-report.js') }}"></script>
     <script src="{{ asset('js/report/tindak-lanjut-report.js') }}"></script>
     <script src="{{ asset('js/report/dashboard-report.js') }}"></script>

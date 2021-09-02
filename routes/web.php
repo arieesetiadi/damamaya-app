@@ -54,7 +54,7 @@ Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])-
 Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name('analisa.report');
 Route::post('/keamanan-report', [KeamananInformasiController::class, 'report'])->name('keamanan.report');
 Route::post('/subdomain-report', [KontenSubdomainController::class, 'report'])->name('subdomain.report');
-Route::post('/tik-report', [BidangTIKController::class, 'report'])->name('tik.report');
+Route::post('/web-tidak-bisa-diakses-report', [WebTidakBisaDiaksesController::class, 'report'])->name('web-tidak-bisa-diakses.report');
 Route::get('/keamanan-informasi-get', [KeamananInformasiController::class, 'getData'])->name('keamanan-informasi.get');
 
 // Resources Routes

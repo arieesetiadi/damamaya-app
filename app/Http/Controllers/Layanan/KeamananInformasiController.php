@@ -168,8 +168,8 @@ class KeamananInformasiController extends Controller
         $report = [];
 
         // Ambil tanggal Start dan End untuk menentukan periode Chart
-        $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
-        $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $start = Carbon::createFromFormat('Y-m-d', $request->startDate);
+        $end = Carbon::createFromFormat('Y-m-d', $request->endDate);
         $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
@@ -190,6 +190,7 @@ class KeamananInformasiController extends Controller
                     // Data untuk Table yang berstatus Deface
                     $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, 'Deface');
                     break;
+
                 default:
                     // Data Chart Semua Status
                     $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, 'Normal');

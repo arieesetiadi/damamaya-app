@@ -59,8 +59,17 @@ class WebTidakBisaDiaksesController extends Controller
      */
     public function show($id)
     {
-        //
+        //        TindakLanjut::getData()
     }
+
+
+
+
+
+
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -118,8 +127,8 @@ class WebTidakBisaDiaksesController extends Controller
     public function report(Request $request)
     {
         // Ambil tanggal Start dan End untuk menentukan periode Chart
-        $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
-        $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $start = Carbon::createFromFormat('Y-m-d', $request->startDate);
+        $end = Carbon::createFromFormat('Y-m-d', $request->endDate);
         $periods = CarbonPeriod::create($start, $end);
 
         // Looping sebanyak periode tanggal
@@ -127,13 +136,14 @@ class WebTidakBisaDiaksesController extends Controller
             // Data Chart Berstatus Tidak Bisa Diakses
             $report['counts'][] = KeamananInformasi::getCountByDate($date, 'Tidak Bisa Diakses');
 
-            // Data untuk Table yang berstatus Tidak Bisa Diakses
-            $report['data'] =
-                KeamananInformasi::getDataByPeriod($start, $end, 'Tidak Bisa Diakses');
-
             // Ambil tanggal di looping saat ini
             $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
+
+        // Data untuk Table yang berstatus Tidak Bisa Diakses
+        $report['data'] =
+            KeamananInformasi::getDataByPeriod($start, $end, 'Tidak Bisa Diakses');
+
 
         return response()->json($report);
     }

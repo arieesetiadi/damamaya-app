@@ -1,24 +1,24 @@
 $(function () {
-    start_date = $("#start-date").val();
-    end_date = $("#end-date").val();
+    startDate = $("#start-date").val();
+    endDate = $("#end-date").val();
 
     if ($("#pro-chart").length) {
-        pro_report(start_date, end_date);
+        proReport(startDate, endDate);
     }
 
     if ($("#anggaran-chart").length) {
-        anggaran_report(start_date, end_date);
+        anggaran_report(startDate, endDate);
     }
 
     if ($("#analisa-chart").length) {
-        analisa_report(start_date, end_date);
+        analisa_report(startDate, endDate);
     }
 
     if ($("#keamanan-chart").length) {
-        keamanan_report(start_date, end_date);
+        keamananReport(startDate, endDate);
     }
 
     if ($("#tik-chart").length) {
-        tik_report(start_date, end_date);
+        webTidakBisaDiaksesReport(startDate, endDate);
     }
 });

@@ -1,36 +1,32 @@
 $(function () {
-    let kategori = $("#keamanan-kategori option:selected").text();
     let startDate = null;
     let endDate = null;
 
-    $("#keamanan-kategori").on("change", function () {
-        kategori = $("#keamanan-kategori option:selected").text();
-    });
-
-    if ($("#keamanan-chart").length) {
+    if ($("#tik-chart").length) {
         startDate = $("#start-date").val();
         endDate = $("#end-date").val();
 
-        $("#keamanan-submit-period").click(function () {
+        $("#tik-submit-period").click(function () {
             startDate = $("#start-date").val();
             endDate = $("#end-date").val();
-            keamananReport(startDate, endDate, kategori);
+            webTidakBisaDiaksesReport(startDate, endDate);
         });
 
         setInterval(() => {
-            keamananReport(startDate, endDate, kategori);
+            webTidakBisaDiaksesReport(startDate, endDate);
         }, 60000);
     }
 });
 
-function keamananReport(startDate, endDate, kategori) {
-    if ($("#keamanan-chart").length) {
-        let url = $('meta[name="keamanan-report-route"]').attr("content");
+function webTidakBisaDiaksesReport(startDate, endDate) {
+    if ($("#tik-chart").length) {
+        let url = $('meta[name="web-tidak-bisa-diakses-report-route"]').attr(
+            "content"
+        );
         let dates = [];
         let counts = [];
         let data = [];
-        let userRole = 0;
-        let keamananTableStr = ``;
+        let tikTableStr = ``;
 
         $.ajaxSetup({
             headers: {
@@ -43,7 +39,6 @@ function keamananReport(startDate, endDate, kategori) {
             data: {
                 startDate: startDate,
                 endDate: endDate,
-                kategori: kategori,
             },
             type: "POST",
             success: function (report) {
@@ -65,11 +60,11 @@ function keamananReport(startDate, endDate, kategori) {
     }
 
     function loadDataTable(data, userRole) {
-        $("#keamanan-table").remove();
+        $("#tik-table").remove();
 
         if (data.length > 0) {
-            keamananTableStr = `
-            <table class="table table-hover" id="keamanan-table">
+            tikTableStr = `
+            <table class="table table-hover" id="tik-table">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -78,55 +73,52 @@ function keamananReport(startDate, endDate, kategori) {
                         <th>Link Website</th>
                         <th>Status Website</th>
                         <th>View</th>
-                        <th>Nama Petugas</th>`;
+                        <th>Nama Petugas</th>
+                `;
 
-            // Tampilkan menu Aksi jika user adalah Admin atau Petugas
             if (userRole == 1 || userRole == 2) {
-                keamananTableStr += `<th>Aksi</th>`;
+                tikTableStr += `<th>Aksi</th>`;
             }
 
-            keamananTableStr += `
-                    </tr>
-                        </thead>
-                        <tbody>
-                        `;
+            tikTableStr += `</tr></thead><tbody>`;
 
             $.each(data, function (i, val) {
-                keamananTableStr += `
-                <tr>
-                    <td>${i + 1}</td>
-                    <td>${val.tanggal}</td>
-                    <td>${val.jam}</td>
-                    <td>
-                        <a  target="_blank"
-                            href="${val.link_website}">
-                            ${val.link_website}
-                        </a>
-                    </td>
-                    <td>${val.status_website}</td>
-                    <td>
-                        <a
-                            href=""
-                            class="detail-modal-link"
-                            data-toggle="modal"
-                            data-target=".detail-modal"
-                            data-capture="${val.capture}"
-                            data-keterangan="${val.keterangan}">
-                            Mirror
-                        </a>
-                    </td>
-                    <td>${val.name}</td>
-                    <td class="d-flex justify-content-end">`;
+                tikTableStr += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>${val.tanggal}</td>
+                        <td>${val.jam}</td>
+                        <td>
+                            <a
+                                target="_blank"
+                                href="${val.link_website}">
+                                ${val.link_website}
+                            </a>
+                        </td>
+                        <td>${val.status_website}</td>
+                        <td>
+                            <a
+                                href=""
+                                class="detail-modal-link" data-toggle="modal"
+                                data-target=".detail-modal"
+                                data-capture="${val.capture}" 
+                                data-keterangan="${val.keterangan}">
+                                Mirror
+                            </a>
+                        </td>
+                        <td>${val.name}</td>
+                        <td class="d-flex justify-content-end">`;
 
-                // Munculkan tombol tindak lanjut dan delete jika user Admin atau Petugas
                 if (userRole == 1 || userRole == 2) {
-                    // Hidupkan tombol Tindak Lanjut
-                    // Jika belum ditindak lanjut atau status selain Normal
-                    if (
-                        !val.is_tindak_lanjut ||
-                        !val.status_website == "Normal"
-                    ) {
-                        keamananTableStr += `
+                    if (val.is_tindak_lanjut) {
+                        tikTableStr += `
+                        <button
+                            class="d-none btn btn-sm btn-white"
+                            id="tindak-lanjut">
+                            Tindak
+                        </button>`;
+                    } else {
+                        tikTableStr += `
                         <button
                             class="btn btn-sm btn-primary"
                             id="tindak-lanjut"
@@ -137,7 +129,7 @@ function keamananReport(startDate, endDate, kategori) {
                         </button>`;
                     }
 
-                    keamananTableStr += `
+                    tikTableStr += `
                         <button
                                 class="btn btn-sm btn-danger ml-2"
                                 id="delete-keamanan"
@@ -149,66 +141,50 @@ function keamananReport(startDate, endDate, kategori) {
                         </td>
                     </tr>`;
                 }
+
+                tikTableStr += `</tr>`;
             });
 
-            keamananTableStr += `</tbody></table>`;
+            tikTableStr += `</tbody></table>`;
 
-            $("#keamanan-table-wrapper").append(keamananTableStr);
+            $("#tik-table-wrapper").append(tikTableStr);
         } else {
-            keamananTableStr = `
-                <h4 id="keamanan-table"
-                    class="text-secondary text-center">
-                    Data Tidak Ditemukan
-                </h4>
+            tikTableStr = `
+                <h4 id="tik-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
             `;
 
-            $("#keamanan-table-wrapper").append(keamananTableStr);
+            $("#tik-table-wrapper").append(tikTableStr);
         }
     }
 
     function loadChart(dates, counts) {
-        $("#keamanan-chart").remove();
+        $("#tik-chart").remove();
 
-        let canvasStr = `<canvas id="keamanan-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
+        let canvasStr = `<canvas id="tik-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
 
         // Append new canvas
-        $("#keamanan-chart-wrapper").append(canvasStr);
+        $("#tik-chart-wrapper").append(canvasStr);
 
-        var ctx = document.getElementById("keamanan-chart");
+        var ctx = document.getElementById("tik-chart");
         var myLineChart = new Chart(ctx, {
             type: "line",
             data: {
                 labels: dates,
                 datasets: [
                     {
-                        label: "Normal",
+                        label: "Tidak Bisa Diakses",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgba(78, 115, 223, 1)",
+                        borderColor: "rgba(0, 0, 0, 0.50)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                        pointBorderColor: "rgba(78, 115, 223, 1)",
+                        pointBackgroundColor: "rgba(0, 0, 0, 0.50)",
+                        pointBorderColor: "rgba(0, 0, 0, 0.50)",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                        pointHoverBackgroundColor: "rgba(0, 0, 0, 0.50)",
+                        pointHoverBorderColor: "rgba(0, 0, 0, 0.50)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts["normal"],
-                    },
-                    {
-                        label: "Deface",
-                        lineTension: 0,
-                        backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgba(255, 191, 0, 1)",
-                        pointRadius: 3,
-                        pointBackgroundColor: "rgba(255, 191, 0, 1)",
-                        pointBorderColor: "rgba(255, 191, 0, 1)",
-                        pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgba(255, 191, 0, 1)",
-                        pointHoverBorderColor: "rgba(255, 191, 0, 1)",
-                        pointHitRadius: 10,
-                        pointBorderWidth: 2,
-                        data: counts["deface"],
+                        data: counts,
                     },
                 ],
             },
@@ -288,10 +264,9 @@ function keamananReport(startDate, endDate, kategori) {
     }
 
     function loadEvents() {
-        console.log("event");
         // Ketika tombol 'View' diklik
         // Ambil data capture dan keterangan untuk ditampilkan di modalbox
-        $("a.detail-modal-link").on("click", function () {
+        $(".detail-modal-link").on("click", function () {
             let capture = $(this).data("capture");
             let keterangan = $(this).data("keterangan");
             let path = $("#detail-capture").data("path") + capture;

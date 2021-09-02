@@ -135,20 +135,21 @@ class PengaduanPROController extends Controller
         $report = [];
 
         // Ambil tanggal Start dan End untuk menentukan periode Chart
-        $start = Carbon::createFromFormat('Y-m-d', $request->start_date);
-        $end = Carbon::createFromFormat('Y-m-d', $request->end_date);
+        $start = Carbon::createFromFormat('Y-m-d', $request->startDate);
+        $end = Carbon::createFromFormat('Y-m-d', $request->endDate);
         $periods = CarbonPeriod::create($start, $end);
 
         foreach ($periods as $date) {
             // Data count untuk Chart 
             $report['counts'][] = PengaduanPRO::getCountByDate($date, $request->kategori);
 
-            // Data untuk Tabel
-            $report['data'] = PengaduanPRO::getDataByPeriod($start, $end, $request->kategori);
 
             // Ambil tanggal di looping saat ini
             $report['dates'][] = $date->isoFormat('dddd - D/M');
         }
+
+        // Data untuk Tabel
+        $report['data'] = PengaduanPRO::getDataByPeriod($start, $end, $request->kategori);
 
         return response()->json($report);
     }
