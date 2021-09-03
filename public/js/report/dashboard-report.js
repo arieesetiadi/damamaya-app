@@ -7,11 +7,11 @@ $(function () {
     }
 
     if ($("#anggaran-chart").length) {
-        anggaran_report(startDate, endDate);
+        anggaranReport(startDate, endDate);
     }
 
     if ($("#analisa-chart").length) {
-        analisa_report(startDate, endDate);
+        analisaReport(startDate, endDate);
     }
 
     if ($("#keamanan-chart").length) {

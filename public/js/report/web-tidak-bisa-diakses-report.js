@@ -146,15 +146,13 @@ function webTidakBisaDiaksesReport(startDate, endDate) {
             });
 
             tikTableStr += `</tbody></table>`;
-
-            $("#tik-table-wrapper").append(tikTableStr);
         } else {
             tikTableStr = `
                 <h4 id="tik-table" class="text-secondary text-center">Data Tidak Ditemukan</h4>
             `;
-
-            $("#tik-table-wrapper").append(tikTableStr);
         }
+
+        $("#tik-table-wrapper").append(tikTableStr);
     }
 
     function loadChart(dates, counts) {

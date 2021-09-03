@@ -152,8 +152,6 @@ function keamananReport(startDate, endDate, kategori) {
             });
 
             keamananTableStr += `</tbody></table>`;
-
-            $("#keamanan-table-wrapper").append(keamananTableStr);
         } else {
             keamananTableStr = `
                 <h4 id="keamanan-table"
@@ -161,9 +159,9 @@ function keamananReport(startDate, endDate, kategori) {
                     Data Tidak Ditemukan
                 </h4>
             `;
-
-            $("#keamanan-table-wrapper").append(keamananTableStr);
         }
+
+        $("#keamanan-table-wrapper").append(keamananTableStr);
     }
 
     function loadChart(dates, counts) {

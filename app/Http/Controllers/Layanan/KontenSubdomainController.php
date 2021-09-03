@@ -148,8 +148,8 @@ class KontenSubdomainController extends Controller
     public static function report(Request $request)
     {
         // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
-        $data['report'] = KontenSubdomain::getData($request->bulan, $request->tahun);
+        $report['data'] = KontenSubdomain::getData($request->bulan, $request->tahun);
 
-        return response()->json($data);
+        return response()->json($report);
     }
 }
