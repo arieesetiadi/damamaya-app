@@ -120,12 +120,19 @@ function keamananReport(startDate, endDate, kategori) {
 
                 // Munculkan tombol tindak lanjut dan delete jika user Admin atau Petugas
                 if (userRole == 1 || userRole == 2) {
-                    // Hidupkan tombol Tindak Lanjut
-                    // Jika belum ditindak lanjut atau status selain Normal
+                    // Matikan tombol tindak
+                    // Jika status normal atau laporan sudah ditindak lanjuti
                     if (
-                        !val.is_tindak_lanjut ||
-                        !val.status_website == "Normal"
+                        val.status_website == "Normal" ||
+                        val.is_tindak_lanjut
                     ) {
+                        keamananTableStr += `
+                        <button
+                            disabled
+                            class="btn btn-sm btn-white">
+                            Tindak
+                        </button>`;
+                    } else {
                         keamananTableStr += `
                         <button
                             class="btn btn-sm btn-primary"

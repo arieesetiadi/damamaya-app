@@ -13,6 +13,7 @@ use App\Http\Controllers\Layanan\PengaduanPROController;
 use App\Http\Controllers\Layanan\KontenSubdomainController;
 use App\Http\Controllers\Layanan\KeamananInformasiController;
 use App\Http\Controllers\Layanan\PengaduanAnggaranController;
+use App\Http\Controllers\Layanan\PinjamRuanganController;
 use App\Http\Controllers\Layanan\TindakLanjutController;
 use App\Http\Controllers\Layanan\WebTidakBisaDiaksesController;
 use App\Http\Controllers\TindakLanjut\KeamananInformasiController as TindakLanjutKeamananInformasiController;
@@ -69,4 +70,5 @@ Route::resources([
     'konten-subdomain' => KontenSubdomainController::class,
     'web-tidak-bisa-diakses' => WebTidakBisaDiaksesController::class,
     'web-tidak-bisa-diakses-tindak' => TindakLanjutWebTidakBisaDiaksesController::class,
+    'pinjam-ruangan' => PinjamRuanganController::class
 ]);

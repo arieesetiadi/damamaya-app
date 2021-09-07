@@ -14,8 +14,8 @@
                         <div class="mb-3">
                             <label for="username">Username :</label>
                             <input id="username" name="username"
-                                class="form-control form-control-sm  @error('username')  border-danger @enderror"
-                                type="text" placeholder="Username" value="{{ old('username') }}">
+                                class="form-control form-control-sm  @error('username')  border-danger @enderror" type="text"
+                                placeholder="Username" value="{{ old('username') }}">
                             @error('username')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
