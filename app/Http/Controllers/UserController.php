@@ -57,9 +57,9 @@ class UserController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'username' => 'required|max:255',
+            'username' => 'required|max:255|unique:users',
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed',
             'role' => 'required',
             'gender' => 'required'
@@ -122,9 +122,9 @@ class UserController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'username' => 'required|max:255',
+            'username' => 'required|max:255|unique:users',
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'required|email|max:255|unique:users',
             'role' => 'required',
             'gender' => 'required'
         ]);

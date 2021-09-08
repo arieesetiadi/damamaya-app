@@ -22,8 +22,8 @@ class PinjamRuanganController extends Controller
 
     public function index()
     {
-        $start = Carbon::now()->addMonth(1)->startOfMonth()->toDateTimeString();
-        $end = Carbon::now()->addMonth(1)->endOfMonth()->toDateTimeString();
+        $start = Carbon::now()->startOfMonth()->toDateTimeString();
+        $end = Carbon::now()->endOfMonth()->toDateTimeString();
 
         $data = [
             'title' => 'Schedule Peminjaman Ruangan',

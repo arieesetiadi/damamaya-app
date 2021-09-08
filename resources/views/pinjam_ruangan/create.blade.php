@@ -44,7 +44,7 @@
                         <label for="peminjam">Peminjam :</label>
                         <input id="peminjam" name="peminjam"
                             class="form-control  @error('peminjam')  border-danger @enderror" type="text"
-                            value="{{ old('peminjam') }}">
+                            value="{{ old('peminjam') }}" placeholder="Peminjam">
                         @error('peminjam')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

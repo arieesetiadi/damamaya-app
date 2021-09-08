@@ -49,7 +49,7 @@ Route::prefix('user/')->group(function () {
     Route::get('/account', [UserController::class, 'account'])->name('user.account');
 });
 
-// Report Data Routes
+// Report Data Routes - Untuk request AJAX dari javascript
 Route::post('/pro-report', [PengaduanPROController::class, 'report'])->name('pro.report');
 Route::post('/anggaran-report', [PengaduanAnggaranController::class, 'report'])->name('anggaran.report');
 Route::post('/analisa-report', [AnalisaMediaController::class, 'report'])->name('analisa.report');
