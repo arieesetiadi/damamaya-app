@@ -50,34 +50,36 @@
                     <div class="chartjs-size-monitor-expand">
                         <div class=""></div>
                     </div>
-                    <div class="chartjs-size-monitor-shrink">
-                        <div class=""></div>
+                    <div class="
+                            chartjs-size-monitor-shrink">
+                            <div class=""></div>
                     </div>
                 </div>
-                <canvas id="pro-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                    class="chartjs-render-monitor"></canvas>
-            </div>
-            <hr>
-        </div>
-    </div>
+                <canvas id="
+                                pro-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
+                                class="chartjs-render-monitor"></canvas>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
 
-    <!-- Report Table  -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <div>
-                <h6 class="m-0 mt-2 font-weight-bold">
-                    Data Layanan Pengaduan PRO Denpasar
-                </h6>
-            </div>
+                    <!-- Report Table  -->
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3 d-flex justify-content-between">
+                            <div>
+                                <h6 class="m-0 mt-2 font-weight-bold">
+                                    Data Layanan Pengaduan PRO Denpasar
+                                </h6>
+                            </div>
 
-            <div>
-            </div>
-        </div>
-        <div class="card-body">
-            <div id="pro-table-wrapper" class="table-responsive">
-                {{-- Table diisi melalui pengaduan-pro-report.js --}}
-            </div>
-        </div>
-    </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="pro-table-wrapper" class="table-responsive">
+                                {{-- Table diisi melalui pengaduan-pro-report.js --}}
+                            </div>
+                        </div>
+                    </div>
 
-@endsection
+                @endsection

@@ -2,7 +2,6 @@
 <html lang="en">
 
 <head>
-
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,6 +17,7 @@
     <meta name="keamanan-report-route" content="{{ route('keamanan.report') }}">
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
     <meta name="web-tidak-bisa-diakses-report-route" content="{{ route('web-tidak-bisa-diakses.report') }}">
+    <meta name="pinjam-ruangan-report-route" content="{{ route('pinjam-ruangan.report') }}">
     <meta name="keamanan-informasi-get" content="{{ route('keamanan-informasi.get') }}">
 
     {{-- Data Role User --}}
@@ -406,6 +406,7 @@
     <script src="{{ asset('js/report/web-tidak-bisa-diakses-report.js') }}"></script>
     <script src="{{ asset('js/report/konten-subdomain-report.js') }}"></script>
     <script src="{{ asset('js/report/tindak-lanjut-report.js') }}"></script>
+    <script src="{{ asset('js/report/pinjam-ruangan-report.js') }}"></script>
     <script src="{{ asset('js/report/dashboard-report.js') }}"></script>
 
     {{-- Form Autocomplete Script --}}

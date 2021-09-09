@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Layanan;
 
 use App\Http\Controllers\Controller;
+use App\Models\Layanan\PinjamRuangan;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PinjamRuanganController extends Controller
 {
@@ -57,7 +59,29 @@ class PinjamRuanganController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $request->validate([
+            'tanggal' => 'required',
+            'jamMulai' => 'required',
+            'durasi' => 'required',
+            'peminjam' => 'required',
+            'keterangan' => 'required'
+        ]);
+
+        $jamSelesai = Carbon
+            ::create($request->jamMulai)
+            ->addHour($request->durasi)
+            ->toTimeString();
+
+        PinjamRuangan::create([
+            'tanggal' => $request->tanggal,
+            'jam_mulai' => $request->jamMulai,
+            'jam_selesai' => $jamSelesai,
+            'peminjam' => $request->peminjam,
+            'keterangan' => $request->keterangan,
+            'id_user' => Auth::user()->id,
+        ]);
+
+        return redirect()->route('pinjam-ruangan.index')->with('success', 'Berhasil Menambah Peminjaman Ruangan');
     }
 
     /**
@@ -104,5 +128,34 @@ class PinjamRuanganController extends Controller
     public function destroy($id)
     {
         dd($id);
+    }
+
+    public static function generatePeriods(Carbon $month)
+    {
+        $startDate = $month->startOfMonth()->toDateString();
+        $endDate = $month->endOfMonth()->toDateString();
+
+        return CarbonPeriod::create($startDate, $endDate);
+    }
+
+    public function report(Request $request)
+    {
+        $month = Carbon
+            ::now()
+            ->addMonth($request->monthCounter);
+
+        $periods = self::generatePeriods($month);
+
+        foreach ($periods as $date) {
+            $report['dates'][] = [
+                'day' => $date->isoFormat('D'),
+                'name' => $date->isoFormat('dddd'),
+            ];
+        }
+
+        $report['month'] = $date->isoFormat('MMMM');
+        $report['year'] = $date->isoFormat('YYYY');
+
+        return response()->json($report);
     }
 }
