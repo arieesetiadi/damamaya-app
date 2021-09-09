@@ -14,7 +14,7 @@
     {{-- Report Chart --}}
     <div class="card shadow mb-4">
         <div class="card-body">
-            <div id="pinjam-ruangan-table-wrapper" class="col-6">
+            <div class="col-6">
                 <form action="{{ route('pinjam-ruangan.store') }}" method="POST">
                     @csrf
                     <div class="mb-3">
@@ -61,7 +61,5 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection

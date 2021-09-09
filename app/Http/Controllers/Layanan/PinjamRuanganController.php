@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redis;
 
 class PinjamRuanganController extends Controller
 {
@@ -24,12 +25,8 @@ class PinjamRuanganController extends Controller
 
     public function index()
     {
-        $start = Carbon::now()->startOfMonth()->toDateTimeString();
-        $end = Carbon::now()->endOfMonth()->toDateTimeString();
-
         $data = [
             'title' => 'Schedule Peminjaman Ruangan',
-            'periods' => CarbonPeriod::create($start, $end)
         ];
 
         return view('pinjam_ruangan.index', compact('data'));
@@ -150,12 +147,23 @@ class PinjamRuanganController extends Controller
             $report['dates'][] = [
                 'day' => $date->isoFormat('D'),
                 'name' => $date->isoFormat('dddd'),
+                'full' => $date->toDateString()
             ];
+
+            $report['pinjamCounts'][] = PinjamRuangan::getCountByDate($date->toDateString());
         }
 
         $report['month'] = $date->isoFormat('MMMM');
         $report['year'] = $date->isoFormat('YYYY');
 
         return response()->json($report);
+    }
+
+    public function getData(Request $request)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $request->date);
+        $data = PinjamRuangan::getDataByDate($date);
+
+        return response()->json($data);
     }
 }

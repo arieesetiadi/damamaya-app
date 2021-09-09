@@ -44,30 +44,24 @@
         </div>
         <div class="card-body">
             <div id="pinjam-ruangan-table-wrapper" class="row">
-                @foreach ($data['periods'] as $date)
-                    <div class="pinjam-ruangan-table col-2 py-2" style="height: 100px">
-                        <button class="btn btn-white h-100 w-100 border">
-                            <small>
-                                {{ $date->isoFormat('dddd') }}
-                            </small>
-                            <h6>
-                                {{ $date->isoFormat('D') }}
-                            </h6>
-                            <small>
-                                <span>
-                                    {{ $date->isoFormat('MMMM') }}
-                                </span>
-                                <span>
-                                    {{ $date->isoFormat('YYYY') }}
-                                </span>
-                            </small>
-                        </button>
-                    </div>
-                @endforeach
+                {{-- Daftar tanggal diisi melalui pinjam-ruangan-report.js --}}
             </div>
         </div>
     </div>
 
-
-
+    <!-- Detail Modal -->
+    <div id="list-pinjam-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">List Pinjam Ruangan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

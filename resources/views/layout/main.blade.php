@@ -19,6 +19,7 @@
     <meta name="web-tidak-bisa-diakses-report-route" content="{{ route('web-tidak-bisa-diakses.report') }}">
     <meta name="pinjam-ruangan-report-route" content="{{ route('pinjam-ruangan.report') }}">
     <meta name="keamanan-informasi-get" content="{{ route('keamanan-informasi.get') }}">
+    <meta name="pinjam-ruangan-get" content="{{ route('pinjam-ruangan.get') }}">
 
     {{-- Data Role User --}}
     <meta name="user-role" content="{{ Auth::user()->role_id }}">

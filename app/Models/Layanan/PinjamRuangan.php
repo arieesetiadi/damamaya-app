@@ -19,4 +19,23 @@ class PinjamRuangan extends Model
     ];
 
     use HasFactory;
+
+    public static function getCountByDate($date)
+    {
+        return
+            self
+            ::whereDate('tanggal', $date)
+            ->count();
+    }
+
+    public static function getDataByDate($date)
+    {
+        return
+            self
+            ::from('layanan_pinjam_ruangan AS A')
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
+            ->whereDate('tanggal', $date)
+            ->select('A.*', 'B.name')
+            ->get();
+    }
 }
