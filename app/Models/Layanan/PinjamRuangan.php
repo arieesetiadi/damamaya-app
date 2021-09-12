@@ -35,7 +35,36 @@ class PinjamRuangan extends Model
             ::from('layanan_pinjam_ruangan AS A')
             ->join('users AS B', 'A.id_user', '=', 'B.id')
             ->whereDate('tanggal', $date)
+            ->orderBy('A.jam_mulai', 'ASC')
             ->select('A.*', 'B.name')
             ->get();
+    }
+
+    public static function validatePinjaman($tanggal, $jamMulai, $jamSelesai)
+    {
+        // Metode asal asal
+        $pinjaman = self
+            ::whereDate('tanggal', $tanggal)
+            ->get();
+
+        foreach ($pinjaman as $p) {
+            if ($jamMulai <= $p->jam_mulai) {
+                $rules =
+                    ($p->jam_mulai >= $jamMulai) && ($p->jam_mulai <= $jamSelesai) ||
+                    ($p->jam_selesai >= $jamMulai) && ($p->jam_selesai <= $jamSelesai);
+            } else if ($jamMulai >= $p->jam_mulai) {
+                $rules =
+                    ($jamMulai >= $p->jam_mulai) && ($jamMulai <= $p->jam_selesai) ||
+                    ($jamSelesai >= $p->jam_mulai && $jamSelesai <= $p->jam_selesai);
+            }
+
+            if ($rules) {
+                return false;
+            }
+        }
+
+        // Metode dengan Looping Period
+
+        return true;
     }
 }

@@ -8,7 +8,6 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redis;
 
 class PinjamRuanganController extends Controller
 {
@@ -64,10 +63,33 @@ class PinjamRuanganController extends Controller
             'keterangan' => 'required'
         ]);
 
+        $tanggal = Carbon
+            ::create($request->tanggal)
+            ->toDateString();
+
+        $jamMulai = Carbon
+            ::create($request->jamMulai)
+            ->toTimeString();
+
         $jamSelesai = Carbon
             ::create($request->jamMulai)
             ->addHour($request->durasi)
             ->toTimeString();
+
+        // $jamMulai = "09:00:00";
+        // $jamSelesai = "10:00:00";
+
+        $validatePinjaman = PinjamRuangan::validatePinjaman(
+            $tanggal,
+            $jamMulai,
+            $jamSelesai
+        );
+
+        if ($validatePinjaman) {
+            dd('Bisa Dipinjam');
+        } else {
+            dd('Tidak Bisa Dipinjam');
+        }
 
         PinjamRuangan::create([
             'tanggal' => $request->tanggal,

@@ -20,7 +20,7 @@
                     <div class="mb-3">
                         <label for="tanggal">Tanggal Pinjam :</label>
                         <input id="tanggal" name="tanggal" class="form-control  @error('tanggal')  border-danger @enderror"
-                            type="date">
+                            type="date" value="{{ old('tanggal') }}">
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -29,7 +29,8 @@
                     <div class="mb-3">
                         <label for="jam-mulai">Jam Mulai :</label>
                         <input id="jam-mulai" name="jamMulai"
-                            class="form-control  @error('jamMulai')  border-danger @enderror" type="time">
+                            class="form-control  @error('jamMulai')  border-danger @enderror" type="time"
+                            value="{{ old('jamMulai') }}">
                         @error('jamMulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -37,7 +38,8 @@
 
                     <div class="mb-3">
                         <label for="durasi">Durasi Pinjam ( Jam ) :</label>
-                        <input id="durasi" name="durasi" type="number" value="1" min="1" step="1" class="form-control" />
+                        <input id="durasi" name="durasi" type="number" min="1" step="1" class="form-control"
+                            value="{{ old('durasi') }}" />
                     </div>
 
                     <div class="mb-3">
@@ -52,8 +54,11 @@
 
                     <div class="form-group">
                         <label for="keterangan">Keterangan :</label>
-                        <textarea name="keterangan" class="form-control" id="keterangan"
-                            rows="4">{{ old('keterangan') }}</textarea>
+                        <textarea name="keterangan" class="form-control @error('keterangan')  border-danger @enderror"
+                            id="keterangan" rows="4">{{ old('keterangan') }}</textarea>
+                        @error('keterangan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <button type="submit" class="btn btn-sm btn-primary px-2 my-2">Tambah</button>
