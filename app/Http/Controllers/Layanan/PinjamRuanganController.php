@@ -76,19 +76,14 @@ class PinjamRuanganController extends Controller
             ->addHour($request->durasi)
             ->toTimeString();
 
-        // $jamMulai = "09:00:00";
-        // $jamSelesai = "10:00:00";
-
         $validatePinjaman = PinjamRuangan::validatePinjaman(
             $tanggal,
             $jamMulai,
             $jamSelesai
         );
 
-        if ($validatePinjaman) {
-            dd('Bisa Dipinjam');
-        } else {
-            dd('Tidak Bisa Dipinjam');
+        if (!$validatePinjaman) {
+            return back()->withInput()->with('failed', 'Jam Pinjaman Tidak Tersedia');
         }
 
         PinjamRuangan::create([

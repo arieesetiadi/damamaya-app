@@ -11,6 +11,12 @@
         </div>
     @endif
 
+    @if (session('failed'))
+        <div class="alert alert-danger" role="alert">
+            {{ session('failed') }}
+        </div>
+    @endif
+
     {{-- Report Chart --}}
     <div class="card shadow mb-4">
         <div class="card-body">
