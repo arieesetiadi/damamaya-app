@@ -23,19 +23,32 @@ class PinjamRuangan extends Model
 
     public static function getCountByDate($date)
     {
+        $nowTime = Carbon::now()->toTimeString();
+        $nowDate = Carbon::now()->toDateString();
+
         return
             self
             ::whereDate('tanggal', $date)
-            ->count();
+            ->where([
+                ['tanggal', '>=', $nowDate],
+                // ['jam_selesai', '<=', $nowTime]
+            ])->count();
     }
 
     public static function getDataByDate($date)
     {
+        $nowTime = Carbon::now()->toTimeString();
+        $nowDate = Carbon::now()->toDateString();
+
         return
             self
             ::from('layanan_pinjam_ruangan AS A')
             ->join('users AS B', 'A.id_user', '=', 'B.id')
             ->whereDate('tanggal', $date)
+            ->where([
+                ['tanggal', '>=', $nowDate],
+                // ['jam_selesai', '<=', $nowTime]
+            ])
             ->orderBy('A.jam_mulai', 'ASC')
             ->select('A.*', 'B.name')
             ->get();
