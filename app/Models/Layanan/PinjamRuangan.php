@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class PinjamRuangan extends Model
 {
+    use HasFactory;
+
     protected $table = 'layanan_pinjam_ruangan';
 
     protected $fillable = [
@@ -19,29 +21,21 @@ class PinjamRuangan extends Model
         'id_user'
     ];
 
-    use HasFactory;
-
     public static function getCountByDate($date)
     {
-        $nowTime = Carbon::now()->toTimeString();
-
         return
             self
             ::whereDate('tanggal', $date)
-            ->where('jam_selesai', '<=', $nowTime)
             ->count();
     }
 
     public static function getDataByDate($date)
     {
-        $nowTime = Carbon::now()->toTimeString();
-
         return
             self
             ::from('layanan_pinjam_ruangan AS A')
             ->join('users AS B', 'A.id_user', '=', 'B.id')
             ->whereDate('tanggal', $date)
-            ->where('jam_selesai', '<=', $nowTime)
             ->orderBy('A.jam_mulai', 'ASC')
             ->select('A.*', 'B.name')
             ->get();

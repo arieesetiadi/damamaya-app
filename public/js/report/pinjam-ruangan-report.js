@@ -47,6 +47,7 @@ function pinjamRuanganReport(monthCounter) {
         let year = data["year"];
         let dates = data["dates"];
         let pinjamCounts = data["pinjamCounts"];
+        console.log(pinjamCounts);
 
         // Ubah nama bulan pada bagian filter
         $("#monthName").text(month);

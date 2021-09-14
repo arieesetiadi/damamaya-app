@@ -55,9 +55,8 @@
                             <div class=""></div>
                     </div>
                 </div>
-                <canvas id="
-                                pro-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400"
-                                class="chartjs-render-monitor"></canvas>
+                <canvas class="
+                                chartjs-render-monitor" id="pro-chart" width="751" height="400"></canvas>
                             </div>
                             <hr>
                         </div>
