@@ -83,7 +83,7 @@ class PinjamRuanganController extends Controller
         );
 
         if (!$validatePinjaman) {
-            return back()->withInput()->with('failed', 'Jam Pinjaman Tidak Tersedia');
+            return back()->withInput()->with('failed', 'Ruangan Sudah Terpakai');
         }
 
         PinjamRuangan::create([

@@ -383,6 +383,9 @@
     {{-- Jquery Plugins --}}
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
+    {{-- Axios --}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     {{-- Autocomplete JS --}}
     <script src="{{ asset('js/typeahead.min.js') }}"></script>
 
@@ -398,6 +401,8 @@
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('js/sb-admin-2.min.js') }}"></script>
 
+    {{-- Custom Script --}}
+    <script src="{{ asset('js/script.js') }}"></script>
 
     {{-- Custom Charts --}}
     <script src="{{ asset('js/report/pengaduan-pro-report.js') }}"></script>

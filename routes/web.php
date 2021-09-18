@@ -20,6 +20,7 @@ use App\Http\Controllers\TindakLanjut\KeamananInformasiController as TindakLanju
 use App\Http\Controllers\TindakLanjut\WebTidakBisaDiaksesController as TindakLanjutWebTidakBisaDiaksesController;
 use App\Models\Layanan\KeamananInformasi;
 use App\Models\Layanan\TindakLanjut;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,15 @@ use App\Models\Layanan\TindakLanjut;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/test-api', function (Request $request) {
+    $data = [
+        'name' => $request->name,
+        'umur' => $request->umur
+    ];
+    return response()->json($data);
+});
+
 // Dashboard Route
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 

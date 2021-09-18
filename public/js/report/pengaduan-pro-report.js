@@ -28,11 +28,65 @@ $(function () {
 function proReport(startDate, endDate, kategori) {
     if ($("#pro-chart").length) {
         let url = $('meta[name="pro-report-route"]').attr("content");
+        let csrf = document.getElementsByName("csrf-token")[0].content;
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+
         let dates = [];
         let counts = [];
         let data = [];
         let proTableStr = ``;
 
+        // var res = ajax(url, "POST", {
+        //     startDate: startDate,
+        //     endDate: endDate,
+        //     kategori: kategori,
+        // });
+
+        // let res = ajax("/test-api", "POST", { name: "Tuarie", umur: 20 });
+        // res.then((res) => console.log(res));
+
+        // console.log(fetch("/test-api"));
+
+        // console.log(res.then((r) => r));
+
+        // for (let i in res) {
+        //     console.log(i, res[i]);
+        // }
+
+        let start, end, interval;
+
+        // Fetch Competition
+        // AXIOS
+        // axios
+        //     .post("/test-api", {
+        //         name: "Tuarie",
+        //         umur: 20,
+        //     })
+        //     .then((res) => console.log(res));
+
+        // FETCH
+        // start = new Date().getTime();
+        // let res = fetch("/test-api", {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        //     },
+        //     body: JSON.stringify({
+        //         name: "Tuarie",
+        //         umur: 20,
+        //     }),
+        // });
+
+        // res.then((response) => response.json()).then(function (data) {
+        //     end = new Date().getTime();
+        //     interval = end - start;
+        //     console.log("FETCH = ", interval);
+        // });
+
+        // JQUERY
+        start = new Date().getTime();
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -40,25 +94,48 @@ function proReport(startDate, endDate, kategori) {
         });
 
         $.ajax({
-            url: url,
+            url: "/test-api",
             data: {
-                startDate: startDate,
-                endDate: endDate,
-                kategori: kategori,
+                name: "Tuarie",
+                umur: 20,
             },
             type: "POST",
             success: function (report) {
-                dates = report["dates"];
-                counts = report["counts"];
-                data = report["data"];
-
-                // Tampilkan grafik/chart
-                loadChart(dates, counts);
-
-                // Tampilkan semua data pada table
-                loadDataTable(data);
+                end = new Date().getTime();
+                interval = end - start;
+                console.log("JQUERY = ", interval);
             },
         });
+
+        // $.ajaxSetup({
+        //     headers: {
+        //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        //     },
+        // });
+
+        // $.ajax({
+        //     url: url,
+        //     data: {
+        //         startDate: startDate,
+        //         endDate: endDate,
+        //         kategori: kategori,
+        //     },
+        //     type: "POST",
+        //     success: function (report) {
+        //         console.log(report);
+        //     },
+        // });
+        //         dates = report["dates"];
+        //         counts = report["counts"];
+        //         data = report["data"];
+
+        //         // Tampilkan grafik/chart
+        //         loadChart(dates, counts);
+
+        //         // Tampilkan semua data pada table
+        //         loadDataTable(data);
+        //     },
+        // });
     }
 }
 
