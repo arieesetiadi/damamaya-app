@@ -19,7 +19,7 @@ class Informasi extends Model
             self
             ::from('layanan_informasi AS A')
             ->join('users AS B', 'A.id_user', '=', 'B.id')
-            ->limit(50)
+            ->limit(100)
             ->orderBy('id', 'DESC')
             ->select('A.*', 'B.name')
             ->get();

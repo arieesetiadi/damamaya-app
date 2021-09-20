@@ -54,16 +54,21 @@ function proReport(startDate, endDate, kategori) {
         //     console.log(i, res[i]);
         // }
 
-        let start, end, interval;
+        // let start, end, interval;
 
         // Fetch Competition
         // AXIOS
+        // start = new Date().getTime();
         // axios
         //     .post("/test-api", {
         //         name: "Tuarie",
         //         umur: 20,
         //     })
-        //     .then((res) => console.log(res));
+        //     .then(function (res) {
+        //         end = new Date().getTime();
+        //         interval = end - start;
+        //         console.log("AXIOS = ", interval);
+        //     });
 
         // FETCH
         // start = new Date().getTime();
@@ -86,27 +91,7 @@ function proReport(startDate, endDate, kategori) {
         // });
 
         // JQUERY
-        start = new Date().getTime();
-        $.ajaxSetup({
-            headers: {
-                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-            },
-        });
-
-        $.ajax({
-            url: "/test-api",
-            data: {
-                name: "Tuarie",
-                umur: 20,
-            },
-            type: "POST",
-            success: function (report) {
-                end = new Date().getTime();
-                interval = end - start;
-                console.log("JQUERY = ", interval);
-            },
-        });
-
+        // start = new Date().getTime();
         // $.ajaxSetup({
         //     headers: {
         //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -114,28 +99,45 @@ function proReport(startDate, endDate, kategori) {
         // });
 
         // $.ajax({
-        //     url: url,
+        //     url: "/test-api",
         //     data: {
-        //         startDate: startDate,
-        //         endDate: endDate,
-        //         kategori: kategori,
+        //         name: "Tuarie",
+        //         umur: 20,
         //     },
         //     type: "POST",
         //     success: function (report) {
-        //         console.log(report);
+        //         end = new Date().getTime();
+        //         interval = end - start;
+        //         console.log("JQUERY = ", interval);
         //     },
         // });
-        //         dates = report["dates"];
-        //         counts = report["counts"];
-        //         data = report["data"];
 
-        //         // Tampilkan grafik/chart
-        //         loadChart(dates, counts);
-
-        //         // Tampilkan semua data pada table
-        //         loadDataTable(data);
+        // $.ajaxSetup({
+        //     headers: {
+        //         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         //     },
         // });
+
+        $.ajax({
+            url: url,
+            data: {
+                startDate: startDate,
+                endDate: endDate,
+                kategori: kategori,
+            },
+            type: "POST",
+            success: function (report) {
+                dates = report["dates"];
+                counts = report["counts"];
+                data = report["data"];
+
+                // Tampilkan grafik/chart
+                loadChart(dates, counts);
+
+                // Tampilkan semua data pada table
+                loadDataTable(data);
+            },
+        });
     }
 }
 

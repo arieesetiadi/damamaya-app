@@ -87,7 +87,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-table-wrapper" class="table-responsive">
+            <div id="keamanan-table-wrapper" class="table-responsive" style="overflow-y: scroll">
                 {{-- Table diisi melalui informasi-chart.js --}}
             </div>
         </div>

@@ -34,6 +34,7 @@ class KontenSubdomain extends Model
             ->whereMonth('tanggal', $bulan)
             ->whereYear('tanggal', $tahun)
             ->orderBy('id', 'DESC')
+            ->limit(50)
             ->select('A.*', 'B.name')
             ->get();
     }
