@@ -26,7 +26,7 @@
                     <div class="mb-3">
                         <label for="tanggal">Tanggal Pinjam :</label>
                         <input id="tanggal" name="tanggal" class="form-control  @error('tanggal')  border-danger @enderror"
-                            type="date" value="{{ old('tanggal') }}">
+                            type="date" value="{{ old('tanggal', now()->toDateString()) }}">
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -36,7 +36,7 @@
                         <label for="jam-mulai">Jam Mulai :</label>
                         <input id="jam-mulai" name="jamMulai"
                             class="form-control  @error('jamMulai')  border-danger @enderror" type="time"
-                            value="{{ old('jamMulai') }}">
+                            value="{{ old('jamMulai', '00:00') }}">
                         @error('jamMulai')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

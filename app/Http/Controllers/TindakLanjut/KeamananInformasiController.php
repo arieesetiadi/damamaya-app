@@ -130,6 +130,12 @@ class KeamananInformasiController extends Controller
             'capture' => 'image|mimes:png,jpg,jpeg,bmp'
         ]);
 
+        $idKeamanan = TindakLanjut::find($request->id)->get('id_keamanan')[0]->id_keamanan;
+        $tanggalLaporan = KeamananInformasi::where('id', $idKeamanan)->get()[0]->tanggal;
+        $tanggalTindakLanjut = Carbon::createFromFormat('Y-m-d', $request->tanggal);
+
+        $responseTime = $tanggalTindakLanjut->diffInDays($tanggalLaporan);
+
         if (!is_null($request->file('capture'))) {
             // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
             $captureName = ImageController::store(
@@ -142,12 +148,13 @@ class KeamananInformasiController extends Controller
             $path = public_path('img\capture\tindak_lanjut\\') . $gambar;
             File::delete($path);
 
-            // Update data keamanan informasi dengan Model
+            // Update data keamanan informasi beserta gambar baru
             TindakLanjut::where('id',  $request->id)->update([
                 'tanggal' => $request->tanggal,
                 'jam' => $request->jam,
                 'keterangan' => $request->keterangan,
                 'capture' => $captureName,
+                'response_time' => $responseTime,
                 'id_user' => Auth::user()->id
             ]);
         } else {
@@ -156,11 +163,12 @@ class KeamananInformasiController extends Controller
                 'tanggal' => $request->tanggal,
                 'jam' => $request->jam,
                 'keterangan' => $request->keterangan,
+                'response_time' => $responseTime,
                 'id_user' => Auth::user()->id
             ]);
         }
 
-        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
+        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
     }
 
     /**

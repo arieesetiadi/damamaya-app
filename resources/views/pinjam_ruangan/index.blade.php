@@ -8,7 +8,7 @@
         </div>
     @endif
 
-    {{-- Report Chart --}}
+    {{-- Kalender Pinjaman --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
             <div class="row w-100">
@@ -25,7 +25,7 @@
                             </button>
                         </div>
                         <div>
-                            <h6 id="monthName" class="m-0 mt-2 font-weight-bold">September</h6>
+                            <h6 id="monthName" class="m-0 mt-2 font-weight-bold"></h6>
                         </div>
                         <div>
                             <button id="monthRight" class="btn btn-white btn-sm">
@@ -33,12 +33,6 @@
                             </button>
                         </div>
                     </div>
-                    {{-- <select id="pro-kategori" class="d-inline-block custom-select custom-select-sm">
-                        <option value="" selected>September</option>
-                    </select> --}}
-                    {{-- @foreach ($data['bulan'] as $bulan)
-                            <option>{{ $bulan->name }}</option>
-                        @endforeach --}}
                 </div>
             </div>
         </div>

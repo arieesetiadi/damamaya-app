@@ -122,7 +122,6 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input id="id" type="hidden" name="id" value="">
 
-
                     <div class="modal-header">
                         <h5 class="modal-title">Tindak Lanjut</h5>
                     </div>
