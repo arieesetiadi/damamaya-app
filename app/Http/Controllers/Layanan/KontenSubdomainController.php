@@ -75,6 +75,7 @@ class KontenSubdomainController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         // Validasi data dari form input
         $request->validate([
             'tanggal' => 'required',
