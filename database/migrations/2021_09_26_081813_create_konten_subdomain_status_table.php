@@ -15,9 +15,10 @@ class CreateKontenSubdomainStatusTable extends Migration
     {
         Schema::create('layanan_konten_subdomain_status', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
             $table->boolean('status');
             $table->boolean('is_uptodate')->nullable();
-            $table->date('tanggal_update');
+            $table->date('tanggal_update')->nullable();
             $table->timestamps();
         });
     }
