@@ -201,7 +201,13 @@ class KontenSubdomainController extends Controller
     public static function report(Request $request)
     {
         // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
-        $report['data'][] = KontenSubdomain::getData($request->bulan, $request->tahun);
+        $report['data'] = KontenSubdomain::getData($request->bulan, $request->tahun);
+
+
+        // Ambil status dari masing masing Konten Subdomain
+        foreach ($report['data'] as $data) {
+            $report['status'][] = KontenSubdomain::getStatus($data->id);
+        }
 
         return response()->json($report);
     }

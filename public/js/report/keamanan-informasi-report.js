@@ -293,7 +293,6 @@ function keamananReport(startDate, endDate, kategori) {
     }
 
     function loadEvents() {
-        console.log("event");
         // Ketika tombol 'View' diklik
         // Ambil data capture dan keterangan untuk ditampilkan di modalbox
         $("a.detail-modal-link").on("click", function () {

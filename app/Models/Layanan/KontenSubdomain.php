@@ -16,25 +16,26 @@ class KontenSubdomain extends Model
     public static function getData($bulan, $tahun)
     {
         return
-            [
-                self
-                    ::from('layanan_konten_subdomain AS A')
-                    ->join('users AS B', 'A.id_user', '=', 'B.id')
-                    ->join('layanan_konten_subdomain_status AS C', 'A.id', '=', 'C.id_konten')
-                    ->whereMonth('tanggal', $bulan)
-                    ->whereYear('tanggal', $tahun)
-                    ->orderBy('id', 'DESC')
-                    ->limit(50)
-                    ->select(
-                        'A.*',
-                        'B.name',
-                        'C.name',
-                        'C.status',
-                        'C.is_uptodate',
-                        'C.tanggal_update',
-                    )
-                    ->get()
-            ];
+            self
+            ::from('layanan_konten_subdomain AS A')
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->orderBy('id', 'DESC')
+            ->limit(50)
+            ->select(
+                'A.*',
+                'B.name',
+            )
+            ->get();
+    }
+
+    public static function getStatus($idKonten)
+    {
+        return
+            KontenSubdomainStatus
+            ::where('id_konten', $idKonten)
+            ->get();
     }
 
     public static function insertData($data)

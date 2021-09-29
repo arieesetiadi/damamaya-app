@@ -51,4 +51,19 @@
             </div>
         </div>
     </div>
+
+
+    {{-- Modal untuk detail Konten Subdomain --}}
+    <div class="modal fade modal konten-subdomain-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6>Detail Konten Subdomain</h6>
+                </div>
+                <div class="modal-body">
+                    Test
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

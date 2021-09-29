@@ -21,6 +21,7 @@ function subdomainReport(bulan, tahun) {
     let route = $('meta[name="subdomain-report-route"]').attr("content");
     let subdomainTableStr = "";
     let data = [];
+    let status = [];
 
     $("#subdomain-table").remove();
 
@@ -38,15 +39,18 @@ function subdomainReport(bulan, tahun) {
         },
         type: "POST",
         success: function (report) {
-            console.log(report);
             data = report["data"];
+            status = report["status"];
 
             // Tampilkan semua data pada table
-            loadDataTable(data);
+            loadDataTable(data, status);
+
+            // Load semua event
+            loadEvents();
         },
     });
 
-    function loadDataTable(data) {
+    function loadDataTable(data, status) {
         if (data.length > 0) {
             subdomainTableStr = `<table class="table table-hover" id="subdomain-table">
                         <thead>
@@ -56,122 +60,74 @@ function subdomainReport(bulan, tahun) {
                                 <th>Nama Petugas</th>
                                 <th style="white-space: nowrap">Nama Instansi / Perangkat Daerah</th>
                                 <th>Survey Kepuasan Masyarakat</th>
-                                <th>Agenda</th>
+                                <th>Transparansi Anggaran</th>
                                 <th>Foto Kegiatan</th>
                                 <th>Berita</th>
-                                <th>Foto Pimpinan</th>
                                 <th>Struktur Organisasi</th>
+                                <th>Foto Pimpinan</th>
                                 <th>Tupoksi</th>
-                                <th>Transparansi Anggaran</th>
+                                <th>Agenda</th>
                             </tr>
                         </thead>
                         <tbody>`;
 
             // Loop untuk menampilkan data Konten Subdomain ke table
-            $.each(data, function (index, value) {
-                subdomainTableStr += `<tr>
-                                    <td>${index + 1}</td>
-                                    <td>${value.tanggal}</td>
-                                    <td>${value.name}</td>
-                                    <td>${value.nama_pd}</td>
-                                    <td>`;
+            $.each(data, function (i, dt) {
+                subdomainTableStr += `
+                        <tr>
+                        <td>${i + 1}</td>
+                        <td>${dt.tanggal}</td>
+                        <td>${dt.name}</td>
+                        <td>${dt.nama_pd}</td>
+                    `;
 
-                if (value.survey_kepuasan_masyarakat == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                       <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.agenda == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.foto_kegiatan == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.berita == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.foto_pimpinan == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.struktur_organisasi == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.tupoksi == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
-
-                subdomainTableStr += `</td><td>`;
-
-                if (value.transparansi_anggaran == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
-                        <i class="fas fa-check"></i>
-                    </span>`;
-                } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
-                        <i class="fas fa-times"></i>
-                    </span>`;
-                }
+                $.each(status[i], function (i, sts) {
+                    if (sts.status == 1) {
+                        // console.log(
+                        //     sts.name,
+                        //     sts.status,
+                        //     sts.tanggal_update,
+                        //     sts.is_uptodate,
+                        //     dt.nama_pd
+                        // );
+                        subdomainTableStr += ` 
+                        <td>
+                            <button 
+                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-primary d-block" 
+                            data-toggle="modal" 
+                            data-target=".konten-subdomain-modal" 
+                            data-nama-pd="${dt.nama_pd}" 
+                            data-name="${sts.name}" 
+                            data-status="${sts.status}" 
+                            data-is-uptodate="${sts.is_uptodate}" 
+                            data-tanggal-update="${sts.tanggal_update}" 
+                            >
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </td>
+                    `;
+                    } else {
+                        subdomainTableStr += `
+                        <td>
+                            <button 
+                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-danger d-block" 
+                            data-toggle="modal"
+                            data-target=".konten-subdomain-modal"
+                            data-nama-pd="${dt.nama_pd}" 
+                            data-name="${sts.name}" 
+                            data-status="${sts.status}" 
+                            data-is-uptodate="${sts.is_uptodate}" 
+                            data-tanggal-update="${sts.tanggal_update}" 
+                            >
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </td>
+                    `;
+                    }
+                });
             });
 
-            subdomainTableStr += `</td><td></tbody></table> `;
+            subdomainTableStr += `</td></tr></tbody></table> `;
 
             $("#subdomain-table-wrapper").append(subdomainTableStr);
         } else {
@@ -181,5 +137,15 @@ function subdomainReport(bulan, tahun) {
 
             $("#subdomain-table-wrapper").append(subdomainTableStr);
         }
+    }
+
+    function loadEvents() {
+        $(".konten-subdomain-modal-btn").on("click", function () {
+            let name = $(this).data("name");
+            let status = $(this).data("status");
+            let tanggalUpdate = $(this).data("tanggal-update");
+            let isUptodate = $(this).data("is-uptodate");
+            let namaPd = $(this).data("nama-pd");
+        });
     }
 }
