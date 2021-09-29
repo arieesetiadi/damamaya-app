@@ -55,13 +55,13 @@
 
     {{-- Modal untuk detail Konten Subdomain --}}
     <div class="modal fade modal konten-subdomain-modal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h6>Detail Konten Subdomain</h6>
+                    <h6 id="konten-subdomain-modal-title"></h6>
                 </div>
-                <div class="modal-body">
-                    Test
+                <div id="konten-subdomain-modal-body" class="modal-body">
+
                 </div>
             </div>
         </div>

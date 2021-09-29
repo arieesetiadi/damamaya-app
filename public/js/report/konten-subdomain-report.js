@@ -141,11 +141,53 @@ function subdomainReport(bulan, tahun) {
 
     function loadEvents() {
         $(".konten-subdomain-modal-btn").on("click", function () {
+            $("#konten-subdomain-modal-table").remove();
+
             let name = $(this).data("name");
             let status = $(this).data("status");
             let tanggalUpdate = $(this).data("tanggal-update");
             let isUptodate = $(this).data("is-uptodate");
             let namaPd = $(this).data("nama-pd");
+
+            $("#konten-subdomain-modal-title").text(namaPd);
+
+            let kontenSubdomainModalStr = `
+                <table id="konten-subdomain-modal-table" class="w-100 table table-borderless">
+                    <tr>
+                        <td>Dokumen</td>
+                        <td>:</td>
+                        <td>${name}</td>
+                    </tr>
+                    <tr>
+                        <td>Status</td>
+                        <td>:</td>
+                        <td>${status == 1 ? "Ada" : "Tidak Ada"}</td>
+                    </tr>
+            `;
+
+            if (isUptodate != null) {
+                kontenSubdomainModalStr += `
+                    <tr>
+                        <td>Up to Date</td>
+                        <td>:</td>
+                        <td>${isUptodate == 1 ? "Iya" : "Tidak"}</td>
+                    </tr>
+                `;
+            }
+
+            if (tanggalUpdate != null) {
+                kontenSubdomainModalStr += `
+                    <tr>
+                        <td>Tanggal Update</td>
+                        <td>:</td>
+                        <td>${tanggalUpdate}</td>
+                    </tr>
+                `;
+            }
+
+            kontenSubdomainModalStr += `</table>`;
+
+            $("#konten-subdomain-modal-body").append(kontenSubdomainModalStr);
         });
     }
 }
