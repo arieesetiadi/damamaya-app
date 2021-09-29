@@ -76,94 +76,79 @@ class KontenSubdomainController extends Controller
      */
     public function store(Request $request)
     {
-
-        // Validasi data dari form input
-        // $request->validate([
-        //     'tanggal' => 'required',
-        //     'namaPd' => 'required|max:255'
-        // ]);
-
-        $surveyKepuasanMasyarakat = [
-            'name' => 'Survey Kepuasan Masyarakat',
-            'status' => $request->statusSkm == 'on' ? 1 : 0,
-            'tanggal_update' => $request->tanggalUpdateSkm
-        ];
-
-        $transparansiAngggaran = [
-            'name' => 'Transparansi Anggaran',
-            'status' => $request->statusTa == 'on' ? 1 : 0,
-            'tanggal_update' => $request->tanggalUpdateTa
-        ];
-
-        $fotoKegiatan = [
-            'name' => 'Foto Kegiatan',
-            'status' => $request->statusFk == 'on' ? 1 : 0,
-            'tanggal_update' => $request->tanggalUpdateFk
-        ];
-
-        $berita = [
-            'name' => 'Berita',
-            'status' => $request->statusBerita == 'on' ? 1 : 0,
-            'tanggal_update' => $request->tanggalUpdateBerita
-        ];
-
-        $strukturOrganisasi = [
-            'name' => 'Struktur Organisasi',
-            'status' => $request->statusSo == 'on' ? 1 : 0,
-            'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
-        ];
-
-        $fotoPimpinan = [
-            'name' => 'Foto Pimpinan',
-            'status' => $request->statusSo == 'on' ? 1 : 0,
-            'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
-        ];
-
-        $tupoksi = [
-            'name' => 'Tupoksi',
-            'status' => $request->statusTupoksi == 'on' ? 1 : 0,
-            'is_uptodate' => $request->isUptodateTupoksi == 'on' ? 1 : 0,
-        ];
-
-        $agenda = [
-            'name' => 'Agenda',
-            'status' => $request->statusAgenda == 'on' ? 1 : 0,
-            'is_uptodate' => $request->isUptodateAgenda == 'on' ? 1 : 0,
-        ];
-
+        // Insert data Konten Subdomain
         $kontenSubdomain = [
             'tanggal' => $request->tanggal,
             'nama_pd' => $request->namaPd,
             'id_user' => Auth::user()->id
         ];
 
-        $kontenSubdomain['survey_kepuasan_masyarakat'] = KontenSubdomainStatus::insertStatus($surveyKepuasanMasyarakat);
-        $kontenSubdomain['agenda'] = KontenSubdomainStatus::insertStatus($agenda);
-        $kontenSubdomain['foto_kegiatan'] = KontenSubdomainStatus::insertStatus($fotoKegiatan);
-        $kontenSubdomain['berita'] = KontenSubdomainStatus::insertStatus($berita);
-        $kontenSubdomain['foto_pimpinan'] = KontenSubdomainStatus::insertStatus($fotoPimpinan);
-        $kontenSubdomain['struktur_organisasi'] = KontenSubdomainStatus::insertStatus($strukturOrganisasi);
-        $kontenSubdomain['tupoksi'] = KontenSubdomainStatus::insertStatus($tupoksi);
-        $kontenSubdomain['transparansi_anggaran'] = KontenSubdomainStatus::insertStatus($transparansiAngggaran);
+        // Ambil ID dari data yang baru diinsert
+        $kontenSubdomainId = KontenSubdomain::insertData($kontenSubdomain);
 
+        $kontenSubdomainStatus = [
+            [
+                'name' => 'Survey Kepuasan Masyarakat',
+                'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
+                'status' => $request->statusSkm == 'on' ? 1 : 0,
+                'is_uptodate' => null,
+                'tanggal_update' => $request->tanggalUpdateSkm
+            ],
+            [
+                'name' => 'Transparansi Anggaran',
+                'status' => $request->statusTa == 'on' ? 1 : 0,
+                'is_uptodate' => null,
+                'tanggal_update' => $request->tanggalUpdateTa
+            ],
+            [
+                'name' => 'Foto Kegiatan',
+                'status' => $request->statusFk == 'on' ? 1 : 0,
+                'is_uptodate' => null,
+                'tanggal_update' => $request->tanggalUpdateFk
+            ],
+            [
+                'name' => 'Berita',
+                'status' => $request->statusBerita == 'on' ? 1 : 0,
+                'is_uptodate' => null,
+                'tanggal_update' => $request->tanggalUpdateBerita
+            ],
+            [
+                'name' => 'Struktur Organisasi',
+                'status' => $request->statusSo == 'on' ? 1 : 0,
+                'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
+                'tanggal_update' => null
 
-        dd($kontenSubdomain);
+            ],
+            [
+                'name' => 'Foto Pimpinan',
+                'status' => $request->statusSo == 'on' ? 1 : 0,
+                'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
+                'tanggal_update' => null
+            ],
+            [
+                'name' => 'Tupoksi',
+                'status' => $request->statusTupoksi == 'on' ? 1 : 0,
+                'is_uptodate' => $request->isUptodateTupoksi == 'on' ? 1 : 0,
+                'tanggal_update' => null
+            ],
+            [
+                'name' => 'Agenda',
+                'status' => $request->statusAgenda == 'on' ? 1 : 0,
+                'is_uptodate' => $request->isUptodateAgenda == 'on' ? 1 : 0,
+                'tanggal_update' => null
+            ]
+        ];
 
-        // Insert data konten subdomain dengan Model
-        // Karena tipe data boolean, maka yang diinsert hanya angka 1 atau 0, dengan menggunakan ternary operator
-        // KontenSubdomain::create([
-        //     'tanggal' => $request->tanggal,
-        //     'nama_pd' => $request->nama_pd,
-        //     'survey_kepuasan_masyarakat' => $request->survey == 'on' ? 1 : 0,
-        //     'agenda' => $request->agenda == 'on' ? 1 : 0,
-        //     'foto_kegiatan' => $request->foto_kegiatan == 'on' ? 1 : 0,
-        //     'berita' => $request->berita == 'on' ? 1 : 0,
-        //     'foto_pimpinan' => $request->foto_pimpinan == 'on' ? 1 : 0,
-        //     'struktur_organisasi' => $request->struktur_organisasi == 'on' ? 1 : 0,
-        //     'tupoksi' => $request->tupoksi == 'on' ? 1 : 0,
-        //     'transparansi_anggaran' => $request->transparansi_anggaran == 'on' ? 1 : 0,
-        //     'id_user' => Auth::user()->id
-        // ]);
+        // Insert status konten subdomain
+        foreach ($kontenSubdomainStatus as $status) {
+            KontenSubdomainStatus::create([
+                'id_konten' => $kontenSubdomainId,
+                'name' => $status['name'],
+                'status' => $status['status'],
+                'is_uptodate' => $status['is_uptodate'],
+                'tanggal_update' => $status['tanggal_update']
+            ]);
+        }
 
         return redirect()->route('konten-subdomain.index')->with('success', 'Berhasil Menambah Konten Subdomain');
     }
@@ -216,7 +201,7 @@ class KontenSubdomainController extends Controller
     public static function report(Request $request)
     {
         // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
-        $report['data'] = KontenSubdomain::getData($request->bulan, $request->tahun);
+        $report['data'][] = KontenSubdomain::getData($request->bulan, $request->tahun);
 
         return response()->json($report);
     }

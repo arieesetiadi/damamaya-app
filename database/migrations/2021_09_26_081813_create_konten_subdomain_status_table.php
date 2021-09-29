@@ -15,6 +15,7 @@ class CreateKontenSubdomainStatusTable extends Migration
     {
         Schema::create('layanan_konten_subdomain_status', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_konten');
             $table->string('name');
             $table->boolean('status');
             $table->boolean('is_uptodate')->nullable();
@@ -30,6 +31,6 @@ class CreateKontenSubdomainStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('konten_subdomain_status');
+        Schema::dropIfExists('layanan_konten_subdomain_status');
     }
 }

@@ -17,6 +17,6 @@ class KontenSubdomainStatus extends Model
     {
         self::create($konten);
 
-        return self::latest()->first()->id;
+        return self::orderBy('id', 'DESC')->first()->id;
     }
 }

@@ -17,14 +17,6 @@ class CreateKontenSubdomainTable extends Migration
             $table->id();
             $table->date('tanggal');
             $table->string('nama_pd');
-            $table->boolean('survey_kepuasan_masyarakat');
-            $table->boolean('agenda');
-            $table->boolean('foto_kegiatan');
-            $table->boolean('berita');
-            $table->boolean('foto_pimpinan');
-            $table->boolean('struktur_organisasi');
-            $table->boolean('tupoksi');
-            $table->boolean('transparansi_anggaran');
             $table->foreignId('id_user');
             $table->timestamps();
         });
@@ -37,6 +29,6 @@ class CreateKontenSubdomainTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('konten_subdomain');
+        Schema::dropIfExists('layanan_konten_subdomain');
     }
 }

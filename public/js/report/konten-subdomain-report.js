@@ -38,6 +38,7 @@ function subdomainReport(bulan, tahun) {
         },
         type: "POST",
         success: function (report) {
+            console.log(report);
             data = report["data"];
 
             // Tampilkan semua data pada table
@@ -76,65 +77,97 @@ function subdomainReport(bulan, tahun) {
                                     <td>`;
 
                 if (value.survey_kepuasan_masyarakat == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                       <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.agenda == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.foto_kegiatan == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.berita == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.foto_pimpinan == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.struktur_organisasi == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.tupoksi == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
 
                 subdomainTableStr += `</td><td>`;
 
                 if (value.transparansi_anggaran == 1) {
-                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">Ada</span>`;
+                    subdomainTableStr += ` <span class="badge badge-primary d-block py-2">
+                        <i class="fas fa-check"></i>
+                    </span>`;
                 } else {
-                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">Tidak Ada</span>`;
+                    subdomainTableStr += `<span class="badge badge-danger d-block py-2">
+                        <i class="fas fa-times"></i>
+                    </span>`;
                 }
             });
 
