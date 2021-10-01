@@ -82,14 +82,29 @@ function subdomainReport(bulan, tahun) {
                     `;
 
                 $.each(status[i], function (i, sts) {
-                    if (sts.status == 1) {
-                        // console.log(
-                        //     sts.name,
-                        //     sts.status,
-                        //     sts.tanggal_update,
-                        //     sts.is_uptodate,
-                        //     dt.nama_pd
-                        // );
+                    if (sts.is_uptodate != null) {
+                        console.log(sts.is_uptodate);
+                    } else if (sts.tanggal_update != null) {
+                        console.log(sts.tanggal_update);
+                    }
+                    if (sts.status && !sts.is_uptodate) {
+                        subdomainTableStr += ` 
+                        <td>
+                            <button 
+                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-secondary d-block" 
+                            data-toggle="modal" 
+                            data-target=".konten-subdomain-modal" 
+                            data-nama-pd="${dt.nama_pd}" 
+                            data-name="${sts.name}" 
+                            data-status="${sts.status}" 
+                            data-is-uptodate="${sts.is_uptodate}" 
+                            data-tanggal-update="${sts.tanggal_update}" 
+                            >
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </td>
+                    `;
+                    } else if (sts.status == 1) {
                         subdomainTableStr += ` 
                         <td>
                             <button 
@@ -140,6 +155,7 @@ function subdomainReport(bulan, tahun) {
     }
 
     function loadEvents() {
+        // Aksi ketika tombol status konten subdomain diklik
         $(".konten-subdomain-modal-btn").on("click", function () {
             $("#konten-subdomain-modal-table").remove();
 
@@ -190,4 +206,105 @@ function subdomainReport(bulan, tahun) {
             $("#konten-subdomain-modal-body").append(kontenSubdomainModalStr);
         });
     }
+
+    function statusButton() {}
 }
+
+// Event untuk isChecked pada Survey Kepuasan Masyarakat
+$("#status-skm").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#tanggal-update-skm").prop("disabled", false);
+    } else {
+        $("#tanggal-update-skm").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada Transparansi Anggaran
+$("#status-ta").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#tanggal-update-ta").prop("disabled", false);
+    } else {
+        $("#tanggal-update-ta").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada Transparansi Anggaran
+$("#status-ta").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#tanggal-update-ta").prop("disabled", false);
+    } else {
+        $("#tanggal-update-ta").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-fk").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#tanggal-update-fk").prop("disabled", false);
+    } else {
+        $("#tanggal-update-fk").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-berita").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#tanggal-update-berita").prop("disabled", false);
+    } else {
+        $("#tanggal-update-berita").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-so").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#is-uptodate-so").prop("disabled", false);
+    } else {
+        $("#is-uptodate-so").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-fp").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#is-uptodate-fp").prop("disabled", false);
+    } else {
+        $("#is-uptodate-fp").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-tupoksi").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#is-uptodate-tupoksi").prop("disabled", false);
+    } else {
+        $("#is-uptodate-tupoksi").prop("disabled", true);
+    }
+});
+
+// Event untuk isChecked pada foto Kegiatan
+$("#status-agenda").on("change", function () {
+    let isChecked = $(this).prop("checked");
+
+    if (isChecked) {
+        $("#is-uptodate-agenda").prop("disabled", false);
+    } else {
+        $("#is-uptodate-agenda").prop("disabled", true);
+    }
+});

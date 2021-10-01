@@ -76,6 +76,16 @@ class KontenSubdomainController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input Konten Subdomain
+        $request->validate(
+            [
+                'namaPd' => 'required|max:255'
+            ],
+            [
+                'namaPd.required' => 'Perangkat Daerah is required'
+            ]
+        );
+
         // Insert data Konten Subdomain
         $kontenSubdomain = [
             'tanggal' => $request->tanggal,

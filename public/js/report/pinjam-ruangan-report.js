@@ -119,6 +119,7 @@ function pinjamRuanganReport(monthCounter) {
                                     <th>Jam Selesai</th>
                                     <th>Peminjam</th>
                                     <th>Nama Petugas</th>
+                                    <th>Aksi</th>
                                 </tr>
                                 
                         `;
@@ -133,6 +134,15 @@ function pinjamRuanganReport(monthCounter) {
                                     <td>${val.jam_selesai}</td>
                                     <td>${val.peminjam}</td>
                                     <td>${val.name}</td>
+                                    <td>
+                                        <button
+                                            class="btn btn-sm btn-danger ml-2 delete-pinjam-ruangan"
+                                            data-toggle="modal"
+                                            data-id="${val.id}"
+                                            data-target="#delete-modal">
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
                             `;
                         });
@@ -151,6 +161,15 @@ function pinjamRuanganReport(monthCounter) {
                     );
                 },
             });
+        });
+
+        // Aksi ketika tombol hapus diklik
+        $(".delete-pinjam-ruangan").on("click", function () {
+            let id = $(this).data("id");
+
+            console.log("Click Delete");
+
+            console.log(id);
         });
     }
 }

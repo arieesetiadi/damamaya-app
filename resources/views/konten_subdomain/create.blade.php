@@ -45,7 +45,7 @@
                                 <div class="col-7">
                                     <label for="tanggal-update-skm">Tanggal Update :</label>
                                     <input id="tanggal-update-skm" name="tanggalUpdateSkm"
-                                        class="form-control form-control-sm" type="date">
+                                        class="form-control form-control-sm" type="date" disabled>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                 <div class="col-7">
                                     <label for="tanggal-update-ta">Tanggal Update :</label>
                                     <input id="tanggal-update-ta" name="tanggalUpdateTa"
-                                        class="form-control form-control-sm" type="date">
+                                        class="form-control form-control-sm" type="date" disabled>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@
                                 <div class="col-7">
                                     <label for="tanggal-update-fk">Tanggal Update :</label>
                                     <input id="tanggal-update-fk" name="tanggalUpdateFk"
-                                        class="form-control form-control-sm" type="date">
+                                        class="form-control form-control-sm" type="date" disabled>
                                 </div>
                             </div>
                         </div>
@@ -103,7 +103,7 @@
                                 <div class="col-7">
                                     <label for="tanggal-update-berita">Tanggal Update :</label>
                                     <input id="tanggal-update-berita" name="tanggalUpdateBerita"
-                                        class="form-control form-control-sm" type="date">
+                                        class="form-control form-control-sm" type="date" disabled>
                                 </div>
                             </div>
                         </div>
@@ -119,7 +119,8 @@
                                 </label>
                             </div>
                             <div class="form-check d-inline-block ml-4">
-                                <input id="is-uptodate-so" name="isUptodateSo" class="form-check-input" type="checkbox">
+                                <input id="is-uptodate-so" name="isUptodateSo" class="form-check-input" type="checkbox"
+                                    disabled>
                                 <label class="form-check-label" for="is-uptodate-so">
                                     Up to Date
                                 </label>
@@ -135,7 +136,8 @@
                                 </label>
                             </div>
                             <div class="form-check d-inline-block ml-4">
-                                <input id="is-uptodate-fp" name="isUptodateFp" class="form-check-input" type="checkbox">
+                                <input id="is-uptodate-fp" name="isUptodateFp" class="form-check-input" type="checkbox"
+                                    disabled>
                                 <label class="form-check-label" for="is-uptodate-fp">
                                     Up to Date
                                 </label>
@@ -152,7 +154,7 @@
                             </div>
                             <div class="form-check d-inline-block ml-4">
                                 <input id="is-uptodate-tupoksi" name="isUptodateTupoksi" class="form-check-input"
-                                    type="checkbox">
+                                    type="checkbox" disabled>
                                 <label class="form-check-label" for="is-uptodate-tupoksi">
                                     Up to Date
                                 </label>
@@ -169,7 +171,7 @@
                             </div>
                             <div class="form-check d-inline-block ml-4">
                                 <input id="is-uptodate-agenda" name="isUptodateAgenda" class="form-check-input"
-                                    type="checkbox">
+                                    type="checkbox" disabled>
                                 <label class="form-check-label" for="is-uptodate-agenda">
                                     Up to Date
                                 </label>
