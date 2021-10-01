@@ -72,72 +72,49 @@ function subdomainReport(bulan, tahun) {
                         <tbody>`;
 
             // Loop untuk menampilkan data Konten Subdomain ke table
-            $.each(data, function (i, dt) {
+            $.each(data, function (i, data) {
                 subdomainTableStr += `
                         <tr>
                         <td>${i + 1}</td>
-                        <td>${dt.tanggal}</td>
-                        <td>${dt.name}</td>
-                        <td>${dt.nama_pd}</td>
+                        <td>${data.tanggal}</td>
+                        <td>${data.name}</td>
+                        <td>${data.nama_pd}</td>
                     `;
 
-                $.each(status[i], function (i, sts) {
-                    if (sts.is_uptodate != null) {
-                        console.log(sts.is_uptodate);
-                    } else if (sts.tanggal_update != null) {
-                        console.log(sts.tanggal_update);
-                    }
-                    if (sts.status && !sts.is_uptodate) {
-                        subdomainTableStr += ` 
-                        <td>
-                            <button 
-                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-secondary d-block" 
-                            data-toggle="modal" 
-                            data-target=".konten-subdomain-modal" 
-                            data-nama-pd="${dt.nama_pd}" 
-                            data-name="${sts.name}" 
-                            data-status="${sts.status}" 
-                            data-is-uptodate="${sts.is_uptodate}" 
-                            data-tanggal-update="${sts.tanggal_update}" 
-                            >
-                                <i class="fas fa-check"></i>
-                            </button>
-                        </td>
-                    `;
-                    } else if (sts.status == 1) {
-                        subdomainTableStr += ` 
-                        <td>
-                            <button 
-                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-primary d-block" 
-                            data-toggle="modal" 
-                            data-target=".konten-subdomain-modal" 
-                            data-nama-pd="${dt.nama_pd}" 
-                            data-name="${sts.name}" 
-                            data-status="${sts.status}" 
-                            data-is-uptodate="${sts.is_uptodate}" 
-                            data-tanggal-update="${sts.tanggal_update}" 
-                            >
-                                <i class="fas fa-check"></i>
-                            </button>
-                        </td>
-                    `;
+                $.each(status[i], function (i, status) {
+                    // if (status.is_uptodate != null) {
+                    //     console.log(status.is_uptodate);
+                    // } else if (status.tanggal_update != null) {
+                    //     console.log(status.tanggal_update);
+                    // }
+                    if (status.status == 1) {
+                        if ((status.is_uptodate != null) & status.is_uptodate) {
+                            subdomainTableStr += statusButton(
+                                "Lengkap",
+                                data,
+                                status
+                            );
+                        } else {
+                            if (status.tanggal_update) {
+                                subdomainTableStr += statusButton(
+                                    "Lengkap",
+                                    data,
+                                    status
+                                );
+                            } else {
+                                subdomainTableStr += statusButton(
+                                    "Ada",
+                                    data,
+                                    status
+                                );
+                            }
+                        }
                     } else {
-                        subdomainTableStr += `
-                        <td>
-                            <button 
-                            class="konten-subdomain-modal-btn btn btn-sm btn-block btn-danger d-block" 
-                            data-toggle="modal"
-                            data-target=".konten-subdomain-modal"
-                            data-nama-pd="${dt.nama_pd}" 
-                            data-name="${sts.name}" 
-                            data-status="${sts.status}" 
-                            data-is-uptodate="${sts.is_uptodate}" 
-                            data-tanggal-update="${sts.tanggal_update}" 
-                            >
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </td>
-                    `;
+                        subdomainTableStr += statusButton(
+                            "Tidak Ada",
+                            data,
+                            status
+                        );
                     }
                 });
             });
@@ -207,7 +184,41 @@ function subdomainReport(bulan, tahun) {
         });
     }
 
-    function statusButton() {}
+    function statusButton(type, data, status) {
+        let icon = "";
+        let btnColor = "";
+
+        switch (type) {
+            case "Tidak Ada":
+                icon = `<i class="fas fa-times"></i>`;
+                btnColor = `btn-danger`;
+                break;
+            case "Ada":
+                icon = `<i class="fas fa-check"></i>`;
+                btnColor = `btn-secondary`;
+                break;
+            case "Lengkap":
+                icon = `<i class="fas fa-check"></i>`;
+                btnColor = `btn-primary`;
+                break;
+        }
+        return ` 
+            <td>
+                <button 
+                class="konten-subdomain-modal-btn btn btn-sm btn-block ${btnColor} d-block" 
+                data-toggle="modal" 
+                data-target=".konten-subdomain-modal" 
+                data-nama-pd="${data.nama_pd}" 
+                data-name="${status.name}" 
+                data-status="${status.status}" 
+                data-is-uptodate="${status.is_uptodate}" 
+                data-tanggal-update="${status.tanggal_update}" 
+                >
+                    ${icon}
+                </button>
+            </td>
+        `;
+    }
 }
 
 // Event untuk isChecked pada Survey Kepuasan Masyarakat
