@@ -53,11 +53,11 @@ function pinjamRuanganReport(monthCounter) {
 
         $.each(dates, function (i, val) {
             pinjamRuanganStr += `
-                 <div class="pinjam-ruangan-table col-2 py-2" style="height: 100px">
+                 <div class="pinjam-ruangan-table col-2 py-2" style="height: 110px">
                     <button
                         class="list-pinjam-btn btn btn-white h-100 w-100 border ${
-                            pinjamCounts[i] > 0 ? "border-bottom-primary" : ""
-                        }"
+                            pinjamCounts[i] > 0 ? "" : ""
+                        } notification"
                         data-toggle="modal"
                         data-target="#list-pinjam-modal"
                         data-date="${val["full"]}">
@@ -66,9 +66,15 @@ function pinjamRuanganReport(monthCounter) {
                             ${val["name"]}
                         </small>
 
-                        <h6>
+                        <center>
+                            <h6 class="${
+                                pinjamCounts[i] > 0
+                                    ? "bg-primary w-25 text-white rounded p-1"
+                                    : ""
+                            }">
                             ${val["day"]}
                         </h6>
+                        </center>
 
                         <small>
                             <span>
@@ -78,8 +84,18 @@ function pinjamRuanganReport(monthCounter) {
                                 ${year}
                             </span>
                         </small>
-                    </button>
-                </div>
+            `;
+
+            // Notification Badge
+            // if (pinjamCounts[i] > 0) {
+            //     pinjamRuanganStr += `
+            //         <span class="badge rounded">${pinjamCounts[i]}</span>
+            //     `;
+            // }
+
+            pinjamRuanganStr += `
+                      </button>
+                </div>      
             `;
         });
 
@@ -140,7 +156,7 @@ function pinjamRuanganReport(monthCounter) {
                                             data-toggle="modal"
                                             data-id="${val.id}"
                                             data-target="#delete-modal">
-                                            Delete
+                                            Batalkan
                                         </button>
                                     </td>
                                 </tr>
@@ -159,17 +175,15 @@ function pinjamRuanganReport(monthCounter) {
                     $("#list-pinjam-modal .modal-body").append(
                         listPinjamTableStr
                     );
+
+                    // Aksi ketika tombol hapus diklik
+                    $(".delete-pinjam-ruangan").on("click", function () {
+                        let id = $(this).data("id");
+
+                        $("input#id").val(id);
+                    });
                 },
             });
-        });
-
-        // Aksi ketika tombol hapus diklik
-        $(".delete-pinjam-ruangan").on("click", function () {
-            let id = $(this).data("id");
-
-            console.log("Click Delete");
-
-            console.log(id);
         });
     }
 }

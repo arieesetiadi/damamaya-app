@@ -141,8 +141,9 @@ class PinjamRuanganController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        dump($id);
-        dd($request->all());
+        PinjamRuangan::find($request->id)->delete();
+
+        return redirect()->route('pinjam-ruangan.index')->with('success', 'Berhasil Membatalkan Pinjaman');
     }
 
     public static function generatePeriods(Carbon $month)
