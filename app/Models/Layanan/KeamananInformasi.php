@@ -48,8 +48,9 @@ class KeamananInformasi extends Model
                 ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
                 ->where('status_website', '!=', 'Tidak Bisa Diakses')
-                ->orderBy('tanggal', 'DESC')
+                ->orderBy('id', 'DESC')
                 ->orderBy('jam', 'DESC')
+                ->limit(50)
                 ->select('A.*', 'B.name')
                 ->get();
         }
@@ -61,8 +62,9 @@ class KeamananInformasi extends Model
             ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('status_website', $kategori)
-            ->orderBy('tanggal', 'DESC')
+            ->orderBy('id', 'DESC')
             ->orderBy('jam', 'DESC')
+            ->limit(50)
             ->select('A.*', 'B.name')
             ->get();
     }

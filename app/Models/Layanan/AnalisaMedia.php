@@ -49,7 +49,8 @@ class AnalisaMedia extends Model
                 )
                 ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
-                ->orderBy('tanggal', 'DESC')
+                ->orderBy('id', 'DESC')
+                ->limit(50)
                 ->select('A.*', 'B.name')
                 ->get();
         }
@@ -66,7 +67,8 @@ class AnalisaMedia extends Model
             ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('kategori', $kategori)
-            ->orderBy('tanggal', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->limit(50)
             ->select('A.*', 'B.name')
             ->get();
     }

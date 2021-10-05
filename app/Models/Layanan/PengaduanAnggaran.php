@@ -45,7 +45,8 @@ class PengaduanAnggaran extends Model
                 ->join('users AS B', 'A.id_user', '=', 'B.id')
                 ->whereDate('tanggal', '>=', $start)
                 ->whereDate('tanggal', '<=', $end)
-                ->orderBy('tanggal', 'DESC')
+                ->orderBy('id', 'DESC')
+                ->limit(50)
                 ->select('A.*', 'B.name')
                 ->get();
         }
@@ -57,7 +58,8 @@ class PengaduanAnggaran extends Model
             ->whereDate('tanggal', '>=', $start)
             ->whereDate('tanggal', '<=', $end)
             ->where('kategori', $kategori)
-            ->orderBy('tanggal', 'DESC')
+            ->orderBy('id', 'DESC')
+            ->limit(50)
             ->select('A.*', 'B.name')
             ->get();
     }

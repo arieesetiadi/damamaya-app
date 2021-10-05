@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class KategoriSeeder extends Seeder
+class KategoriAnalisaSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,15 +15,17 @@ class KategoriSeeder extends Seeder
     public function run()
     {
         $kategori = [
-            'Kategori 1',
-            'Kategori 2',
-            'Kategori 3',
-            'Kategori 4',
-            'Kategori 5'
+            'Analisa 1',
+            'Analisa 2',
+            'Analisa 3',
+            'Analisa 4',
+            'Analisa 5',
         ];
 
+        DB::table('kategori_analisa')->truncate();
+
         foreach ($kategori as $kt) {
-            DB::table('kategori')->insert([
+            DB::table('kategori_analisa')->insert([
                 'name' => $kt
             ]);
         }
