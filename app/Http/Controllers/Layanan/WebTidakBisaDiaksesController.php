@@ -20,7 +20,7 @@ class WebTidakBisaDiaksesController extends Controller
 
     public function __construct()
     {
-    $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -113,7 +113,7 @@ class WebTidakBisaDiaksesController extends Controller
 
         // Hapus file gambar dari Keamanan Informasi
         $keamananInformasiCapture = $keamananInformasi->get()[0]->capture;
-        $keamananInformasiPath = public_path('img\capture\laporan\\') . $keamananInformasiCapture;
+        $keamananInformasiPath = public_path('img/capture/laporan/') . $keamananInformasiCapture;
 
         File::delete($keamananInformasiPath);
         $keamananInformasi->delete();
@@ -121,7 +121,7 @@ class WebTidakBisaDiaksesController extends Controller
         // Jika ada data Tindak Lanjut, hapus file gambar dari Tindak Lanjut
         if ($tindakLanjut->count() > 0) {
             $tindakLanjutCapture = $tindakLanjut->get()[0]->capture;
-            $tindakLanjutPath = public_path('img\capture\tindak_lanjut\\') . $tindakLanjutCapture;
+            $tindakLanjutPath = public_path('img/capture/tindak_lanjut/') . $tindakLanjutCapture;
 
             File::delete($tindakLanjutPath);
             $tindakLanjut->delete();

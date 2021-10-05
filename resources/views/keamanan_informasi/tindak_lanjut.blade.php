@@ -65,11 +65,12 @@
 
                                 @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                                     <td>
-                                        <button class="btn btn-sm btn-primary" id="edit-tindak-lanjut" data-toggle="modal"
-                                            data-id="{{ $tindakLanjut->id }}"
+                                        <button class="btn btn-sm btn-primary edit-tindak-lanjut" id="edit-tindak-lanjut"
+                                            data-toggle="modal" data-id="{{ $tindakLanjut->id }}"
                                             data-target="#edit-tindak-lanjut-modal">Edit</button>
 
-                                        <button class=" btn btn-sm btn-danger" id="delete-tindak-lanjut" data-toggle="modal"
+                                        <button class=" btn btn-sm btn-danger delete-tindak-lanjut"
+                                            id="delete-tindak-lanjut" data-toggle="modal"
                                             data-id="{{ $tindakLanjut->id }}"
                                             data-target="#delete-tindak-lanjut-modal">Hapus</button>
                                     </td>

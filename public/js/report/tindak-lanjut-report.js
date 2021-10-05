@@ -13,11 +13,12 @@ $(function () {
     });
 
     // Jika tombol delete ditekan, kirim id untuk proses penghapusan
-    $("button#delete-tindak-lanjut").on("click", function () {
+    $("button.delete-tindak-lanjut").on("click", function () {
         $("#form-delete input#id").val($(this).data("id"));
     });
 
-    $("#edit-tindak-lanjut").on("click", function () {
+    // Ketika tombol edit ditekan, munculkan form update
+    $("button.edit-tindak-lanjut").on("click", function () {
         let id = $(this).data("id");
         let url = $('meta[name="keamanan-informasi-get"]').attr("content");
 
@@ -51,5 +52,15 @@ $(function () {
                 $("#capture-label").text(data.capture);
             },
         });
+    });
+
+    // Ketika tombol 'Cancel' pada Modal diklik
+    $("button#cancel-tindak-lanjut").on("click", function () {
+        // Reset isi form
+        $("#form-edit-tindak-lanjut")[0].reset();
+
+        // Hapus preview gambar
+        $("#capture-preview").remove();
+        $("#capture-label").text("Browse image..");
     });
 });

@@ -63,7 +63,7 @@ class KeamananInformasiController extends Controller
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
         $captureName = ImageController::store(
             $request->file('capture'),
-            public_path('img\capture\tindak_lanjut\\')
+            public_path('img/capture/tindak_lanjut/')
         );
 
         // Hitung response time penindak lanjutan
@@ -140,12 +140,12 @@ class KeamananInformasiController extends Controller
             // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
             $captureName = ImageController::store(
                 $request->file('capture'),
-                public_path('img\capture\tindak_lanjut\\')
+                public_path('img/capture/tindak_lanjut/')
             );
 
             // Hapus file gambar lama di storage
             $gambar = TindakLanjut::where('id', $request->id)->get()[0]->capture;
-            $path = public_path('img\capture\tindak_lanjut\\') . $gambar;
+            $path = public_path('img/capture/tindak_lanjut/') . $gambar;
             File::delete($path);
 
             // Update data keamanan informasi beserta gambar baru
@@ -183,7 +183,7 @@ class KeamananInformasiController extends Controller
 
         // Hapus file gambar di storage
         $gambar = $tindakLanjut->get()[0]->capture;
-        $path = public_path('img\capture\tindak_lanjut\\') . $gambar;
+        $path = public_path('img/capture/tindak_lanjut/') . $gambar;
         File::delete($path);
 
         // Ubah is_tindak_lanjut pada Keamanan Informasi menjadi false

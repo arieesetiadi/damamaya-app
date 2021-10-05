@@ -79,7 +79,8 @@ class KeamananInformasiController extends Controller
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
         $captureName = ImageController::store(
             $request->file('capture'),
-            public_path('img\capture\laporan\\')
+            // 'public/img/capture/laporan\\'
+            public_path('img/capture/laporan/')
         );
 
         // Insert data keamanan informasi dengan Model
@@ -146,7 +147,7 @@ class KeamananInformasiController extends Controller
 
         // Hapus file gambar dari Keamanan Informasi
         $keamananInformasiCapture = $keamananInformasi->get()[0]->capture;
-        $keamananInformasiPath = public_path('img\capture\laporan\\') . $keamananInformasiCapture;
+        $keamananInformasiPath = public_path('img/capture/laporan/') . $keamananInformasiCapture;
 
         File::delete($keamananInformasiPath);
         $keamananInformasi->delete();
@@ -154,7 +155,7 @@ class KeamananInformasiController extends Controller
         // Jika ada data Tindak Lanjut, hapus file gambar dari Tindak Lanjut
         if ($tindakLanjut->count() > 0) {
             $tindakLanjutCapture = $tindakLanjut->get()[0]->capture;
-            $tindakLanjutPath = public_path('img\capture\tindak_lanjut\\') . $tindakLanjutCapture;
+            $tindakLanjutPath = public_path('img/capture/tindak_lanjut/') . $tindakLanjutCapture;
 
             File::delete($tindakLanjutPath);
             $tindakLanjut->delete();
