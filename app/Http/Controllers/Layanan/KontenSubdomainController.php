@@ -131,8 +131,8 @@ class KontenSubdomainController extends Controller
             ],
             [
                 'name' => 'Foto Pimpinan',
-                'status' => $request->statusSo == 'on' ? 1 : 0,
-                'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
+                'status' => $request->statusFp == 'on' ? 1 : 0,
+                'is_uptodate' => $request->isUptodateFp == 'on' ? 1 : 0,
                 'tanggal_update' => null
             ],
             [

@@ -122,9 +122,9 @@ class UserController extends Controller
     {
         // Validasi data dari form input
         $request->validate([
-            'username' => 'required|max:255|unique:users',
+            'username' => 'required|max:255',
             'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255',
             'role' => 'required',
             'gender' => 'required'
         ]);
