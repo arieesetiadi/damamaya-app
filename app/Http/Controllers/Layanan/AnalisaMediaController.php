@@ -67,16 +67,16 @@ class AnalisaMediaController extends Controller
         // Validasi data dari form input
         $request->validate([
             'tanggal' => 'required',
-            'issue_lokal' => 'required|max:255',
-            'issue_nasional' => 'required|max:255',
+            'isu_lokal' => 'required|max:255',
+            'isu_nasional' => 'required|max:255',
             'kategori' => 'required'
         ]);
 
         // Insert data analisa media dengan Model
         AnalisaMedia::create([
             'tanggal' => $request->tanggal,
-            'issue_lokal' => $request->issue_lokal,
-            'issue_nasional' => $request->issue_nasional,
+            'isu_lokal' => $request->isu_lokal,
+            'isu_nasional' => $request->isu_nasional,
             'kategori' => $request->kategori,
             'id_user' => Auth::user()->id,
         ]);

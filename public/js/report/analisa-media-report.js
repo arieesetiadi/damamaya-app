@@ -72,8 +72,8 @@ function analisaReport(startDate, endDate, kategori) {
                     <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                        <th>Issue Lokal</th>
-                        <th>Issue Nasional</th>
+                        <th>Isu Lokal</th>
+                        <th>Isu Nasional</th>
                         <th>Kategori</th>
                         <th>Nama Petugas</th>
                     </tr>
@@ -86,8 +86,8 @@ function analisaReport(startDate, endDate, kategori) {
                     <tr>
                         <td>${i + 1}</td>
                         <td>${val.tanggal}</td>
-                        <td>${val.issue_lokal}</td>
-                        <td>${val.issue_nasional}</td>
+                        <td>${val.isu_lokal}</td>
+                        <td>${val.isu_nasional}</td>
                         <td>${val.kategori}</td>
                         <td>${val.name}</td>
                     </tr>

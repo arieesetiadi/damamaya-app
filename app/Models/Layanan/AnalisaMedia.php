@@ -13,8 +13,8 @@ class AnalisaMedia extends Model
 
     protected $fillable = [
         'tanggal',
-        'issue_lokal',
-        'issue_nasional',
+        'isu_lokal',
+        'isu_nasional',
         'kategori',
         'id_user'
     ];

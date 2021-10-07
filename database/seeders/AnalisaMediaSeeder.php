@@ -2,9 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Layanan\AnalisaMedia;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use App\Models\Layanan\AnalisaMedia;
 
 class AnalisaMediaSeeder extends Seeder
 {
@@ -15,17 +16,20 @@ class AnalisaMediaSeeder extends Seeder
      */
     public function run()
     {
+        $kategori = DB::table('kategori_analisa')->get();
         $analisaMedia = [];
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
             $analisaMedia[] = [
-                'tanggal' => Carbon::now()->addDay(rand(-7, 0))->toDateString(),
-                'issue_lokal' => 'Issue Lokal Dummy',
-                'issue_nasional' => 'Issue Nasional Dummy',
-                'kategori' => 'Analisa ' . rand(1, 5),
+                'tanggal' => Carbon::now()->addDay(rand(-30, 0))->toDateString(),
+                'isu_lokal' => 'Isu Lokal Dummy',
+                'isu_nasional' => 'Isu Nasional Dummy',
+                'kategori' => $kategori[rand(0, count($kategori) - 1)]->name,
                 'id_user' => rand(1, 2)
             ];
         }
+
+        AnalisaMedia::truncate();
 
         foreach ($analisaMedia as $analisa) {
             AnalisaMedia::create($analisa);

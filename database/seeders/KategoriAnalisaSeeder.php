@@ -15,11 +15,8 @@ class KategoriAnalisaSeeder extends Seeder
     public function run()
     {
         $kategori = [
-            'Analisa 1',
-            'Analisa 2',
-            'Analisa 3',
-            'Analisa 4',
-            'Analisa 5',
+            'Isu Lokal',
+            'Isu Nasional',
         ];
 
         DB::table('kategori_analisa')->truncate();

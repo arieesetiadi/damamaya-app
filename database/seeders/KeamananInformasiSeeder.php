@@ -30,17 +30,19 @@ class KeamananInformasiSeeder extends Seeder
             'https://twitter.com',
         ];
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 1000; $i++) {
             $keamananInformasi[] = [
-                'tanggal' => Carbon::now()->addDay(rand(-7, 0))->toDateString(),
+                'tanggal' => Carbon::now()->addDay(rand(-30, 0))->toDateString(),
                 'jam' => Carbon::now()->addHour(rand(-7, 7))->toTimeString(),
                 'link_website' => $link_website[rand(0, 3)],
                 'status_website' => $status[rand(0, 2)],
                 'keterangan' => 'Keterangan Dummy',
-                'capture' => '1630293952_screenshot (362).png',
+                'capture' => 'default-laporan.png',
                 'id_user' => rand(1, 2)
             ];
         }
+
+        KeamananInformasi::truncate();
 
         foreach ($keamananInformasi as $keamanan) {
             KeamananInformasi::create($keamanan);

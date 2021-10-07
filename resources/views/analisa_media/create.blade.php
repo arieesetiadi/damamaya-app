@@ -22,21 +22,21 @@
                 </div>
 
                 <div class="my-3">
-                    <label for="issue_lokal">Issue Lokal :</label>
-                    <input id="issue_lokal" name="issue_lokal"
-                        class="form-control form-control-sm  @error('issue_lokal')  border-danger @enderror" type="text"
-                        placeholder="Issue Lokal" value="{{ old('issue_lokal') }}">
-                    @error('issue_lokal')
+                    <label for="isu_lokal">Isu Lokal :</label>
+                    <input id="isu_lokal" name="isu_lokal"
+                        class="form-control form-control-sm  @error('isu_lokal')  border-danger @enderror" type="text"
+                        placeholder="Issue Lokal" value="{{ old('isu_lokal') }}">
+                    @error('isu_lokal')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
 
                 <div class="my-3">
-                    <label for="issue_nasional">Issue Nasional :</label>
-                    <input id="issue_nasional" name="issue_nasional"
-                        class="form-control form-control-sm  @error('issue_nasional') border-danger @enderror" type="text"
-                        placeholder="Issue Nasional" value="{{ old('issue_nasional') }}">
-                    @error('issue_nasional')
+                    <label for="isu_nasional">Isu Nasional :</label>
+                    <input id="isu_nasional" name="isu_nasional"
+                        class="form-control form-control-sm  @error('isu_nasional') border-danger @enderror" type="text"
+                        placeholder="Issue Nasional" value="{{ old('isu_nasional') }}">
+                    @error('isu_nasional')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>

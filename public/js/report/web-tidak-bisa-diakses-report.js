@@ -113,7 +113,8 @@ function webTidakBisaDiaksesReport(startDate, endDate) {
                     if (val.is_tindak_lanjut) {
                         tikTableStr += `
                         <button
-                            class="d-none btn btn-sm btn-white"
+                            disabled
+                            class="btn btn-sm btn-white"
                             id="tindak-lanjut">
                             Tindak
                         </button>`;

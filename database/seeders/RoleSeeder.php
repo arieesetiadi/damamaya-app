@@ -26,6 +26,8 @@ class RoleSeeder extends Seeder
             ]
         ];
 
+        DB::table('roles')->truncate();
+
         foreach ($roles as $role) {
             DB::table('roles')->insert($role);
         }
