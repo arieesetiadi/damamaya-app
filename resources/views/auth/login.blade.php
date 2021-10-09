@@ -8,6 +8,9 @@
     <title>Login - Damamaya Cyber Monitor</title>
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+
+    {{-- Website Icon --}}
+    <link rel="shortcut icon" href="{{ asset('tech.ico') }}" type="image/x-icon">
 </head>
 
 <body class="pt-5 mt-5">

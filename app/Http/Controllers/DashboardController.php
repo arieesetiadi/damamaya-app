@@ -14,6 +14,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+
         // Kirim data yang dibutuhkan ke halaman Dashboard
         $data = [
             'title' => 'Dashboard',
