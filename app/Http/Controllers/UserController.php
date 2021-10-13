@@ -25,7 +25,8 @@ class UserController extends Controller
         // Kirim data yang dibutuhkan ke halaman Users
         $data = [
             'title' => 'Users',
-            'users' => User::all()
+            'users' => User::all(),
+            'active' => 'kUser'
         ];
 
         return view('user.index', compact('data'));
@@ -41,7 +42,8 @@ class UserController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Users
         $data = [
             'title' => 'Tambah User',
-            'roles' => Role::all()
+            'roles' => Role::all(),
+            'active' => 'kUser'
         ];
 
         return view('user.create', compact('data'));

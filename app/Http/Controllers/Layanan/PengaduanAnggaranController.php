@@ -33,7 +33,8 @@ class PengaduanAnggaranController extends Controller
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
-            ]
+            ],
+            'active' => 'pAnggaran'
         ];
 
         return view('pengaduan_anggaran.index', compact('data'));
@@ -50,7 +51,8 @@ class PengaduanAnggaranController extends Controller
         $data = [
             'title' => 'Tambah Pengaduan Anggaran',
             'kategori' => DB::table('kategori_pengaduan')->get(),
-            'now' => Carbon::now()->toDateString()
+            'now' => Carbon::now()->toDateString(),
+            'active' => 'pAnggaran'
         ];
 
         return view('pengaduan_anggaran.create', compact('data'));

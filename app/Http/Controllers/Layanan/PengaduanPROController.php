@@ -32,7 +32,8 @@ class PengaduanPROController extends Controller
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
-            ]
+            ],
+            'active' => 'pPro'
         ];
 
         return view('pengaduan_pro.index', compact('data'));
@@ -49,7 +50,8 @@ class PengaduanPROController extends Controller
         $data = [
             'title' => 'Tambah Pengaduan PRO Denpasar',
             'kategori' => DB::table('kategori_pengaduan')->get(),
-            'now' => Carbon::now()->toDateString()
+            'now' => Carbon::now()->toDateString(),
+            'active' => 'pPro'
         ];
 
         return view('pengaduan_pro.create', compact('data'));

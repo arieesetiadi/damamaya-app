@@ -33,8 +33,8 @@
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     {{-- Website Icon --}}
     <link rel="shortcut icon" href="{{ asset('tech.ico') }}" type="image/x-icon">
@@ -46,12 +46,12 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark bg-gradient-primary accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-                <div class="sidebar-brand-icon">
-                    <img width="125px" src="{{ asset('img/logo/Damamaya2.jpeg') }}" alt="Logo Damamaya">
+                <div class="sidebar-brand-icon px-5">
+                    <img width="140px" src="{{ asset('img/logo/Damamaya4.png') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
                 </div>
                 {{-- <div class="sidebar-brand-text mx-3">DAMAMAYA</div> --}}
@@ -61,27 +61,27 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-home"></i>
-                    <span class="text-dark">Dashboard</span></a>
+                    <span>Dashboard</span></a>
             </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-dark">
+            <div class="sidebar-heading">
                 Bidang PIP
             </div>
 
             <!-- Nav Item - Layanan Pengaduan (PRO Denpasar) -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePro"
+            <li class="nav-item {{ $data['active'] == 'pPro' ? 'active' : '' }}">
+                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePro"
                     aria-expanded="true" aria-controls="collapsePro">
-                    {{-- <i class="fas fa-list text-dark"></i> --}}
+                    {{-- <i class="fas fa-list"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Pengaduan PRO</span>
+                    <span>Pengaduan PRO</span>
                 </a>
                 <div id="collapsePro" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -95,12 +95,12 @@
             </li>
 
             <!-- Nav Item - Layanan Pengaduan (Anggaran) -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'pAnggaran' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnggaran"
                     aria-expanded="true" aria-controls="collapseAnggaran">
-                    {{-- <i class="fas fa-list text-dark"></i> --}}
+                    {{-- <i class="fas fa-list"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Pengaduan Anggaran</span>
+                    <span>Pengaduan Anggaran</span>
                 </a>
                 <div id="collapseAnggaran" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -114,11 +114,11 @@
             </li>
 
             <!-- Nav Item - Analisa Media -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'aMedia' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAnalisa"
                     aria-expanded="true" aria-controls="collapseAnalisa">
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Analisa Media</span>
+                    <span>Analisa Media</span>
                 </a>
                 <div id="collapseAnalisa" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -132,12 +132,12 @@
             </li>
 
             <!-- Nav Item - Konten Subdomain -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'kSubdomain' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSubdomain"
                     aria-expanded="true" aria-controls="collapseSubdomain">
-                    {{-- <i class="far fa-list-alt text-dark"></i> --}}
+                    {{-- <i class="far fa-list-alt"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Konten Subdomain</span>
+                    <span>Konten Subdomain</span>
                 </a>
                 <div id="collapseSubdomain" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -154,17 +154,17 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-dark">
+            <div class="sidebar-heading">
                 Bidang PKP
             </div>
 
             <!-- Nav Item - Layanan Informasi -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'lInformasi' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInformasi"
                     aria-expanded="true" aria-controls="collapseInformasi">
-                    {{-- <i class="fas fa-list-ul text-dark"></i> --}}
+                    {{-- <i class="fas fa-list-ul"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Layanan Informasi</span>
+                    <span>Layanan Informasi</span>
                 </a>
                 <div id="collapseInformasi" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -176,12 +176,12 @@
                     </div>
                 </div>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'pRuangan' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePinjamRuangan"
                     aria-expanded="true" aria-controls="collapsePinjamRuangan">
-                    {{-- <i class="fas fa-list-ul text-dark"></i> --}}
+                    {{-- <i class="fas fa-list-ul"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Pinjam Ruangan</span>
+                    <span>Pinjam Ruangan</span>
                 </a>
                 <div id="collapsePinjamRuangan" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -198,17 +198,17 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-dark">
+            <div class="sidebar-heading">
                 Bidang Persandian
             </div>
 
             <!-- Nav Item - Keamanan Informasi -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'kInformasi' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseKeamanan"
                     aria-expanded="true" aria-controls="collapseKeamanan">
-                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
+                    {{-- <i class="fas fa-th-list"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Keamanan Informasi</span>
+                    <span>Keamanan Informasi</span>
                 </a>
                 <div id="collapseKeamanan" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -228,17 +228,17 @@
             <hr class="sidebar-divider">
 
             <!-- Heading -->
-            <div class="sidebar-heading text-dark">
+            <div class="sidebar-heading">
                 Bidang TIK
             </div>
 
             <!-- Nav Item - TIK -->
-            <li class="nav-item">
+            <li class="nav-item {{ $data['active'] == 'wtbDiakses' ? 'active' : '' }}">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTik"
                     aria-expanded="true" aria-controls="collapseTik">
-                    {{-- <i class="fas fa-th-list text-dark"></i> --}}
+                    {{-- <i class="fas fa-th-list"></i> --}}
                     <i class="fas fa-list-alt"></i>
-                    <span class="text-dark">Web Tidak Bisa Diakses</span>
+                    <span>Web Tidak Bisa Diakses</span>
                 </a>
                 <div id="collapseTik" class="collapse" aria-labelledby="headingTwo"
                     data-parent="#accordionSidebar">
@@ -257,16 +257,16 @@
                 <hr class="sidebar-divider">
 
                 <!-- Heading -->
-                <div class="sidebar-heading text-dark">
+                <div class="sidebar-heading">
                     Admin
                 </div>
 
                 <!-- Nav Item - Keamanan Informasi -->
-                <li class="nav-item">
+                <li class="nav-item {{ $data['active'] == 'kUser' ? 'active' : '' }}">
                     <a class="nav-link collapsed" href="{{ route('user.index') }}" aria-expanded="true"
                         aria-controls="collapseFive">
                         <i class="fas fa-user-tie"></i>
-                        <span class="text-dark">Kelola User</span>
+                        <span>Kelola User</span>
                     </a>
                 </li>
             @endif

@@ -28,7 +28,8 @@ class KontenSubdomainController extends Controller
         $data = [
             'title' => 'Konten Subdomain',
             'bulan_now' => Carbon::now()->month,
-            'tahun_now' => Carbon::now()->year
+            'tahun_now' => Carbon::now()->year,
+            'active' => 'kSubdomain'
         ];
 
         // Ambil semua nama-nama bulan
@@ -54,7 +55,8 @@ class KontenSubdomainController extends Controller
             'title' => 'Tambah Konten Subdomain',
             'now' => Carbon::now()->toDateString(),
             'bulan_now' => Carbon::now()->month,
-            'tahun_now' => Carbon::now()->year
+            'tahun_now' => Carbon::now()->year,
+            'active' => 'kSubdomain'
         ];
 
         // Ambil semua nama-nama bulan

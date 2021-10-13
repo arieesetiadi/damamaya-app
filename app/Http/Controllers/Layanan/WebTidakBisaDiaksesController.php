@@ -30,7 +30,8 @@ class WebTidakBisaDiaksesController extends Controller
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'periodStart' => Carbon::now()->subDay('6')->toDateString(),
-            'periodEnd' => Carbon::now()->toDateString()
+            'periodEnd' => Carbon::now()->toDateString(),
+            'active' => 'wtbDiakses'
         ];
 
         return view('web_tidak_bisa_diakses.index', compact('data'));

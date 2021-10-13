@@ -33,7 +33,8 @@ class AnalisaMediaController extends Controller
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
                 'end' => Carbon::now()->toDateString()
-            ]
+            ],
+            'active' => 'aMedia'
         ];
 
         return view('analisa_media.index', compact('data'));
@@ -50,7 +51,8 @@ class AnalisaMediaController extends Controller
         $data = [
             'title' => 'Tambah Analisa Media',
             'kategori' => DB::table('kategori_analisa')->get(),
-            'now' => Carbon::now()->toDateString()
+            'now' => Carbon::now()->toDateString(),
+            'active' => 'aMedia'
         ];
 
         return view('analisa_media.create', compact('data'));

@@ -35,7 +35,8 @@ class InformasiController extends Controller
             'title' => 'Layanan Informasi',
             'informasi' => Informasi::getData(),
             'years' => array_reverse($years),
-            'instansi' => DB::table('instansi')->orderBy('nama_pd', 'ASC')->get()
+            'instansi' => DB::table('instansi')->orderBy('nama_pd', 'ASC')->get(),
+            'active' => 'lInformasi'
         ];
         return view('informasi.index', compact('data'));
     }
@@ -49,7 +50,8 @@ class InformasiController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Analisa Media
         $data = [
-            'title' => 'Tambah Informasi'
+            'title' => 'Tambah Informasi',
+            'active' => 'lInformasi'
         ];
 
         return view('informasi.create', compact('data'));

@@ -83,3 +83,17 @@ td.w-nama-instansi {
     background: red;
     color: white;
 }
+
+.bg-new-primary {
+    background: rgb(111, 155, 255);
+    background: linear-gradient(
+        180deg,
+        rgba(111, 155, 255, 1) 0%,
+        rgba(0, 121, 255, 1) 48%,
+        rgba(8, 99, 222, 1) 99%
+    );
+}
+
+.bg-new-secondary {
+    background-color: rgb(216, 216, 216);
+}

@@ -26,6 +26,7 @@ class PinjamRuanganController extends Controller
     {
         $data = [
             'title' => 'Schedule Peminjaman Ruangan',
+            'active' => 'pRuangan'
         ];
 
         return view('pinjam_ruangan.index', compact('data'));
@@ -41,7 +42,8 @@ class PinjamRuanganController extends Controller
         $data = [
             'title' => 'Tambah Peminjaman Ruangan',
             'now' => Carbon::now()->toDateString(),
-            'nowTime' => Carbon::now()->toTimeString()
+            'nowTime' => Carbon::now()->toTimeString(),
+            'active' => 'pRuangan'
         ];
 
         return view('pinjam_ruangan.create', compact('data'));

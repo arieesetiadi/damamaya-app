@@ -36,7 +36,8 @@ class KeamananInformasiController extends Controller
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'periodStart' => Carbon::now()->subDay('6')->toDateString(),
-            'periodEnd' => Carbon::now()->toDateString()
+            'periodEnd' => Carbon::now()->toDateString(),
+            'active' => 'kInformasi'
         ];
 
         return view('keamanan_informasi.index', compact('data'));
@@ -53,7 +54,8 @@ class KeamananInformasiController extends Controller
         $data = [
             'title' => 'Tambah Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
-            'nowTime' => Carbon::now()->toTimeString()
+            'nowTime' => Carbon::now()->toTimeString(),
+            'active' => 'kInformasi'
         ];
 
         return view('keamanan_informasi.create', compact('data'));

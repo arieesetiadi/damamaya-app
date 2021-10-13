@@ -27,7 +27,8 @@ class KeamananInformasiController extends Controller
     {
         $data = [
             'title' => 'Report Tindak Lanjut - Keamanan Informasi',
-            'tindakLanjut' => TindakLanjut::getDataByBidang('persandian')
+            'tindakLanjut' => TindakLanjut::getDataByBidang('persandian'),
+            'active' => 'kInformasi'
         ];
 
         return view('keamanan_informasi.tindak_lanjut', compact('data'));
