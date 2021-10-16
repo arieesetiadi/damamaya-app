@@ -41,7 +41,7 @@ class UserController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Users
         $data = [
-            'title' => 'Tambah User',
+            'title' => 'Input | User',
             'roles' => Role::all(),
             'active' => 'kUser'
         ];
@@ -106,7 +106,8 @@ class UserController extends Controller
             'genders' => [
                 ['l', 'Laki - laki', 'gender1'],
                 ['p', 'Perempuan', 'gender2']
-            ]
+            ],
+            'active' => 'kUser'
         ];
 
         return view('user.edit', compact('data'));
@@ -206,7 +207,8 @@ class UserController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Akun User
         $data = [
-            'title' => 'Akun'
+            'title' => 'Akun',
+            'active' => ''
         ];
 
         return view('user.account', compact('data'));

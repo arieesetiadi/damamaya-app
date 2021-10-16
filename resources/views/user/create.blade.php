@@ -14,7 +14,7 @@
                         <div class="mb-3">
                             <label for="username">Username :</label>
                             <input id="username" name="username"
-                                class="form-control form-control-sm  @error('username')  border-danger @enderror" type="text"
+                                class="form-control  @error('username')  border-danger @enderror" type="text"
                                 placeholder="Username" value="{{ old('username') }}">
                             @error('username')
                                 <small class="text-danger">{{ $message }}</small>
@@ -23,9 +23,8 @@
 
                         <div class="my-3">
                             <label for="name">Nama Lengkap :</label>
-                            <input id="name" name="name"
-                                class="form-control form-control-sm  @error('name')  border-danger @enderror" type="text"
-                                placeholder="Nama lengkap" value="{{ old('name') }}">
+                            <input id="name" name="name" class="form-control  @error('name')  border-danger @enderror"
+                                type="text" placeholder="Nama lengkap" value="{{ old('name') }}">
                             @error('name')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -33,9 +32,8 @@
 
                         <div class="my-3">
                             <label for="email">Email :</label>
-                            <input id="email" name="email"
-                                class="form-control form-control-sm  @error('email')  border-danger @enderror" type="email"
-                                placeholder="Email" value="{{ old('email') }}">
+                            <input id="email" name="email" class="form-control  @error('email')  border-danger @enderror"
+                                type="email" placeholder="Email" value="{{ old('email') }}">
                             @error('email')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -43,8 +41,8 @@
 
                         <div class="my-3">
                             <label for="role">User Role :</label>
-                            <select id="role" name="role" class="custom-select custom-select-sm">
-                                <option selected hidden>User Role</option>
+                            <select id="role" name="role" class="custom-select @error('role')  border-danger @enderror">
+                                <option selected hidden value="">User Role</option>
                                 @foreach ($data['roles'] as $role)
                                     @if ($role->id == old('role'))
                                         <option value="{{ $role->id }}" selected>{{ $role->name }}</option>
@@ -53,6 +51,9 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @error('role')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
                     </div>
 
@@ -60,8 +61,8 @@
                         <div class="mb-3">
                             <label for="password">Password :</label>
                             <input id="password" name="password"
-                                class="form-control form-control-sm  @error('password')  border-danger @enderror"
-                                type="password" placeholder="Password" value="{{ old('password') }}">
+                                class="form-control  @error('password')  border-danger @enderror" type="password"
+                                placeholder="Password" value="{{ old('password') }}">
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -70,8 +71,8 @@
                         <div class="my-3">
                             <label for="password_confirmation">Retype Password :</label>
                             <input id="password_confirmation" name="password_confirmation"
-                                class="form-control form-control-sm  @error('password')  border-danger @enderror"
-                                type="password" placeholder="Retype Password" value="{{ old('password') }}">
+                                class="form-control  @error('password')  border-danger @enderror" type="password"
+                                placeholder="Retype Password" value="{{ old('password') }}">
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

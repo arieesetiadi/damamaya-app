@@ -32,7 +32,7 @@ class KeamananInformasiController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Report Keamanan Informasi
         $data = [
-            'title' => 'Keamanan Informasi',
+            'title' => 'Report | Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'periodStart' => Carbon::now()->subDay('6')->toDateString(),
@@ -52,7 +52,7 @@ class KeamananInformasiController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Keamanan Informasi
         $data = [
-            'title' => 'Tambah Keamanan Informasi',
+            'title' => 'Input | Keamanan Informasi',
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'active' => 'kInformasi'

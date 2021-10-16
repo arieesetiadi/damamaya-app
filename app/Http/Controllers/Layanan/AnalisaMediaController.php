@@ -28,7 +28,7 @@ class AnalisaMediaController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Report Analisa Media
         $data = [
-            'title' => 'Analisa Media',
+            'title' => 'Report | Analisa Media',
             'kategori' => DB::table('kategori_analisa')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
@@ -49,9 +49,8 @@ class AnalisaMediaController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Analisa Media
         $data = [
-            'title' => 'Tambah Analisa Media',
+            'title' => 'Input | Analisa Media',
             'kategori' => DB::table('kategori_analisa')->get(),
-            'now' => Carbon::now()->toDateString(),
             'active' => 'aMedia'
         ];
 

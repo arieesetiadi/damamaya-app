@@ -32,7 +32,7 @@ class InformasiController extends Controller
 
         // Kirim data yang dibutuhkan ke halaman Report Layana  Informasi
         $data = [
-            'title' => 'Layanan Informasi',
+            'title' => 'Report | Layanan Informasi',
             'informasi' => Informasi::getData(),
             'years' => array_reverse($years),
             'instansi' => DB::table('instansi')->orderBy('nama_pd', 'ASC')->get(),
@@ -50,7 +50,7 @@ class InformasiController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Analisa Media
         $data = [
-            'title' => 'Tambah Informasi',
+            'title' => 'Input | Layanan Informasi',
             'active' => 'lInformasi'
         ];
 

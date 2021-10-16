@@ -3,8 +3,8 @@
 @section('content')
     <!-- Page Heading -->
     <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
-    <h4 class="d-inline-block mx-2">|</h4>
-    <p class="mb-4 d-inline-block">Riwayat website yang sudah ditindak lanjuti</p>
+    <h4 class="d-inline-block mx-2"> - </h4>
+    <p class="mb-4 d-inline-block">Web Tidak Bisa Diakses</p>
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">

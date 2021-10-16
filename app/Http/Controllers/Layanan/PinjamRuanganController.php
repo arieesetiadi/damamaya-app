@@ -25,7 +25,7 @@ class PinjamRuanganController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Schedule Peminjaman Ruangan',
+            'title' => 'Report | Peminjaman Ruangan',
             'active' => 'pRuangan'
         ];
 
@@ -40,7 +40,7 @@ class PinjamRuanganController extends Controller
     public function create()
     {
         $data = [
-            'title' => 'Tambah Peminjaman Ruangan',
+            'title' => 'Input | Peminjaman Ruangan',
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'active' => 'pRuangan'

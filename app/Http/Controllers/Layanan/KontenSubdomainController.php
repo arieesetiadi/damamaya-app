@@ -26,7 +26,7 @@ class KontenSubdomainController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Report Konten Subdomain
         $data = [
-            'title' => 'Konten Subdomain',
+            'title' => 'Report | Konten Subdomain',
             'bulan_now' => Carbon::now()->month,
             'tahun_now' => Carbon::now()->year,
             'active' => 'kSubdomain'
@@ -52,8 +52,7 @@ class KontenSubdomainController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Konten Subdomain
         $data = [
-            'title' => 'Tambah Konten Subdomain',
-            'now' => Carbon::now()->toDateString(),
+            'title' => 'Input | Konten Subdomain',
             'bulan_now' => Carbon::now()->month,
             'tahun_now' => Carbon::now()->year,
             'active' => 'kSubdomain'

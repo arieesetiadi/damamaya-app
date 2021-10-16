@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
-    <h4 class="d-inline-block mx-2 mb-4">|</h4>
+    <h4 class="text-gray-800 mb-4 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
 
     @if (session('success'))
         <div class="alert alert-primary" role="alert">
@@ -26,7 +25,7 @@
                     <div class="mb-3">
                         <label for="tanggal">Tanggal Pinjam :</label>
                         <input id="tanggal" name="tanggal" class="form-control  @error('tanggal')  border-danger @enderror"
-                            type="date" value="{{ old('tanggal', now()->toDateString()) }}">
+                            type="date" value="{{ old('tanggal') }}">
                         @error('tanggal')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
@@ -35,7 +34,7 @@
                     <div class="mb-3">
                         <label for="jam-mulai">Jam Mulai :</label>
                         <input id="jam-mulai" name="jamMulai"
-                            class="form-control  @error('jamMulai')  border-danger @enderror" type="time"
+                            class="form-control @error('jamMulai') border-danger @enderror" type="time"
                             value="{{ old('jamMulai', '00:00') }}">
                         @error('jamMulai')
                             <small class="text-danger">{{ $message }}</small>
@@ -44,8 +43,11 @@
 
                     <div class="mb-3">
                         <label for="durasi">Durasi Pinjam ( Jam ) :</label>
-                        <input id="durasi" name="durasi" type="number" min="1" step="1" class="form-control"
-                            value="{{ old('durasi') }}" />
+                        <input id="durasi" name="durasi" type="number" min="1" step="1"
+                            class="form-control @error('durasi')  border-danger @enderror" value="{{ old('durasi') }}" />
+                        @error('durasi')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
                     </div>
 
                     <div class="mb-3">

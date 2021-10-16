@@ -3,7 +3,7 @@
 @section('content')
     <!-- Page Heading -->
     <h4 class="text-gray-800 d-inline-block">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h4>
-    <h4 class="d-inline-block mx-2">|</h4>
+    <h4 class="d-inline-block mx-2"> - </h4>
     <p class="mb-4 d-inline-block">Layanan Pengaduan Masyarakat Yang Memerlukan Dukungan Anggaran (TL Awal)</p>
 
     <!-- DataTales Example -->
@@ -16,8 +16,8 @@
                         <div class="mb-3">
                             <label for="tanggal">Tanggal Pengaduan :</label>
                             <input id="tanggal" name="tanggal"
-                                class="form-control form-control-sm  @error('tanggal')  border-danger @enderror" type="date"
-                                value="{{ $data['now'] }}">
+                                class="form-control  @error('tanggal')  border-danger @enderror" type="date"
+                                value="{{ old('tanggal') }}">
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -26,8 +26,8 @@
                         <div class="my-3">
                             <label for="nama_pelapor">Nama Pelapor :</label>
                             <input id="nama_pelapor" name="nama_pelapor"
-                                class="form-control form-control-sm  @error('nama_pelapor')  border-danger @enderror"
-                                type="text" placeholder="Nama pelapor" value="{{ old('nama_pelapor') }}">
+                                class="form-control  @error('nama_pelapor')  border-danger @enderror" type="text"
+                                placeholder="Nama pelapor" value="{{ old('nama_pelapor') }}">
                             @error('nama_pelapor')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -35,9 +35,8 @@
 
                         <div class="my-3">
                             <label for="topik">Topik / Judul :</label>
-                            <input id="topik" name="topik"
-                                class="form-control form-control-sm  @error('topik')  border-danger @enderror" type="text"
-                                placeholder="Topik" value="{{ old('topik') }}">
+                            <input id="topik" name="topik" class="form-control  @error('topik')  border-danger @enderror"
+                                type="text" placeholder="Topik" value="{{ old('topik') }}">
                             @error('topik')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -47,8 +46,9 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="kategori">Kategori :</label>
-                            <select id="kategori" name="kategori" class="custom-select custom-select-sm">
-                                <option selected hidden>Pilih Kategori</option>
+                            <select id="kategori" name="kategori"
+                                class="custom-select custom-select-sm @error('kategori')  border-danger @enderror">
+                                <option selected hidden value="">Pilih Kategori</option>
                                 @foreach ($data['kategori'] as $kategori)
                                     @if ($kategori->id == old('kategori'))
                                         <option value="{{ $kategori->name }}" selected>{{ $kategori->name }}</option>
@@ -57,12 +57,15 @@
                                     @endif
                                 @endforeach
                             </select>
+                            @error('kategori')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
                         </div>
 
                         <div class="my-3">
                             <label for="nama_pd">Nama Instansi / Perangkat Daerah :</label>
                             <input id="nama_pd" name="nama_pd"
-                                class="form-control form-control-sm  @error('nama_pd')  border-danger @enderror" type="text"
+                                class="form-control  @error('nama_pd')  border-danger @enderror" type="text"
                                 placeholder="Instansi" value="{{ old('nama_pd') }}">
                             @error('nama_pd')
                                 <small class="text-danger">{{ $message }}</small>

@@ -27,7 +27,7 @@ class PengaduanPROController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Report Pengaduan PRO
         $data = [
-            'title' => 'Pengaduan PRO Denpasar',
+            'title' => 'Report | Pengaduan PRO Denpasar',
             'kategori' => DB::table('kategori_pengaduan')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
@@ -48,9 +48,8 @@ class PengaduanPROController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Pengaduan PRO
         $data = [
-            'title' => 'Tambah Pengaduan PRO Denpasar',
+            'title' => 'Input | Pengaduan PRO Denpasar',
             'kategori' => DB::table('kategori_pengaduan')->get(),
-            'now' => Carbon::now()->toDateString(),
             'active' => 'pPro'
         ];
 
@@ -66,13 +65,15 @@ class PengaduanPROController extends Controller
     public function store(Request $request)
     {
         // Validasi data dari form input
-        $request->validate([
-            'tanggal' => 'required',
-            'nama_pelapor' => 'required|max:255',
-            'topik' => 'required|max:255',
-            'kategori' => 'required',
-            'nama_pd' => 'required'
-        ]);
+        $request->validate(
+            [
+                'tanggal' => 'required',
+                'nama_pelapor' => 'required|max:255',
+                'topik' => 'required|max:255',
+                'kategori' => 'required',
+                'nama_pd' => 'required'
+            ]
+        );
 
         // Insert data pengaduan PRO dengan Model
         PengaduanPRO::create([

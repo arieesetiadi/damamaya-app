@@ -61,7 +61,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item {{ $data['active'] == 'dashboard' ? 'active' : '' }}">
+            <li class="nav-item{{ $data['active'] == 'dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>
@@ -77,7 +77,7 @@
 
             <!-- Nav Item - Layanan Pengaduan (PRO Denpasar) -->
             <li class="nav-item {{ $data['active'] == 'pPro' ? 'active' : '' }}">
-                <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePro"
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePro"
                     aria-expanded="true" aria-controls="collapsePro">
                     {{-- <i class="fas fa-list"></i> --}}
                     <i class="fas fa-list-alt"></i>

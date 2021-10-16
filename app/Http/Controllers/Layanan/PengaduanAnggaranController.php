@@ -28,7 +28,7 @@ class PengaduanAnggaranController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Report Pengaduan Anggaran
         $data = [
-            'title' => 'Pengaduan Anggaran',
+            'title' => 'Report | Pengaduan Anggaran',
             'kategori' => DB::table('kategori_pengaduan')->get(),
             'chart_period' => [
                 'start' => Carbon::now()->subDay('6')->toDateString(),
@@ -49,9 +49,8 @@ class PengaduanAnggaranController extends Controller
     {
         // Kirim data yang dibutuhkan ke halaman Tambah Pengaduan PRO
         $data = [
-            'title' => 'Tambah Pengaduan Anggaran',
+            'title' => 'Input | Pengaduan Anggaran',
             'kategori' => DB::table('kategori_pengaduan')->get(),
-            'now' => Carbon::now()->toDateString(),
             'active' => 'pAnggaran'
         ];
 

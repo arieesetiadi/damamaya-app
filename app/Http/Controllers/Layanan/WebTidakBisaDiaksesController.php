@@ -26,7 +26,7 @@ class WebTidakBisaDiaksesController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Bidang TIK',
+            'title' => 'Report | Bidang TIK',
             'now' => Carbon::now()->toDateString(),
             'nowTime' => Carbon::now()->toTimeString(),
             'periodStart' => Carbon::now()->subDay('6')->toDateString(),

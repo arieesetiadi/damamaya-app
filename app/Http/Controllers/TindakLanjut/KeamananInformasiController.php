@@ -26,7 +26,7 @@ class KeamananInformasiController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Report Tindak Lanjut - Keamanan Informasi',
+            'title' => 'Report | Tindak Lanjut Keamanan Informasi',
             'tindakLanjut' => TindakLanjut::getDataByBidang('persandian'),
             'active' => 'kInformasi'
         ];

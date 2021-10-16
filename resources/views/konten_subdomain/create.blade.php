@@ -2,7 +2,7 @@
 
 @section('content')
     <!-- Page Heading -->
-    <h1 class="h3 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
+    <h1 class="h3 mb-4 text-gray-800">{{ isset($data['title']) ? $data['title'] : 'Title' }}</h1>
 
     <!-- DataTales Example -->
     <div class="card shadow mb-4 col">
@@ -13,9 +13,8 @@
                     <div class="col-lg-6">
                         <div class="mb-3">
                             <label for="tanggal">Tanggal :</label>
-                            <input id="tanggal" name="tanggal"
-                                class="form-control form-control-sm  @error('tanggal')  border-danger @enderror" type="date"
-                                value="{{ $data['now'] }}">
+                            <input id="tanggal" name="tanggal" class="form-control @error('tanggal') border-danger @enderror"
+                                type="date" value="{{ old('tanggal') }}">
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -23,9 +22,8 @@
 
                         <div class="mt-3">
                             <label for="nama_pd">Nama Instansi / Perangkat Daerah :</label>
-                            <input id="nama_pd" name="namaPd"
-                                class="form-control form-control-sm  @error('namaPd')  border-danger @enderror" type="text"
-                                placeholder="Instansi" value="{{ old('namaPd') }}">
+                            <input id="nama_pd" name="namaPd" class="form-control @error('namaPd')  border-danger @enderror"
+                                type="text" placeholder="Instansi" value="{{ old('namaPd') }}">
                             @error('namaPd')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

@@ -27,7 +27,7 @@ class WebTidakBisaDiaksesController extends Controller
     public function index()
     {
         $data = [
-            'title' => 'Report Tindak Lanjut - Web Tidak Bisa Diakses',
+            'title' => 'Report | Tindak Lanjut',
             'tindakLanjut' => TindakLanjut::getDataByBidang('tik'),
             'active' => 'wtbDiakses'
         ];
