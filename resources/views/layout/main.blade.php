@@ -383,6 +383,9 @@
     {{-- Jquery Plugins --}}
     <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 
+    {{-- Moment JS --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
     {{-- Axios --}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 

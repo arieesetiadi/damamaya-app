@@ -67,7 +67,7 @@ function analisaReport(startDate, endDate, kategori) {
         // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
         if (data.length > 0) {
             analisaTableStr = `
-            <table class="table table-hover" id="analisa-table" width="100%" cellspacing="0">
+            <table class="table table-bordered" id="analisa-table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -82,10 +82,12 @@ function analisaReport(startDate, endDate, kategori) {
                 `;
 
             $.each(data, function (i, val) {
+                let date = new Date(val.tanggal);
+                tanggal = moment(date).format("DD MMMM YYYY");
                 analisaTableStr += `
                     <tr>
                         <td>${i + 1}</td>
-                        <td>${val.tanggal}</td>
+                        <td>${tanggal}</td>
                         <td>${val.isu_lokal}</td>
                         <td>${val.isu_nasional}</td>
                         <td>${val.kategori}</td>

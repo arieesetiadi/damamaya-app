@@ -92,10 +92,12 @@ function keamananReport(startDate, endDate, kategori) {
                         `;
 
             $.each(data, function (i, val) {
+                let date = new Date(val.tanggal);
+                tanggal = moment(date).format("DD MMMM YYYY");
                 keamananTableStr += `
                 <tr>
                     <td>${i + 1}</td>
-                    <td>${val.tanggal}</td>
+                    <td>${tanggal}</td>
                     <td>${val.jam}</td>
                     <td>
                         <a  target="_blank"

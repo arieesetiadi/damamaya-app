@@ -84,10 +84,12 @@ function anggaranReport(startDate, endDate, kategori) {
                 `;
 
             $.each(data, function (i, val) {
+                let date = new Date(val.tanggal);
+                tanggal = moment(date).format("DD MMMM YYYY");
                 anggaranTableStr += `
                     <tr>
                         <td>${i + 1}</td>
-                        <td>${val.tanggal}</td>
+                        <td>${tanggal}</td>
                         <td>${val.nama_pelapor}</td>
                         <td>${val.topik}</td>
                         <td>${val.kategori}</td>

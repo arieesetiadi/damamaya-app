@@ -73,10 +73,12 @@ function subdomainReport(bulan, tahun) {
 
             // Loop untuk menampilkan data Konten Subdomain ke table
             $.each(data, function (i, data) {
+                let date = new Date(data.tanggal);
+                tanggal = moment(date).format("DD MMMM YYYY");
                 subdomainTableStr += `
                         <tr>
                         <td>${i + 1}</td>
-                        <td>${data.tanggal}</td>
+                        <td>${tanggal}</td>
                         <td>${data.name}</td>
                         <td>${data.nama_pd}</td>
                     `;

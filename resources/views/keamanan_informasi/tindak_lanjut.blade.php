@@ -51,7 +51,11 @@
                                     </a>
                                 </td>
 
-                                <td>{{ $tindakLanjut->tanggal }}</td>
+                                @php
+                                    $date = Carbon\Carbon::createFromFormat('Y-m-d', $tindakLanjut->tanggal);
+                                @endphp
+
+                                <td>{{ $date->format('d F Y') }}</td>
                                 <td>{{ $tindakLanjut->jam }}</td>
 
                                 <td>

@@ -141,11 +141,13 @@ function pinjamRuanganReport(monthCounter) {
                         `;
 
                         $.each(data, function (i, val) {
+                            let date = new Date(val.tanggal);
+                            tanggal = moment(date).format("DD MMMM YYYY");
                             listPinjamTableStr += `
                                 <tr>
                                     <td>${i + 1}</td>
                                     <td>${val.keterangan}</td>
-                                    <td>${val.tanggal}</td>
+                                    <td>${tanggal}</td>
                                     <td>${val.jam_mulai}</td>
                                     <td>${val.jam_selesai}</td>
                                     <td>${val.peminjam}</td>
