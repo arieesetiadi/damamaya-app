@@ -146,16 +146,30 @@ function loadDataTable(data) {
 
     if (data.length > 0) {
         proTableStr = `
-        <table class="table table-hover" id="pro-table">
+        <table class="table table-hover table-sm" id="pro-table">
             <thead>
                 <tr>
-                    <th>No.</th>
-                    <th class="w-custom-sm">Tanggal Pengaduan</th>
-                    <th class="w-custom-sm">Nama Pelapor</th>
-                    <th class="w-custom-sm">Topik</th>
-                    <th class="w-custom-sm">Kategori</th>
-                    <th>Nama Instansi / Perangkat Daerah</th>
-                    <th>Nama Petugas</th>
+                    <th>
+                        <p>No.</p>
+                    </th>
+                    <th class="w-custom-sm">
+                        <p>Tanggal Pengaduan</p>
+                    </th>
+                    <th class="w-custom-sm">
+                        <p>Nama Pelapor</p>
+                    </th>
+                    <th class="w-custom-sm">
+                        <p>Topik</p>
+                    </th>
+                    <th class="w-custom-sm">
+                        <p>Kategori</p>
+                    </th>
+                    <th>
+                        <p>Nama Instansi / Perangkat Daerah</p>
+                    </th>
+                    <th>
+                        <p>Nama Petugas</p>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -166,13 +180,27 @@ function loadDataTable(data) {
             tanggal = moment(date).format("DD MMMM YYYY");
             proTableStr += `
                 <tr>
-                    <td>${i + 1}</td>
-                    <td>${tanggal}</td>
-                    <td>${val.nama_pelapor}</td>
-                    <td>${val.topik}</td>
-                    <td>${val.kategori}</td>
-                    <td>${val.nama_pd}</td>
-                    <td>${val.name}</td>
+                    <td>
+                        <p>${i + 1}</p>
+                    </td>
+                    <td>
+                        <p>${tanggal}</p>
+                    </td>
+                    <td>
+                        <p>${val.nama_pelapor}</p>
+                    </td>
+                    <td>
+                        <p>${val.topik}</p>
+                    </td>
+                    <td>
+                        <p>${val.kategori}</p>
+                    </td>
+                    <td>
+                        <p>${val.nama_pd}</p>
+                    </td>
+                    <td>
+                        <p>${val.name}</p>
+                    </td>
                 </tr>
             `;
         });

@@ -26,7 +26,7 @@
         </div>
         <div class="card-body">
             <div id="keamanan-table-wrapper" class="table-responsive">
-                <table class="table container-fluid">
+                <table class="table table-sm table-hover container-fluid">
                     @if (count($data['tindakLanjut']) > 0)
                         <tr>
                             <th>No.</th>
@@ -171,8 +171,8 @@
                         </div>
                     </div>
                     <div class=" modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button id="cancel-tindak-lanjut" type="button" class="btn btn-secondary"
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                        <button id="cancel-tindak-lanjut" type="button" class="btn btn-sm btn-secondary"
                             data-dismiss="modal">Cancel</button>
                     </div>
             </div>
@@ -192,12 +192,12 @@
                 </div>
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form id="form-delete" action="{{ route('keamanan-informasi-tindak.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <input id="id" type="hidden" name="id" value="">
-                        <button type="submit" class="btn btn-primary">OK</button>
+                        <button type="submit" class="btn btn-sm btn-primary">OK</button>
                     </form>
                 </div>
             </div>

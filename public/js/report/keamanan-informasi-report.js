@@ -69,7 +69,7 @@ function keamananReport(startDate, endDate, kategori) {
 
         if (data.length > 0) {
             keamananTableStr = `
-            <table class="table table-hover" id="keamanan-table">
+            <table class="table table-sm table-hover" id="keamanan-table">
                 <thead>
                     <tr>
                         <th>No.</th>

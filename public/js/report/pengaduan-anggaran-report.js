@@ -68,16 +68,30 @@ function anggaranReport(startDate, endDate, kategori) {
         // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
         if (data.length > 0) {
             anggaranTableStr = `
-            <table class="table table-hover" id="anggaran-table">
+            <table class="table table-hover table-sm" id="anggaran-table">
                 <thead>
                     <tr>
-                        <th>No.</th>
-                        <th class="w-custom-sm">Tanggal Pengaduan</th>
-                        <th class="w-custom-sm">Nama Pelapor</th>
-                        <th class="w-custom-sm">Topik</th>
-                        <th class="w-custom-sm">Kategori</th>
-                        <th>Nama Instansi / Perangkat Daerah</th>
-                        <th>Nama Petugas</th>
+                        <th>
+                            <p>No.</p>
+                        </th>
+                        <th class="w-custom-sm">
+                            <p>Tanggal Pengaduan</p>
+                        </th>
+                        <th class="w-custom-sm">
+                            <p>Nama Pelapor</p>
+                        </th>
+                        <th class="w-custom-sm">
+                            <p>Topik</p>
+                        </th>
+                        <th class="w-custom-sm">
+                            <p>Kategori</p>
+                        </th>
+                        <th>
+                            <p>Nama Instansi / Perangkat Daerah</p>
+                        </th>
+                        <th>
+                            <p>Nama Petugas</p>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>

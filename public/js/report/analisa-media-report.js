@@ -67,13 +67,12 @@ function analisaReport(startDate, endDate, kategori) {
         // Jika ada data yang dihasilkan, maka tampilkan dalam bentuk table
         if (data.length > 0) {
             analisaTableStr = `
-            <table class="table table-bordered" id="analisa-table" width="100%" cellspacing="0">
+            <table class="table table-hover table-sm" id="analisa-table" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>No.</th>
                         <th>Tanggal</th>
-                        <th>Isu Lokal</th>
-                        <th>Isu Nasional</th>
+                        <th>Isu</th>
                         <th>Kategori</th>
                         <th>Nama Petugas</th>
                     </tr>
@@ -88,8 +87,7 @@ function analisaReport(startDate, endDate, kategori) {
                     <tr>
                         <td>${i + 1}</td>
                         <td>${tanggal}</td>
-                        <td>${val.isu_lokal}</td>
-                        <td>${val.isu_nasional}</td>
+                        <td>${val.isu}</td>
                         <td>${val.kategori}</td>
                         <td>${val.name}</td>
                     </tr>
@@ -107,6 +105,7 @@ function analisaReport(startDate, endDate, kategori) {
     }
 
     function loadChart(dates, counts) {
+        console.log(counts);
         $("#analisa-chart").remove();
 
         let canvasStr = `<canvas id="analisa-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;
@@ -121,7 +120,22 @@ function analisaReport(startDate, endDate, kategori) {
                 labels: dates,
                 datasets: [
                     {
-                        label: "Issue",
+                        label: "Isu Lokal",
+                        lineTension: 0,
+                        backgroundColor: "rgba(78, 115, 223, 0.05)",
+                        borderColor: "RGBA(92,211,92,1)",
+                        pointRadius: 3,
+                        pointBackgroundColor: "RGBA(92,211,92,1)",
+                        pointBorderColor: "RGBA(92,211,92,1)",
+                        pointHoverRadius: 3,
+                        pointHoverBackgroundColor: "RGBA(92,211,92,1)",
+                        pointHoverBorderColor: "RGBA(92,211,92,1)",
+                        pointHitRadius: 10,
+                        pointBorderWidth: 2,
+                        data: counts["isuLokal"],
+                    },
+                    {
+                        label: "Isu Nasional",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
                         borderColor: "rgba(78, 115, 223, 1)",
@@ -133,7 +147,7 @@ function analisaReport(startDate, endDate, kategori) {
                         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
-                        data: counts,
+                        data: counts["isuNasional"],
                     },
                 ],
             },

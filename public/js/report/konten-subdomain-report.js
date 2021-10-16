@@ -52,7 +52,7 @@ function subdomainReport(bulan, tahun) {
 
     function loadDataTable(data, status) {
         if (data.length > 0) {
-            subdomainTableStr = `<table class="table table-hover" id="subdomain-table">
+            subdomainTableStr = `<table class="table table-sm table-hover" id="subdomain-table">
                         <thead>
                             <tr id="tr-subdomain">
                                 <th>No.</th>

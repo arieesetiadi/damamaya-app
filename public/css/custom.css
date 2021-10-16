@@ -1,7 +1,10 @@
 th,
 td {
-    text-align: center;
     vertical-align: middle;
+}
+th p,
+td p {
+    /* text-align: center; */
 }
 .left-img {
     object-fit: scale-down;

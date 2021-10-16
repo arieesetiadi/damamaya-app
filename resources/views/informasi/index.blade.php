@@ -21,7 +21,7 @@
         </div>
         <div class="card-body">
             <div id="instansi-table-wrapper" class="table-responsive h-table">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-sm table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -90,7 +90,7 @@
         </div>
         <div class="card-body">
             <div id="informasi-table-wrapper" class="table-responsive h-table">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                     @if (count($data['informasi']) > 0)
                         <thead>
                             <tr>

@@ -39,11 +39,10 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-hover table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>ID User</th>
                             <th>Name</th>
                             <th>Username</th>
                             <th>Email</th>
@@ -59,7 +58,6 @@
                         @foreach ($data['users'] as $i => $user)
                             <tr>
                                 <td>{{ $i + 1 }}</td>
-                                <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->username }}</td>
                                 <td>{{ $user->email }}</td>

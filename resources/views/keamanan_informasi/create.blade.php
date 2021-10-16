@@ -72,6 +72,8 @@
                             <textarea name="keterangan" class="form-control" id="keterangan"
                                 rows="4">{{ old('keterangan') }}</textarea>
                         </div>
+
+                        <button type="submit" class="btn btn-sm btn-primary px-2">Tambah</button>
                     </div>
 
                     <div class="col-lg-6">
@@ -93,10 +95,8 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-lg-12">
-                <button type="submit" class="btn btn-sm btn-primary px-2 my-2">Tambah</button>
-            </div>
-        </div>
+        {{-- <div class="row">
+           
+        </div> --}}
     </form>
 @endsection

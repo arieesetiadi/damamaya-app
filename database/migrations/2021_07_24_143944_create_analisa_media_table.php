@@ -16,8 +16,7 @@ class CreateAnalisaMediaTable extends Migration
         Schema::create('layanan_analisa_media', function (Blueprint $table) {
             $table->id();
             $table->date('tanggal');
-            $table->string('isu_lokal');
-            $table->string('isu_nasional');
+            $table->string('isu');
             $table->string('kategori');
             $table->foreignId('id_user');
             $table->timestamps();

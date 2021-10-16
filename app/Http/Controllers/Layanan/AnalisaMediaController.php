@@ -68,16 +68,14 @@ class AnalisaMediaController extends Controller
         // Validasi data dari form input
         $request->validate([
             'tanggal' => 'required',
-            'isu_lokal' => 'required|max:255',
-            'isu_nasional' => 'required|max:255',
+            'isu' => 'required',
             'kategori' => 'required'
         ]);
 
         // Insert data analisa media dengan Model
         AnalisaMedia::create([
             'tanggal' => $request->tanggal,
-            'isu_lokal' => $request->isu_lokal,
-            'isu_nasional' => $request->isu_nasional,
+            'isu' => $request->isu,
             'kategori' => $request->kategori,
             'id_user' => Auth::user()->id,
         ]);
@@ -140,9 +138,21 @@ class AnalisaMediaController extends Controller
         $periods = CarbonPeriod::create($start, $end);
 
         foreach ($periods as $date) {
-            // Data count untuk Chart 
-            $report['counts'][] = AnalisaMedia::getCountByDate($date, $request->kategori);
+            switch ($request->kategori) {
+                case 'Isu Lokal':
+                    // Data count untuk Chart 
+                    $report['counts']['isuLokal'][] = AnalisaMedia::getCountByDate($date, $request->kategori);
+                    break;
 
+                case 'Isu Nasional':
+                    $report['counts']['isuNasional'][] = AnalisaMedia::getCountByDate($date, $request->kategori);
+                    break;
+
+                default:
+                    $report['counts']['isuLokal'][] = AnalisaMedia::getCountByDate($date, 'Isu Lokal');
+                    $report['counts']['isuNasional'][] = AnalisaMedia::getCountByDate($date, 'Isu Nasional');
+                    break;
+            }
             // Ambil tanggal di looping saat ini
             $report['dates'][] = $date->isoFormat('dddd - D/M');
         }

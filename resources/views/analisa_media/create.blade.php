@@ -21,20 +21,10 @@
                 </div>
 
                 <div class="my-3">
-                    <label for="isu_lokal">Isu Lokal :</label>
-                    <input id="isu_lokal" name="isu_lokal" class="form-control  @error('isu_lokal')  border-danger @enderror"
-                        type="text" placeholder="Issue Lokal" value="{{ old('isu_lokal') }}">
-                    @error('isu_lokal')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
-                </div>
-
-                <div class="my-3">
-                    <label for="isu_nasional">Isu Nasional :</label>
-                    <input id="isu_nasional" name="isu_nasional"
-                        class="form-control  @error('isu_nasional') border-danger @enderror" type="text"
-                        placeholder="Issue Nasional" value="{{ old('isu_nasional') }}">
-                    @error('isu_nasional')
+                    <label for="isu">Isu :</label>
+                    <textarea id="isu" name="isu" class="form-control  @error('isu')  border-danger @enderror" type="text"
+                        value="{{ old('isu') }}" rows="4"> </textarea>
+                    @error('isu')
                         <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>

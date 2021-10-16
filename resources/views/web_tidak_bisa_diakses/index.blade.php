@@ -154,8 +154,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                        <button id="cancel-tindak-lanjut" type="button" class="btn btn-secondary"
+                        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                        <button id="cancel-tindak-lanjut" type="button" class="btn btn-sm btn-secondary"
                             data-dismiss="modal">Batal</button>
                     </div>
             </div>
@@ -175,13 +175,13 @@
                 </div>
                 <div class="modal-body">Tekan OK untuk menghapus data.</div>
                 <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form id="form-delete" action="{{ route('web-tidak-bisa-diakses.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <input id="id" type="hidden" name="id" value="">
 
-                        <button type="submit" class="btn btn-primary">OK</button>
+                        <button type="submit" class="btn btn-sm btn-primary">OK</button>
                     </form>
                 </div>
             </div>

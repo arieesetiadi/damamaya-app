@@ -126,7 +126,7 @@ function pinjamRuanganReport(monthCounter) {
                         listPinjamTableStr = `
                             <table
                                 id="list-pinjam-table"
-                                class="table">
+                                class="table table-hover table-sm">
                                 <tr>
                                     <th>No.</th>
                                     <th>Keterangan</th>
