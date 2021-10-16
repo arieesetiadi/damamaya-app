@@ -26,9 +26,11 @@
                         {{-- Select Kategori --}}
                         <select style="width: 170px" id="keamanan-kategori"
                             class="d-inline-block custom-select custom-select-sm">
-                            <option value="" selected>Semua</option>
-                            <option>Normal</option>
+                            {{-- <option value="" selected>Semua</option> --}}
+                            <option selected value="Normal">Normal</option>
                             <option>Deface</option>
+                            <option>Tidak Bisa Diakses</option>
+                            <option>Lainnya</option>
                         </select>
                     </div>
                 </div>

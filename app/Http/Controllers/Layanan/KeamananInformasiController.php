@@ -53,8 +53,6 @@ class KeamananInformasiController extends Controller
         // Kirim data yang dibutuhkan ke halaman Tambah Keamanan Informasi
         $data = [
             'title' => 'Input | Keamanan Informasi',
-            'now' => Carbon::now()->toDateString(),
-            'nowTime' => Carbon::now()->toTimeString(),
             'active' => 'kInformasi'
         ];
 
@@ -75,7 +73,7 @@ class KeamananInformasiController extends Controller
             'jam' => 'required',
             'linkWebsite' => 'required|max:255',
             'statusWebsite' => 'required',
-            'capture' => 'image|mimes:png,jpg,jpeg,bmp'
+            'capture' => 'required|image|mimes:png,jpg,jpeg,bmp'
         ]);
 
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
@@ -95,10 +93,6 @@ class KeamananInformasiController extends Controller
             'capture' => $captureName,
             'id_user' => Auth::user()->id
         ]);
-
-        if ($request->statusWebsite == 'Tidak Bisa Diakses') {
-            return redirect()->route('web-tidak-bisa-diakses.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
-        }
 
         return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menambah Data Keamanan Informasi');
     }
@@ -180,24 +174,42 @@ class KeamananInformasiController extends Controller
             switch ($request->kategori) {
                 case 'Normal':
                     // Data Chart Berstatus Normal
-                    $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, 'Normal');
+                    $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, $request->kategori);
 
                     // Data untuk Table yang berstatus Normal
-                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, 'Normal');
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, $request->kategori);
                     break;
 
                 case 'Deface':
                     // Data Chart Berstatus Deface
-                    $report['counts']['deface'][] = KeamananInformasi::getCountByDate($date, 'Deface');
+                    $report['counts']['deface'][] = KeamananInformasi::getCountByDate($date, $request->kategori);
 
                     // Data untuk Table yang berstatus Deface
-                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, 'Deface');
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, $request->kategori);
+                    break;
+
+                case 'Tidak Bisa Diakses':
+                    // Data Chart Berstatus Deface
+                    $report['counts']['tidakBisaDiakses'][] = KeamananInformasi::getCountByDate($date, $request->kategori);
+
+                    // Data untuk Table yang berstatus Deface
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, $request->kategori);
+                    break;
+
+                case 'Lainnya':
+                    // Data Chart Berstatus Deface
+                    $report['counts']['lainnya'][] = KeamananInformasi::getCountByDate($date, $request->kategori);
+
+                    // Data untuk Table yang berstatus Deface
+                    $report['data'] = KeamananInformasi::getDataByPeriod($start, $end, $request->kategori);
                     break;
 
                 default:
                     // Data Chart Semua Status
                     $report['counts']['normal'][] = KeamananInformasi::getCountByDate($date, 'Normal');
                     $report['counts']['deface'][] = KeamananInformasi::getCountByDate($date, 'Deface');
+                    $report['counts']['tidakBisaDiakses'][] = KeamananInformasi::getCountByDate($date, 'Tidak Bisa Diakses');
+                    $report['counts']['lainnya'][] = KeamananInformasi::getCountByDate($date, 'Lainnya');
 
                     // Data untuk Table untuk semua Status
                     $report['data'] = KeamananInformasi::getDataByPeriod($start, $end);

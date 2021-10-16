@@ -17,7 +17,7 @@
                             <label for="tanggal">Tanggal :</label>
                             <input id="tanggal" name="tanggal"
                                 class="form-control  @error('tanggal')  border-danger @enderror" type="date"
-                                value="{{ $data['now'] }}">
+                                value="{{ old('tanggal') }}">
                             @error('tanggal')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -26,7 +26,7 @@
                         <div class="mb-3">
                             <label for="jam">Jam :</label>
                             <input id="jam" name="jam" class="form-control  @error('jam')  border-danger @enderror"
-                                type="time" value="{{ $data['nowTime'] }}">
+                                type="time" value="{{ old('jam') }}">
                             @error('jam')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -58,20 +58,30 @@
                                     Deface
                                 </label>
                             </div>
-                            <div class="form-check d-inline-block">
+                            <div class="form-check d-inline-block mr-4">
                                 <input class="form-check-input" type="radio" name="statusWebsite" id="status_website3"
                                     value="Tidak Bisa Diakses">
                                 <label class="form-check-label" for="status_website3">
                                     Tidak Bisa Diakses
                                 </label>
                             </div>
+                            <div class="form-check d-inline-block">
+                                <input class="form-check-input" type="radio" name="statusWebsite" id="status_website4"
+                                    value="Lainnya">
+                                <label class="form-check-label" for="status_website4">
+                                    Lainnya
+                                </label>
+                            </div>
                         </div>
 
                         <div class="form-group">
                             <label for="keterangan">Keterangan (Optional) :</label>
-                            <textarea name="keterangan" class="form-control" id="keterangan"
-                                rows="4">{{ old('keterangan') }}</textarea>
+                            <textarea name="keterangan" class="form-control @error('keterangan')  border-danger @enderror"
+                                id="keterangan" rows="4">{{ old('keterangan') }}</textarea>
                         </div>
+                        @error('keterangan')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
 
                         <button type="submit" class="btn btn-sm btn-primary px-2">Tambah</button>
                     </div>
@@ -80,7 +90,8 @@
                         <div>
                             <label for="">Pilih Capture Website :</label>
                             <div class="custom-file">
-                                <input name="capture" id="capture" type="file" accept="image/*" class="custom-file-input">
+                                <input name="capture" id="capture" type="file" accept="image/*"
+                                    class="custom-file-input @error('capture')  border-danger @enderror">
                                 <label id="capture-label" class="custom-file-label" for="capture">Browse image..</label>
                             </div>
                             @error('capture')

@@ -20,7 +20,8 @@ class KeamananInformasiSeeder extends Seeder
         $status = [
             'Normal',
             'Deface',
-            'Tidak Bisa Diakses'
+            'Tidak Bisa Diakses',
+            'Lainnya'
         ];
 
         $link_website = [
@@ -35,7 +36,7 @@ class KeamananInformasiSeeder extends Seeder
                 'tanggal' => Carbon::now()->addDay(rand(-30, 0))->toDateString(),
                 'jam' => Carbon::now()->addHour(rand(-7, 7))->toTimeString(),
                 'link_website' => $link_website[rand(0, 3)],
-                'status_website' => $status[rand(0, 2)],
+                'status_website' => $status[rand(0, 3)],
                 'keterangan' => 'Keterangan Dummy',
                 'capture' => 'default-laporan.png',
                 'id_user' => rand(1, 2)
