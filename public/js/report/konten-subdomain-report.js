@@ -1,18 +1,26 @@
 $(function () {
+    function setExportDetail(bulan, tahun) {
+        $("#excell-bulan").val(bulan);
+        $("#excell-tahun").val(tahun);
+    }
+
     if ($("#subdomain-table-wrapper").length) {
         let bulan = $("#subdomain-bulan option:selected").val();
         let tahun = $("#subdomain-tahun").val();
 
         subdomainReport(bulan, tahun);
+        setExportDetail(bulan, tahun);
 
         $("#subdomain-bulan").on("change", function () {
             bulan = $("#subdomain-bulan option:selected").text();
+            setExportDetail(bulan, tahun);
         });
 
         $("#subdomain-submit-filter").click(function () {
             bulan = $("#subdomain-bulan option:selected").val();
             tahun = $("#subdomain-tahun").val();
             subdomainReport(bulan, tahun);
+            setExportDetail(bulan, tahun);
         });
     }
 });
@@ -84,34 +92,20 @@ function subdomainReport(bulan, tahun) {
                     `;
 
                 $.each(status[i], function (i, status) {
-                    // if (status.is_uptodate != null) {
-                    //     console.log(status.is_uptodate);
-                    // } else if (status.tanggal_update != null) {
-                    //     console.log(status.tanggal_update);
-                    // }
-                    if (status.status == 1) {
-                        if ((status.is_uptodate != null) & status.is_uptodate) {
-                            subdomainTableStr += statusButton(
-                                "Lengkap",
-                                data,
-                                status
-                            );
-                        } else {
-                            if (status.tanggal_update) {
-                                subdomainTableStr += statusButton(
-                                    "Lengkap",
-                                    data,
-                                    status
-                                );
-                            } else {
-                                subdomainTableStr += statusButton(
-                                    "Ada",
-                                    data,
-                                    status
-                                );
-                            }
-                        }
-                    } else {
+                    // Ada && Uptodate
+                    if (status.status && status.is_uptodate) {
+                        subdomainTableStr += statusButton(
+                            "Lengkap",
+                            data,
+                            status
+                        );
+                    }
+                    // Ada, tapi tidak uptodate
+                    else if (status.status && !status.is_uptodate) {
+                        subdomainTableStr += statusButton("Ada", data, status);
+                    }
+                    // Tidak Ada
+                    else {
                         subdomainTableStr += statusButton(
                             "Tidak Ada",
                             data,
@@ -158,27 +152,17 @@ function subdomainReport(bulan, tahun) {
                         <td>:</td>
                         <td>${status == 1 ? "Ada" : "Tidak Ada"}</td>
                     </tr>
-            `;
-
-            if (isUptodate != null) {
-                kontenSubdomainModalStr += `
-                    <tr>
+                     <tr>
                         <td>Up to Date</td>
                         <td>:</td>
                         <td>${isUptodate == 1 ? "Iya" : "Tidak"}</td>
                     </tr>
-                `;
-            }
-
-            if (tanggalUpdate != null) {
-                kontenSubdomainModalStr += `
                     <tr>
                         <td>Tanggal Update</td>
                         <td>:</td>
-                        <td>${tanggalUpdate}</td>
+                        <td>${tanggalUpdate != null ? tanggalUpdate : "-"}</td>
                     </tr>
-                `;
-            }
+            `;
 
             kontenSubdomainModalStr += `</table>`;
 

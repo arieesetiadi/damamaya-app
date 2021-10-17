@@ -4,16 +4,17 @@ namespace App\Http\Controllers\Layanan;
 
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\TindakLanjutController;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
-use App\Models\Layanan\KeamananInformasi;
 use App\Models\Layanan\TindakLanjut;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\ImageController;
+use App\Models\Layanan\KeamananInformasi;
+use App\Http\Controllers\TindakLanjutController;
 
 class KeamananInformasiController extends Controller
 {
@@ -65,6 +66,7 @@ class KeamananInformasiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
         // Validasi data dari form input
@@ -75,6 +77,8 @@ class KeamananInformasiController extends Controller
             'statusWebsite' => 'required',
             'capture' => 'required|image|mimes:png,jpg,jpeg,bmp'
         ]);
+
+        $linkWebsite = self::refactorLink($request->linkWebsite);
 
         // Upload image, sekaligus ambil nama baru dari image untuk insert ke database
         $captureName = ImageController::store(
@@ -87,7 +91,7 @@ class KeamananInformasiController extends Controller
         KeamananInformasi::create([
             'tanggal' => $request->tanggal,
             'jam' => $request->jam,
-            'link_website' => $request->linkWebsite,
+            'link_website' => $linkWebsite,
             'status_website' => $request->statusWebsite,
             'keterangan' => $request->keterangan,
             'capture' => $captureName,
@@ -229,5 +233,15 @@ class KeamananInformasiController extends Controller
         $data = TindakLanjut::where('id', $id)->get()[0];
 
         return response()->json($data);
+    }
+
+    public static function refactorLink($linkWebsite)
+    {
+        // Tambahkan https:// jika belum berisi
+        if (!Str::contains($linkWebsite, 'https://')) {
+            $linkWebsite = 'https://' . $linkWebsite;
+        }
+
+        return $linkWebsite;
     }
 }

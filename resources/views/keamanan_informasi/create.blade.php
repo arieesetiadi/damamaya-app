@@ -34,9 +34,14 @@
 
                         <div class="my-3">
                             <label for="link_website">Link Website :</label>
-                            <input id="link_website" name="linkWebsite"
-                                class="form-control  @error('linkWebsite')  border-danger @enderror" type="text"
-                                placeholder="Link Website" value="{{ old('linkWebsite') }}">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">https://</div>
+                                </div>
+                                <input id="link_website" name="linkWebsite"
+                                    class="form-control  @error('linkWebsite')  border-danger @enderror" type="text"
+                                    placeholder="Link Website" value="{{ old('linkWebsite') }}">
+                            </div>
                             @error('linkWebsite')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror

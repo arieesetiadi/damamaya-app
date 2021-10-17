@@ -11,6 +11,7 @@
     {{-- Javascript request routes --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="get-instansi" content="{{ route('get.instansi') }}">
+    <meta name="get-subdomain" content="{{ route('get.subdomain') }}">
     <meta name="pro-report-route" content="{{ route('pro.report') }}">
     <meta name="anggaran-report-route" content="{{ route('anggaran.report') }}">
     <meta name="analisa-report-route" content="{{ route('analisa.report') }}">

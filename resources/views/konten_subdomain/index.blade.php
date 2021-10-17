@@ -21,6 +21,15 @@
 
             <div>
                 <div class="row">
+                    <form target="_blank" action="{{ route('konten-subdomain-excell') }}" method="POST">
+                        @csrf
+                        <input id="excell-bulan" type="hidden" name="bulan" value="">
+                        <input id="excell-tahun" type="hidden" name="tahun" value="">
+                        <button type="submit" class="btn btn-success btn-sm mr-2">
+                            <i class="far fa-file-excel"></i>
+                            <span class="d-inline-block ml-1">Export Excell</span>
+                        </button>
+                    </form>
                     <div>
                         <select id="subdomain-bulan" class="d-inline-block custom-select custom-select-sm">
                             {{-- Tampilkan filter bulan, dengan nilai default bulan sekarang --}}

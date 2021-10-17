@@ -25,4 +25,18 @@ class AutoCompleteController extends Controller
 
         return response()->json($instansi);
     }
+
+    public function getSubdomain(Request $request)
+    {
+        $subdomains = [];
+
+        // Ambil nama subdomains sesuai dengan apa yang diketik oleh user
+        $res = DB::table('website_subdomains')->where('link_website', 'like', "%$request->key%")->get();
+
+        foreach ($res as $r) {
+            $subdomains[] = $r->link_website;
+        }
+
+        return response()->json($subdomains);
+    }
 }

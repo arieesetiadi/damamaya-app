@@ -33,19 +33,12 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/test-api', function (Request $request) {
-    $data = [
-        'name' => $request->name,
-        'umur' => $request->umur
-    ];
-    return response()->json($data);
-});
-
 // Dashboard Route
 Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
 // Auto Complete Nama Instansi
 Route::get('/get-instansi', [AutoCompleteController::class, 'getInstansi'])->name('get.instansi');
+Route::get('/get-subdomain', [AutoCompleteController::class, 'getSubdomain'])->name('get.subdomain');
 
 // Auth Routes
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -70,6 +63,9 @@ Route::post('/pinjam-ruangan-report', [PinjamRuanganController::class, 'report']
 
 Route::post('/pinjam-ruangan-get', [PinjamRuanganController::class, 'getData'])->name('pinjam-ruangan.get');
 Route::get('/keamanan-informasi-get', [KeamananInformasiController::class, 'getData'])->name('keamanan-informasi.get');
+
+// Export Excell - Konten Subdomain
+Route::post('/konten-subdomain-excell', [KontenSubdomainController::class, 'excell'])->name('konten-subdomain-excell');
 
 // Resources Routes
 Route::resources([

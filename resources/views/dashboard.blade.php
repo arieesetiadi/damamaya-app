@@ -109,12 +109,8 @@
                         <div class="col-7">
                             <div class="d-flex justify-content-end">
                                 <div class="d-inline-block mr-4">
-                                    <span class="dot bg-primary"></span>
+                                    <span class="dot bg-success"></span>
                                     <span>Normal</span>
-                                </div>
-                                <div class="d-inline-block">
-                                    <span class="dot bg-warning"></span>
-                                    <span>Deface</span>
                                 </div>
                             </div>
                         </div>

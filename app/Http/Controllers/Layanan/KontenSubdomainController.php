@@ -94,33 +94,33 @@ class KontenSubdomainController extends Controller
             'id_user' => Auth::user()->id
         ];
 
+
         // Ambil ID dari data yang baru diinsert
         $kontenSubdomainId = KontenSubdomain::insertData($kontenSubdomain);
 
         $kontenSubdomainStatus = [
             [
                 'name' => 'Survey Kepuasan Masyarakat',
-                'is_uptodate' => $request->isUptodateSo == 'on' ? 1 : 0,
                 'status' => $request->statusSkm == 'on' ? 1 : 0,
-                'is_uptodate' => null,
+                'is_uptodate' => self::checkIsuptodate($request->tanggalUpdateSkm),
                 'tanggal_update' => $request->tanggalUpdateSkm
             ],
             [
                 'name' => 'Transparansi Anggaran',
                 'status' => $request->statusTa == 'on' ? 1 : 0,
-                'is_uptodate' => null,
+                'is_uptodate' => self::checkIsuptodate($request->tanggalUpdateTa),
                 'tanggal_update' => $request->tanggalUpdateTa
             ],
             [
                 'name' => 'Foto Kegiatan',
                 'status' => $request->statusFk == 'on' ? 1 : 0,
-                'is_uptodate' => null,
+                'is_uptodate' => self::checkIsuptodate($request->tanggalUpdateFk),
                 'tanggal_update' => $request->tanggalUpdateFk
             ],
             [
                 'name' => 'Berita',
                 'status' => $request->statusBerita == 'on' ? 1 : 0,
-                'is_uptodate' => null,
+                'is_uptodate' => self::checkIsuptodate($request->tanggalUpdateBerita),
                 'tanggal_update' => $request->tanggalUpdateBerita
             ],
             [
@@ -221,5 +221,37 @@ class KontenSubdomainController extends Controller
         }
 
         return response()->json($report);
+    }
+
+    public function excell(Request $request)
+    {
+        // Ambil data Konten Subdomain yang bulan dan tahunnya sesuai filter
+        $data['data'] = KontenSubdomain::getData($request->bulan, $request->tahun);
+
+        // Ambil status dari masing masing Konten Subdomain
+        foreach ($data['data'] as $dt) {
+            $data['status'][] = KontenSubdomain::getStatus($dt->id);
+        }
+
+        $data['bulan'] = $request->bulan;
+        $data['tahun'] = $request->tahun;
+
+        for ($i = 1; $i <= 12; $i++) {
+            $data['daftarBulan'][] = Carbon::now()->month($i)->isoFormat('MMMM');
+        }
+
+        return view('konten_subdomain.export_excell', compact('data'));
+    }
+
+    public static function checkIsuptodate($date)
+    {
+        if (!is_null($date)) {
+            $year = Carbon::make($date)->year;
+            $yearNow = Carbon::now()->year;
+
+            return ($year == $yearNow) ? 1 : 0;
+        }
+
+        return 0;
     }
 }
