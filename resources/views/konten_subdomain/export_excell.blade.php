@@ -1,5 +1,5 @@
 @php
-header('Content-type: application/vnd-ms-excel');
+header('Content-type: application/xls');
 header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
 @endphp
 
@@ -180,8 +180,21 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                 </td>
             </tr>
         @empty
-            <h1>Kosong</h1>
+            <h1>Data Tidak Tersedia</h1>
         @endforelse
+    </table>
+
+    <table>
+        <tr></tr>
+        <tr>
+            <td>(✔✔) = Up to Date</td>
+        </tr>
+        <tr>
+            <td>(✔ ) = Belum Up to Date</td>
+        </tr>
+        <tr>
+            <td>( ) = Belum Ada</td>
+        </tr>
     </table>
 
 </body>
