@@ -105,7 +105,6 @@ function analisaReport(startDate, endDate, kategori) {
     }
 
     function loadChart(dates, counts) {
-        console.log(counts);
         $("#analisa-chart").remove();
 
         let canvasStr = `<canvas id="analisa-chart" style="display: block; height: 320px; width: 601px;" width="751" height="400" class="chartjs-render-monitor"></canvas>`;

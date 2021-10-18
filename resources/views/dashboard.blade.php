@@ -108,9 +108,21 @@
                         </div>
                         <div class="col-7">
                             <div class="d-flex justify-content-end">
-                                <div class="d-inline-block mr-4">
-                                    <span class="dot bg-success"></span>
-                                    <span>Normal</span>
+                                <div class="d-inline-block mr-2">
+                                    <small style="width: 8px; height: 8px;" class="dot bg-primary"></small>
+                                    <small>Normal</small>
+                                </div>
+                                <div class="d-inline-block mr-2">
+                                    <small style="width: 8px; height: 8px;" class="dot bg-warning"></small>
+                                    <small>Deface</small>
+                                </div>
+                                <div class="d-inline-block mr-2">
+                                    <small style="width: 8px; height: 8px;" class="dot bg-danger"></small>
+                                    <small>Tidak Bisa Diakses</small>
+                                </div>
+                                <div class="d-inline-block">
+                                    <small style="width: 8px; height: 8px;" class="dot bg-secondary"></small>
+                                    <small>Lainnya</small>
                                 </div>
                             </div>
                         </div>

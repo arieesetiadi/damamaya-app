@@ -69,8 +69,13 @@ class KeamananInformasi extends Model
             ->get();
     }
 
-    public static function getStatusPeriksa($linkWebsite)
+    public static function getStatusPeriksa($linkWebsite, $month)
     {
-        return self::where('link_website', $linkWebsite)->get();
+        return self
+            ::where('link_website', 'https://' . $linkWebsite)
+            ->whereMonth('tanggal', $month)
+            ->orderBy('tanggal', 'DESC')
+            ->orderBy('jam', 'DESC')
+            ->first();
     }
 }

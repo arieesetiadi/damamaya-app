@@ -41,6 +41,7 @@ $(function () {
 function summaryReport(monthCounter) {
     let route = $('meta[name="summary-report-route"]').attr("content");
     let summaryStr = "";
+    let summaryTableStr = "";
 
     $.ajaxSetup({
         headers: {
@@ -57,20 +58,53 @@ function summaryReport(monthCounter) {
         success: function (data) {
             let subdomains = data["subdomains"];
             let status = data["status"];
-            console.log(data["link"]);
 
-            summaryStr += `
+            let countNormal = 0;
+            let countDeface = 0;
+            let countTidakBisaDiakses = 0;
+            let countLainnya = 0;
+            let sudahDiperiksa = 0;
+            let belumDiperiksa = 0;
+            let totalSubdomain = status.length;
+
+            summaryTableStr += `
                 <table id="keamanan-summary-table" class="table table-sm table-hover">
                     <tr>
                         <th>No.</th>
                         <th>Website Subdomain</th>
                         <th>Status Periksa</th>
+                        <th>Tindak Lanjut</th>
+                        <th>Aksi</th>
                     </tr>
             `;
 
             $.each(subdomains, function (i, val) {
+                let statusWebsite = "";
+
+                if (status[i] != null) {
+                    statusWebsite = status[i].status_website;
+                    switch (statusWebsite) {
+                        case "Normal":
+                            countNormal += 1;
+                            break;
+                        case "Deface":
+                            countDeface += 1;
+                            break;
+                        case "Tidak Bisa Diakses":
+                            countTidakBisaDiakses += 1;
+                            break;
+                        case "Lainnya":
+                            countLainnya += 1;
+                            break;
+                    }
+                    sudahDiperiksa += 1;
+                } else {
+                    belumDiperiksa += 1;
+                }
+
+                // console.log(status[i].status_website);
                 let linkWebsite = "https://" + val.link_website;
-                summaryStr += `
+                summaryTableStr += `
                     <tr>
                         <td>${i + 1}</td>
                         <td>
@@ -79,18 +113,128 @@ function summaryReport(monthCounter) {
                             </a>
                         </td>
                         <td>
-                            ${status[i].status_website}
+                            ${statusWebsite}
                         </td>
+                        <td> - </td>
+                        <td> - </td>
                     </tr>
                 `;
             });
 
-            summaryStr += `
+            summaryTableStr += `
                 </table>
             `;
 
+            summaryStr = `
+                <div id="keamanan-summary">
+                    <div class="row">
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-primary h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Normal</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countNormal} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-warning h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Deface</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countDeface} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-danger h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Tidak Bisa Diakses</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countTidakBisaDiakses} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-secondary h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Status Lainnya</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countLainnya} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-primary h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Sudah Diperiksa</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sudahDiperiksa} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-6 d-inline-block mb-4">
+                            <div class="card shadow-sm border-left-primary h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Belum Diperiksa</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${belumDiperiksa} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            `;
+
+            $("#keamanan-summary").remove();
             $("#keamanan-summary-table").remove();
             $("#keamanan-summary-wrapper").append(summaryStr);
+            $("#keamanan-summary-wrapper").append(summaryTableStr);
         },
     });
 }

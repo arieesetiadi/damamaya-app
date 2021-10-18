@@ -19,7 +19,7 @@ class DashboardController extends Controller
         $data = [
             'title' => 'Dashboard',
             'chart_period' => [
-                'start' => Carbon::now()->subDay('5')->toDateString(),
+                'start' => Carbon::now()->subDay('3')->toDateString(),
                 'end' => Carbon::now()->toDateString()
             ],
             'active' => 'dashboard'

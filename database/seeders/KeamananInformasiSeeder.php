@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Layanan\KeamananInformasi;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class KeamananInformasiSeeder extends Seeder
 {
@@ -24,18 +25,13 @@ class KeamananInformasiSeeder extends Seeder
             'Lainnya'
         ];
 
-        $link_website = [
-            'https://google.com',
-            'https://facebook.com',
-            'https://instagram.com',
-            'https://twitter.com',
-        ];
+        $linkWebsite = DB::table('website_subdomains')->get('link_website');
 
         for ($i = 1; $i <= 1000; $i++) {
             $keamananInformasi[] = [
                 'tanggal' => Carbon::now()->addDay(rand(-30, 0))->toDateString(),
                 'jam' => Carbon::now()->addHour(rand(-7, 7))->toTimeString(),
-                'link_website' => $link_website[rand(0, 3)],
+                'link_website' => 'https://' . $linkWebsite[rand(0, $linkWebsite->count() - 1)]->link_website,
                 'status_website' => $status[rand(0, 3)],
                 'keterangan' => 'Keterangan Dummy',
                 'capture' => 'default-laporan.png',

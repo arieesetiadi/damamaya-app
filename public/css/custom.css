@@ -2,6 +2,11 @@ th,
 td {
     vertical-align: middle;
 }
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
 th p,
 td p {
     /* text-align: center; */

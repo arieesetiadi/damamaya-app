@@ -252,15 +252,13 @@ class KeamananInformasiController extends Controller
         $data = [];
         $month = Carbon
             ::now()
-            ->addMonth($request->monthCounter)->toDateString();
+            ->addMonth($request->monthCounter)->month;
 
         $data['subdomains'] = DB::table('website_subdomains')->get();
 
         foreach ($data['subdomains'] as $subdomain) {
             $data['status'][] = KeamananInformasi
-                ::where('link_website', 'https://' . $subdomain->link_website)
-                ->whereMonth('tanggal', $month)
-                ->get();
+                ::getStatusPeriksa($subdomain->link_website, $month);
         }
 
         return response()->json($data);
