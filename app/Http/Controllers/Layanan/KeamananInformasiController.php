@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\ImageController;
 use App\Models\Layanan\KeamananInformasi;
 use App\Http\Controllers\TindakLanjutController;
+use Illuminate\Support\Facades\DB;
 
 class KeamananInformasiController extends Controller
 {
@@ -38,6 +39,7 @@ class KeamananInformasiController extends Controller
             'nowTime' => Carbon::now()->toTimeString(),
             'periodStart' => Carbon::now()->subDay('6')->toDateString(),
             'periodEnd' => Carbon::now()->toDateString(),
+            'subdomains' => DB::table('website_subdomains')->get('link_website'),
             'active' => 'kInformasi'
         ];
 
@@ -243,5 +245,24 @@ class KeamananInformasiController extends Controller
         }
 
         return $linkWebsite;
+    }
+
+    public function summaryReport(Request $request)
+    {
+        $data = [];
+        $month = Carbon
+            ::now()
+            ->addMonth($request->monthCounter)->toDateString();
+
+        $data['subdomains'] = DB::table('website_subdomains')->get();
+
+        foreach ($data['subdomains'] as $subdomain) {
+            $data['status'][] = KeamananInformasi
+                ::where('link_website', 'https://' . $subdomain->link_website)
+                ->whereMonth('tanggal', $month)
+                ->get();
+        }
+
+        return response()->json($data);
     }
 }

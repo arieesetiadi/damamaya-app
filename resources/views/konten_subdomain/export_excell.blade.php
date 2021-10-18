@@ -103,8 +103,9 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][0]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif()
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>

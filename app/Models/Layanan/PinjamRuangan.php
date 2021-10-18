@@ -45,10 +45,10 @@ class PinjamRuangan extends Model
             ::from('layanan_pinjam_ruangan AS A')
             ->join('users AS B', 'A.id_user', '=', 'B.id')
             ->whereDate('tanggal', $date)
-            ->where([
-                ['tanggal', '>=', $nowDate],
-                // ['jam_selesai', '<=', $nowTime]
-            ])
+            // ->where([
+            //     ['tanggal', '>=', $nowDate],
+            //     // ['jam_selesai', '<=', $nowTime]
+            // ])
             ->orderBy('A.jam_mulai', 'ASC')
             ->select('A.*', 'B.name')
             ->get();

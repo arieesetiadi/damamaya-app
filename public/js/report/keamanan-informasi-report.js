@@ -2,6 +2,7 @@ $(function () {
     let kategori = $("#keamanan-kategori option:selected").text();
     let startDate = null;
     let endDate = null;
+    let monthCounter = 0;
 
     $("#keamanan-kategori").on("change", function () {
         kategori = $("#keamanan-kategori option:selected").text();
@@ -21,7 +22,78 @@ $(function () {
             keamananReport(startDate, endDate, kategori);
         }, 60000);
     }
+
+    if ($("#keamanan-summary-wrapper").length) {
+        summaryReport(monthCounter);
+    }
+
+    $("#monthRight").on("click", function () {
+        monthCounter += 1;
+        summaryReport(monthCounter);
+    });
+
+    $("#monthLeft").on("click", function () {
+        monthCounter -= 1;
+        summaryReport(monthCounter);
+    });
 });
+
+function summaryReport(monthCounter) {
+    let route = $('meta[name="summary-report-route"]').attr("content");
+    let summaryStr = "";
+
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    $.ajax({
+        url: route,
+        data: {
+            monthCounter: monthCounter,
+        },
+        type: "POST",
+        success: function (data) {
+            let subdomains = data["subdomains"];
+            let status = data["status"];
+            console.log(data["link"]);
+
+            summaryStr += `
+                <table id="keamanan-summary-table" class="table table-sm table-hover">
+                    <tr>
+                        <th>No.</th>
+                        <th>Website Subdomain</th>
+                        <th>Status Periksa</th>
+                    </tr>
+            `;
+
+            $.each(subdomains, function (i, val) {
+                let linkWebsite = "https://" + val.link_website;
+                summaryStr += `
+                    <tr>
+                        <td>${i + 1}</td>
+                        <td>
+                            <a target="_blank" href="${linkWebsite}">
+                                ${linkWebsite}
+                            </a>
+                        </td>
+                        <td>
+                            ${status[i].status_website}
+                        </td>
+                    </tr>
+                `;
+            });
+
+            summaryStr += `
+                </table>
+            `;
+
+            $("#keamanan-summary-table").remove();
+            $("#keamanan-summary-wrapper").append(summaryStr);
+        },
+    });
+}
 
 function keamananReport(startDate, endDate, kategori) {
     if ($("#keamanan-chart").length) {
@@ -191,13 +263,13 @@ function keamananReport(startDate, endDate, kategori) {
                         label: "Normal",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgb(92, 184, 92)",
+                        borderColor: "rgba(2, 117, 216, 0.7)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgb(92, 184, 92)",
-                        pointBorderColor: "rgb(92, 184, 92)",
+                        pointBackgroundColor: "rgba(2, 117, 216, 0.7)",
+                        pointBorderColor: "rgba(2, 117, 216, 0.7)",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgb(92, 184, 92)",
-                        pointHoverBorderColor: "rgb(92, 184, 92)",
+                        pointHoverBackgroundColor: "rgba(2, 117, 216, 0.7)",
+                        pointHoverBorderColor: "rgba(2, 117, 216, 0.7)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: counts["normal"],
@@ -206,13 +278,13 @@ function keamananReport(startDate, endDate, kategori) {
                         label: "Deface",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgb(240, 173, 78)",
+                        borderColor: "rgba(240, 173, 78, 0.7)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgb(240, 173, 78)",
-                        pointBorderColor: "rgb(240, 173, 78)",
+                        pointBackgroundColor: "rgba(240, 173, 78, 0.7)",
+                        pointBorderColor: "rgba(240, 173, 78, 0.7)",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgb(240, 173, 78)",
-                        pointHoverBorderColor: "rgb(240, 173, 78)",
+                        pointHoverBackgroundColor: "rgba(240, 173, 78, 0.7)",
+                        pointHoverBorderColor: "rgba(240, 173, 78, 0.7)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: counts["deface"],
@@ -221,13 +293,13 @@ function keamananReport(startDate, endDate, kategori) {
                         label: "Tidak Bisa Diakses",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgba(41, 43, 44, 0.7)",
+                        borderColor: "rgba(217, 83, 79, 0.7)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgba(41, 43, 44, 0.7)",
-                        pointBorderColor: "rgba(41, 43, 44, 0.7)",
+                        pointBackgroundColor: "rgba(217, 83, 79, 0.7)",
+                        pointBorderColor: "rgba(217, 83, 79, 0.7)",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgba(41, 43, 44, 0.7)",
-                        pointHoverBorderColor: "rgba(41, 43, 44, 0.7)",
+                        pointHoverBackgroundColor: "rgba(217, 83, 79, 0.7)",
+                        pointHoverBorderColor: "rgba(217, 83, 79, 0.7)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: counts["tidakBisaDiakses"],
@@ -236,13 +308,13 @@ function keamananReport(startDate, endDate, kategori) {
                         label: "Lainnya",
                         lineTension: 0,
                         backgroundColor: "rgba(78, 115, 223, 0.05)",
-                        borderColor: "rgb(2, 117, 216)",
+                        borderColor: "rgba(41, 43, 44, 0.5)",
                         pointRadius: 3,
-                        pointBackgroundColor: "rgb(2, 117, 216)",
-                        pointBorderColor: "rgb(2, 117, 216)",
+                        pointBackgroundColor: "rgba(41, 43, 44, 0.5)",
+                        pointBorderColor: "rgba(41, 43, 44, 0.5)",
                         pointHoverRadius: 3,
-                        pointHoverBackgroundColor: "rgb(2, 117, 216)",
-                        pointHoverBorderColor: "rgb(2, 117, 216)",
+                        pointHoverBackgroundColor: "rgba(41, 43, 44, 0.5)",
+                        pointHoverBorderColor: "rgba(41, 43, 44, 0.5)",
                         pointHitRadius: 10,
                         pointBorderWidth: 2,
                         data: counts["lainnya"],

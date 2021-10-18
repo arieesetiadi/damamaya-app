@@ -68,4 +68,9 @@ class KeamananInformasi extends Model
             ->select('A.*', 'B.name')
             ->get();
     }
+
+    public static function getStatusPeriksa($linkWebsite)
+    {
+        return self::where('link_website', $linkWebsite)->get();
+    }
 }

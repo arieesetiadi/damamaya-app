@@ -19,6 +19,7 @@
     <meta name="subdomain-report-route" content="{{ route('subdomain.report') }}">
     <meta name="web-tidak-bisa-diakses-report-route" content="{{ route('web-tidak-bisa-diakses.report') }}">
     <meta name="pinjam-ruangan-report-route" content="{{ route('pinjam-ruangan.report') }}">
+    <meta name="summary-report-route" content="{{ route('summary.report') }}">
     <meta name="keamanan-informasi-get" content="{{ route('keamanan-informasi.get') }}">
     <meta name="pinjam-ruangan-get" content="{{ route('pinjam-ruangan.get') }}">
 

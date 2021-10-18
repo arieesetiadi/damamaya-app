@@ -15,7 +15,7 @@ $(function () {
     }
 
     if ($("#keamanan-chart").length) {
-        keamananReport(startDate, endDate, "Normal");
+        keamananReport(startDate, endDate);
     }
 
     if ($("#tik-chart").length) {

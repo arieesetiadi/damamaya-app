@@ -26,8 +26,8 @@
                         {{-- Select Kategori --}}
                         <select style="width: 170px" id="keamanan-kategori"
                             class="d-inline-block custom-select custom-select-sm">
-                            {{-- <option value="" selected>Semua</option> --}}
-                            <option selected value="Normal">Normal</option>
+                            <option value="" selected>Semua</option>
+                            <option>Normal</option>
                             <option>Deface</option>
                             <option>Tidak Bisa Diakses</option>
                             <option>Lainnya</option>
@@ -72,8 +72,91 @@
                     <span class="dot bg-warning"></span>
                     Deface
                 </div>
+                <div class="d-inline-block mr-3">
+                    <span class="dot bg-danger"></span>
+                    Tidak Bisa Diakses
+                </div>
+                <div class="d-inline-block mr-3">
+                    <span class="dot bg-secondary"></span>
+                    Lainnya
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Summary Table  -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <div class="col-9">
+                <h6 class="m-0 mt-2 font-weight-bold">
+                    Summary Laporan Website
+                </h6>
+            </div>
+            <div class="col-3">
+                <div class="container d-flex justify-content-between">
+                    <div>
+                        <button id="monthLeft" class="btn btn-white btn-sm">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h6 id="monthName" class="m-0 mt-2 font-weight-bold">
+                            Oktober
+                        </h6>
+                    </div>
+                    <div>
+                        <button id="monthRight" class="btn btn-white btn-sm">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="keamanan-summary-wrapper" class="table-responsive" style="overflow-y: scroll; height: 650px;">
+                {{-- Table diisi melalui keamanan-informasi-report.js --}}
+            </div>
+        </div>
+        {{-- <div class="card-body">
+            <div class="table-responsive" style="overflow-y: scroll; height: 500px">
+                <table class="table table-sm table-hover">
+
+                    <tr>
+                        <th>No.</th>
+                        <th>Web Subdomain</th>
+                        <th>Status Periksa</th>
+                    </tr>
+                    @forelse ($data['subdomains'] as $subdomain)
+                        @php
+                            $linkWebsite = 'https://' . $subdomain->link_website;
+                        @endphp
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>
+                                <a href="{{ $linkWebsite }}" target="_blank">
+                                    {{ $linkWebsite }}
+                                </a>
+                            </td>
+                            <td>
+                                @php
+                                    $statusPeriksa = App\Models\Layanan\KeamananInformasi::getStatusPeriksa($linkWebsite);
+                                    if (count($statusPeriksa) > 0) {
+                                        echo 'SUDAH';
+                                    }
+                                @endphp
+                            </td>
+                        </tr>
+                    @empty
+                        <h4 id="keamanan-table" class="text-secondary text-center">
+                            Data Tidak Ditemukan
+                        </h4>
+                    @endforelse
+                </table>
+            </div>
+        </div> --}}
     </div>
 
     <!-- Report Table  -->
@@ -81,7 +164,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold">
-                    Data Layanan Keamanan Informasi
+                    Seluruh Laporan Status Website
                 </h6>
             </div>
 
