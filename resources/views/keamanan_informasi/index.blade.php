@@ -214,6 +214,43 @@
         </div>
     </div>
 
+    <!-- Hasil Tindak Lanjut Modal -->
+    <div class="modal fade hasil-tindak-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hasil Tindak Lanjut</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="font-weight-bold mx-2">Capture Website :</h6>
+                    <div id="detail-capture-wrapper" class="d-block mx-2 my-2">
+                        <img class="w-100 rounded shadow my-2" id="tindak-detail-capture"
+                            data-path="{{ asset('img/capture/tindak_lanjut\\') }}" src="" alt="Capture Website">
+                    </div>
+
+                    <h6 class="mt-1 font-weight-bold mx-2">Website Subdomain</h6>
+                    <p class="ml-2" id="tindak-detail-link"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Tanggal Penindakan</h6>
+                    <p class="ml-2" id="tindak-detail-tanggal"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Jam Penindakan</h6>
+                    <p class="ml-2" id="tindak-detail-jam"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
+                    <p class="text-justify mx-2" id="tindak-detail-keterangan"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Response Time :</h6>
+                    <p class="text-justify mx-2" id="tindak-detail-response"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Tindak Lanjut Modal -->
     <div class="modal fade tindak-modal" tabindex="-1" role="dialog" aria-hidden="true" data-keyboard="false"
         data-backdrop="static">

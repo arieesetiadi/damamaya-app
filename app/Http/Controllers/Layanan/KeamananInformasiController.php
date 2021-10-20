@@ -257,8 +257,18 @@ class KeamananInformasiController extends Controller
         $data['subdomains'] = DB::table('website_subdomains')->get();
 
         foreach ($data['subdomains'] as $subdomain) {
-            $data['status'][] = KeamananInformasi
+            $keamananInformasi = KeamananInformasi
                 ::getStatusPeriksa($subdomain->link_website, $month);
+
+            $data['status'][] = $keamananInformasi;
+
+            if (!is_null($keamananInformasi)) {
+                $data['tindakLanjut'][] = TindakLanjut
+                    ::where('id_keamanan', $keamananInformasi->id)
+                    ->get();
+            } else {
+                $data['tindakLanjut'][] = null;
+            }
         }
 
         return response()->json($data);

@@ -58,6 +58,8 @@ function summaryReport(monthCounter) {
         success: function (data) {
             let subdomains = data["subdomains"];
             let status = data["status"];
+            let tindakLanjut = data["tindakLanjut"];
+            console.log(tindakLanjut);
             let userRole = $("meta[name='user-role']").attr("content");
 
             let countNormal = 0;
@@ -155,9 +157,18 @@ function summaryReport(monthCounter) {
                     sudahDitindak += 1;
                     summaryTableStr += `
                     <td>
-                    <a href="#">
-                    View
-                    </a>
+                        <a class="tindak-modal-link" 
+                            data-toggle="modal"
+                            data-target=".hasil-tindak-modal"
+                            data-tanggal="${tindakLanjut[i][0].tanggal}"
+                            data-jam="${tindakLanjut[i][0].jam}"
+                            data-keterangan="${tindakLanjut[i][0].keterangan}"
+                            data-capture="${tindakLanjut[i][0].capture}"
+                            data-link="${status[i].link_website}"
+                            data-response="${tindakLanjut[i][0].response_time}"
+                            href="">
+                        View
+                        </a>
                     </td>
                     `;
                 } else {
@@ -686,6 +697,23 @@ function keamananReport(startDate, endDate, kategori) {
 
             // Masukan keterangan ke ModalBox
             $("#detail-keterangan").text(keterangan);
+        });
+
+        $("a.tindak-modal-link").on("click", function () {
+            let tanggal = $(this).data("tanggal");
+            let jam = $(this).data("jam");
+            let capture = $(this).data("capture");
+            let keterangan = $(this).data("keterangan");
+            let responseTime = $(this).data("response");
+            let link = $(this).data("link");
+            let path = $("#detail-capture").data("path") + capture;
+
+            $("#tindak-detail-link").text(link);
+            $("#tindak-detail-tanggal").text(tanggal);
+            $("#tindak-detail-jam").text(jam);
+            $("#tindak-detail-keterangan").text(keterangan);
+            $("#tindak-detail-response").text(responseTime + " Hari");
+            $("#tindak-detail-capture").attr("src", path);
         });
 
         // Ketika tombol 'Tindak' diklik
