@@ -111,12 +111,11 @@
                     </div>
                 </div>
             </div>
-
             <div>
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-summary-wrapper" class="table-responsive" style="overflow-y: scroll; height: 650px;">
+            <div id="keamanan-summary-wrapper" class="pr-2 table-responsive" style="overflow-x: hidden; height: 650px;">
                 {{-- Table diisi melalui keamanan-informasi-report.js --}}
             </div>
         </div>
@@ -173,7 +172,7 @@
         </div>
         <div class="card-body">
             <div id="keamanan-table-wrapper" style="overflow-y: scroll;">
-                {{-- Table diisi melalui informasi-chart.js --}}
+                {{-- Table diisi melalui  keamanan-informasi-report.js --}}
             </div>
         </div>
     </div>
@@ -184,11 +183,18 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Hasil Pemeriksaan</h5>
+
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
+                    <h6 class="font-weight-bold mx-2">Capture Website :</h6>
+                    <div id="detail-capture-wrapper" class="d-block mx-2 my-2">
+                        <img class="w-100 rounded shadow my-2" id="detail-capture"
+                            data-path="{{ asset('img/capture/laporan\\') }}" src="" alt="Capture Website">
+                    </div>
+
                     <h6 class="mt-1 font-weight-bold mx-2">Website Subdomain</h6>
                     <p class="ml-2" id="detail-link"></p>
 
@@ -203,12 +209,6 @@
 
                     <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
                     <p class="text-justify mx-2" id="detail-keterangan"></p>
-
-                    <h6 class="mt-3 font-weight-bold mx-2">Capture Website :</h6>
-                    <div id="detail-capture-wrapper" class="mx-2 my-2">
-                        <img class="w-100 rounded shadow" id="detail-capture"
-                            data-path="{{ asset('img/capture/laporan\\') }}" src="" alt="Capture Website">
-                    </div>
                 </div>
             </div>
         </div>

@@ -56,6 +56,7 @@
                     <img width="140px" src="{{ asset('img/logo/Damamaya4.png') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
                 </div>
+                
                 {{-- <div class="sidebar-brand-text mx-3">DAMAMAYA</div> --}}
             </a>
 

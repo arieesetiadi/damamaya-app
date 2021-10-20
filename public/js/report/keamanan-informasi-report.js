@@ -66,6 +66,8 @@ function summaryReport(monthCounter) {
             let countLainnya = 0;
             let sudahDiperiksa = 0;
             let belumDiperiksa = 0;
+            let sudahDitindak = 0;
+            let belumDitindak = 0;
             let totalSubdomain = status.length;
 
             summaryTableStr += `
@@ -143,17 +145,25 @@ function summaryReport(monthCounter) {
                             href="">View</a>
                         </td>
                     `;
+                } else {
+                    summaryTableStr += `
+                        <td>-</td>
+                    `;
                 }
 
                 if (isTindakLanjut) {
+                    sudahDitindak += 1;
                     summaryTableStr += `
-                        <td>
-                            <a href="#">
-                                View
-                            </a>
-                        </td>
+                    <td>
+                    <a href="#">
+                    View
+                    </a>
+                    </td>
                     `;
                 } else {
+                    if (statusWebsite != null && statusWebsite != "Normal") {
+                        belumDitindak += 1;
+                    }
                     summaryTableStr += `
                         <td> - </td>
                     `;
@@ -307,7 +317,7 @@ function summaryReport(monthCounter) {
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Sudah Ditindak</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- / ${totalBermasalah}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${sudahDitindak} / ${totalBermasalah}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -323,7 +333,7 @@ function summaryReport(monthCounter) {
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Belum Ditindak</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- / ${totalBermasalah}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${belumDitindak} / ${totalBermasalah}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
