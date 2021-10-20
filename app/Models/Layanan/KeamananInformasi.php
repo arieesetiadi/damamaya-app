@@ -72,10 +72,13 @@ class KeamananInformasi extends Model
     public static function getStatusPeriksa($linkWebsite, $month)
     {
         return self
-            ::where('link_website', 'https://' . $linkWebsite)
+            ::from('layanan_keamanan_informasi AS A')
+            ->join('users AS B', 'A.id_user', '=', 'B.id')
+            ->where('link_website', 'https://' . $linkWebsite)
             ->whereMonth('tanggal', $month)
             ->orderBy('tanggal', 'DESC')
             ->orderBy('jam', 'DESC')
+            ->select('A.*', 'B.name')
             ->first();
     }
 }

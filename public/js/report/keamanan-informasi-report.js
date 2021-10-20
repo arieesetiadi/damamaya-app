@@ -59,7 +59,6 @@ function summaryReport(monthCounter) {
             let subdomains = data["subdomains"];
             let status = data["status"];
             let tindakLanjut = data["tindakLanjut"];
-            console.log(tindakLanjut);
             let userRole = $("meta[name='user-role']").attr("content");
 
             let countNormal = 0;
@@ -116,7 +115,6 @@ function summaryReport(monthCounter) {
                     belumDiperiksa += 1;
                 }
 
-                // console.log(status[i].status_website);
                 let linkWebsite = "https://" + val.link_website;
                 summaryTableStr += `
                     <tr>
@@ -144,6 +142,7 @@ function summaryReport(monthCounter) {
                             data-status="${status[i].status_website}"
                             data-link="${status[i].link_website}"
                             data-jam="${status[i].jam}"
+                            data-name="${status[i].name}"
                             href="">View</a>
                         </td>
                     `;
@@ -166,6 +165,7 @@ function summaryReport(monthCounter) {
                             data-capture="${tindakLanjut[i][0].capture}"
                             data-link="${status[i].link_website}"
                             data-response="${tindakLanjut[i][0].response_time}"
+                            data-name="${tindakLanjut[i][0].name}"
                             href="">
                         View
                         </a>
@@ -687,12 +687,14 @@ function keamananReport(startDate, endDate, kategori) {
             let status = $(this).data("status");
             let capture = $(this).data("capture");
             let keterangan = $(this).data("keterangan");
+            let name = $(this).data("name");
             let path = $("#detail-capture").data("path") + capture;
 
             $("#detail-link").text(link);
             $("#detail-tanggal").text(tanggal);
             $("#detail-jam").text(jam);
             $("#detail-status").text(status);
+            $("#detail-name").text(name);
             $("#detail-capture").attr("src", path);
 
             // Masukan keterangan ke ModalBox
@@ -706,12 +708,14 @@ function keamananReport(startDate, endDate, kategori) {
             let keterangan = $(this).data("keterangan");
             let responseTime = $(this).data("response");
             let link = $(this).data("link");
-            let path = $("#detail-capture").data("path") + capture;
+            let name = $(this).data("name");
+            let path = $("#tindak-detail-capture").data("path") + capture;
 
             $("#tindak-detail-link").text(link);
             $("#tindak-detail-tanggal").text(tanggal);
             $("#tindak-detail-jam").text(jam);
             $("#tindak-detail-keterangan").text(keterangan);
+            $("#tindak-detail-name").text(name);
             $("#tindak-detail-response").text(responseTime + " Hari");
             $("#tindak-detail-capture").attr("src", path);
         });

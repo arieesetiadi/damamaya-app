@@ -52,6 +52,25 @@ class TindakLanjut extends Model
             ->get();
     }
 
+    public static function getDataByIdKeamanan($idKeamanan)
+    {
+        return
+            self
+            ::from('layanan_tindak_lanjut AS A')
+            ->join(
+                'users AS B',
+                'A.id_user',
+                '=',
+                'B.id'
+            )
+            ->where('id_keamanan', $idKeamanan)
+            ->select(
+                'A.*',
+                'B.name as name'
+            )
+            ->get();
+    }
+
     public static function getDataByBidang($bidang)
     {
         $data = [];

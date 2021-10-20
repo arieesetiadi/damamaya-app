@@ -263,9 +263,7 @@ class KeamananInformasiController extends Controller
             $data['status'][] = $keamananInformasi;
 
             if (!is_null($keamananInformasi)) {
-                $data['tindakLanjut'][] = TindakLanjut
-                    ::where('id_keamanan', $keamananInformasi->id)
-                    ->get();
+                $data['tindakLanjut'][] = TindakLanjut::getDataByIdKeamanan($keamananInformasi->id);
             } else {
                 $data['tindakLanjut'][] = null;
             }

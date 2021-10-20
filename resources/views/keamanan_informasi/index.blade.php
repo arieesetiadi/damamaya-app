@@ -209,6 +209,9 @@
 
                     <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
                     <p class="text-justify mx-2" id="detail-keterangan"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Nama Petugas :</h6>
+                    <p class="text-justify mx-2" id="detail-name"></p>
                 </div>
             </div>
         </div>
@@ -246,6 +249,9 @@
 
                     <h6 class="mt-4 font-weight-bold mx-2">Response Time :</h6>
                     <p class="text-justify mx-2" id="tindak-detail-response"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Nama Petugas :</h6>
+                    <p class="text-justify mx-2" id="tindak-detail-name"></p>
                 </div>
             </div>
         </div>
