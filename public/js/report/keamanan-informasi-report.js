@@ -58,6 +58,7 @@ function summaryReport(monthCounter) {
         success: function (data) {
             let subdomains = data["subdomains"];
             let status = data["status"];
+            let userRole = $("meta[name='user-role']").attr("content");
 
             let countNormal = 0;
             let countDeface = 0;
@@ -73,16 +74,25 @@ function summaryReport(monthCounter) {
                         <th>No.</th>
                         <th>Website Subdomain</th>
                         <th>Status Periksa</th>
-                        <th>Tindak Lanjut</th>
-                        <th>Aksi</th>
-                    </tr>
+                        <th>Hasil Pemeriksaan</th>
+                        <th>Hasil Tindak Lanjut</th>
+            `;
+
+            if (userRole == 1 || userRole == 2) {
+                summaryTableStr += `<th>Aksi</th>`;
+            }
+
+            summaryTableStr += `
+                </tr>
             `;
 
             $.each(subdomains, function (i, val) {
-                let statusWebsite = "";
+                let statusWebsite = null;
+                let isTindakLanjut = null;
 
                 if (status[i] != null) {
                     statusWebsite = status[i].status_website;
+                    isTindakLanjut = status[i].is_tindak_lanjut;
                     switch (statusWebsite) {
                         case "Normal":
                             countNormal += 1;
@@ -113,17 +123,81 @@ function summaryReport(monthCounter) {
                             </a>
                         </td>
                         <td>
-                            ${statusWebsite}
+                            ${statusWebsite != null ? statusWebsite : " - "}
                         </td>
-                        <td> - </td>
-                        <td> - </td>
-                    </tr>
                 `;
+
+                if (statusWebsite != null) {
+                    summaryTableStr += `
+                        <td>
+                            <a 
+                            class="pemeriksaan-modal-link" 
+                            data-toggle="modal"
+                            data-target=".hasil-pemeriksaan-modal"
+                            data-capture="${status[i].capture}"
+                            data-keterangan="${status[i].keterangan}"
+                            data-tanggal="${status[i].tanggal}"
+                            data-status="${status[i].status_website}"
+                            data-link="${status[i].link_website}"
+                            data-jam="${status[i].jam}"
+                            href="">View</a>
+                        </td>
+                    `;
+                }
+
+                if (isTindakLanjut) {
+                    summaryTableStr += `
+                        <td>
+                            <a href="#">
+                                View
+                            </a>
+                        </td>
+                    `;
+                } else {
+                    summaryTableStr += `
+                        <td> - </td>
+                    `;
+                }
+
+                if (userRole == 1 || userRole == 2) {
+                    if (
+                        statusWebsite == "Normal" ||
+                        statusWebsite == null ||
+                        isTindakLanjut
+                    ) {
+                        summaryTableStr += `
+                        <td>
+                            <button
+                                disabled
+                                class="btn btn-sm btn-white">
+                                Tindak
+                            </button>
+                        </td>
+                        `;
+                    } else {
+                        summaryTableStr += `
+                        <td>
+                            <button
+                                class="btn btn-sm btn-primary"
+                                id="tindak-lanjut"
+                                data-toggle="modal"
+                                data-id="${status[i].id}"
+                                data-target=".tindak-modal">
+                                Tindak
+                            </button>
+                        </td>
+                        `;
+                    }
+                }
             });
 
             summaryTableStr += `
+                    </tr>
                 </table>
             `;
+
+            let totalBermasalah =
+                countDeface + countTidakBisaDiakses + countLainnya;
 
             summaryStr = `
                 <div id="keamanan-summary">
@@ -134,8 +208,8 @@ function summaryReport(monthCounter) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Status Normal</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countNormal} / ${totalSubdomain}</div>
+                                                Normal</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countNormal} / ${sudahDiperiksa}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -150,8 +224,8 @@ function summaryReport(monthCounter) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Status Deface</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countDeface} / ${totalSubdomain}</div>
+                                                Deface</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countDeface} / ${sudahDiperiksa}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -166,8 +240,8 @@ function summaryReport(monthCounter) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Status Tidak Bisa Diakses</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countTidakBisaDiakses} / ${totalSubdomain}</div>
+                                                Tidak Bisa Diakses</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countTidakBisaDiakses} / ${sudahDiperiksa}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -182,8 +256,8 @@ function summaryReport(monthCounter) {
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                                Status Lainnya</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countLainnya} / ${totalSubdomain}</div>
+                                                Lainnya</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${countLainnya} / ${sudahDiperiksa}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -194,8 +268,8 @@ function summaryReport(monthCounter) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6 d-inline-block mb-4">
-                            <div class="card shadow-sm border-left-primary h-100 py-2">
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
@@ -210,14 +284,46 @@ function summaryReport(monthCounter) {
                                 </div>
                             </div>
                         </div>
-                         <div class="col-6 d-inline-block mb-4">
-                            <div class="card shadow-sm border-left-primary h-100 py-2">
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                                 Belum Diperiksa</div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${belumDiperiksa} / ${totalSubdomain}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Sudah Ditindak</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- / ${totalBermasalah}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3 d-inline-block mb-4">
+                            <div class="card shadow-sm h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Belum Ditindak</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">- / ${totalBermasalah}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -235,6 +341,16 @@ function summaryReport(monthCounter) {
             $("#keamanan-summary-table").remove();
             $("#keamanan-summary-wrapper").append(summaryStr);
             $("#keamanan-summary-wrapper").append(summaryTableStr);
+
+            // Ketika tombol 'Cancel' pada Modal diklik
+            $("button#cancel-tindak-lanjut").on("click", function () {
+                // Reset isi form
+                $("#form-tindak-lanjut")[0].reset();
+
+                // Hapus preview gambar
+                $("#capture-preview").remove();
+                $("#capture-label").text("Browse image..");
+            });
         },
     });
 }
@@ -543,12 +659,19 @@ function keamananReport(startDate, endDate, kategori) {
     function loadEvents() {
         // Ketika tombol 'View' diklik
         // Ambil data capture dan keterangan untuk ditampilkan di modalbox
-        $("a.detail-modal-link").on("click", function () {
+        $("a.pemeriksaan-modal-link").on("click", function () {
+            let tanggal = $(this).data("tanggal");
+            let jam = $(this).data("jam");
+            let link = $(this).data("link");
+            let status = $(this).data("status");
             let capture = $(this).data("capture");
             let keterangan = $(this).data("keterangan");
             let path = $("#detail-capture").data("path") + capture;
 
-            // Ubah source gambar di ModalBox
+            $("#detail-link").text(link);
+            $("#detail-tanggal").text(tanggal);
+            $("#detail-jam").text(jam);
+            $("#detail-status").text(status);
             $("#detail-capture").attr("src", path);
 
             // Masukan keterangan ke ModalBox

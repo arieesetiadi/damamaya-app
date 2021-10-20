@@ -172,7 +172,7 @@
                     </div>
                     <div class=" modal-footer">
                         <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                        <button id="cancel-tindak-lanjut" type="button" class="btn btn-sm btn-secondary"
+                        <button id="cancel-edit-tindak-lanjut" type="button" class="btn btn-sm btn-secondary"
                             data-dismiss="modal">Cancel</button>
                     </div>
             </div>

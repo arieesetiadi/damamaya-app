@@ -55,7 +55,7 @@ $(function () {
     });
 
     // Ketika tombol 'Cancel' pada Modal diklik
-    $("button#cancel-tindak-lanjut").on("click", function () {
+    $("button#cancel-edit-tindak-lanjut").on("click", function () {
         // Reset isi form
         $("#form-edit-tindak-lanjut")[0].reset();
 

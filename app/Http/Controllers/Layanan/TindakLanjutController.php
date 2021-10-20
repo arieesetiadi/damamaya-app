@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\TindakLanjut;
+namespace App\Http\Controllers\Layanan;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,23 +11,18 @@ use Illuminate\Support\Facades\File;
 use App\Http\Controllers\ImageController;
 use App\Models\Layanan\KeamananInformasi;
 
-class KeamananInformasiController extends Controller
+class TindakLanjutController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $data = [
             'title' => 'Report | Tindak Lanjut Keamanan Informasi',
-            'tindakLanjut' => TindakLanjut::getDataByBidang('persandian'),
+            'tindakLanjut' => TindakLanjut::getData(),
             'active' => 'kInformasi'
         ];
 
@@ -52,7 +47,6 @@ class KeamananInformasiController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
         // Validasi data dari form input
         $request->validate([
             'idKeamanan' => 'required',
@@ -90,7 +84,7 @@ class KeamananInformasiController extends Controller
             'is_tindak_lanjut' => 1
         ]);
 
-        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Melakukan Tindak Lanjut');
+        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Melakukan Tindak Lanjut');
     }
 
     /**
@@ -170,7 +164,7 @@ class KeamananInformasiController extends Controller
             ]);
         }
 
-        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
+        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Mengubah Data Tindak Lanjut');
     }
 
     /**

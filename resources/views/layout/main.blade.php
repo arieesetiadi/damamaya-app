@@ -201,7 +201,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                Bidang Persandian
+                Bidang Persandian & TIK
             </div>
 
             <!-- Nav Item - Keamanan Informasi -->
@@ -216,40 +216,12 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white shadow-sm py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('keamanan-informasi.index') }}">Report Laporan</a>
-                        <a class="collapse-item" href="{{ route('keamanan-informasi-tindak.index') }}">Report
+                        <a class="collapse-item" href="{{ route('tindak-lanjut.index') }}">Report
                             Tindak
                             Lanjut</a>
                         @if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
                             <a class="collapse-item" href="{{ route('keamanan-informasi.create') }}">Input</a>
                         @endif
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Bidang TIK
-            </div>
-
-            <!-- Nav Item - TIK -->
-            <li class="nav-item {{ $data['active'] == 'wtbDiakses' ? 'active' : '' }}">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTik"
-                    aria-expanded="true" aria-controls="collapseTik">
-                    {{-- <i class="fas fa-th-list"></i> --}}
-                    <i class="fas fa-list-alt"></i>
-                    <span>Web Tidak Bisa Diakses</span>
-                </a>
-                <div id="collapseTik" class="collapse" aria-labelledby="headingTwo"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white shadow-sm py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses.index') }}">Report
-                            Laporan</a>
-                        <a class="collapse-item" href="{{ route('web-tidak-bisa-diakses-tindak.index') }}">Report
-                            Tindak
-                            Lanjut</a>
                     </div>
                 </div>
             </li>

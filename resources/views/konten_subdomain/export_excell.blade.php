@@ -103,7 +103,8 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][0]->is_uptodate)
                             ✔✔
-                        @elseif()
+                        @elseif($data['status'][$loop->index][0]->status &&
+                            !$data['status'][$loop->index][0]->is_uptodate)
                             ✔
                         @else
                         @endif
@@ -114,8 +115,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][1]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][1]->status &&
+                            !$data['status'][$loop->index][1]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -124,8 +127,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][2]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][2]->status &&
+                            !$data['status'][$loop->index][2]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -134,8 +139,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][3]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][3]->status &&
+                            !$data['status'][$loop->index][3]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -144,8 +151,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][4]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][4]->status &&
+                            !$data['status'][$loop->index][4]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -154,8 +163,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][5]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][5]->status &&
+                            !$data['status'][$loop->index][5]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -164,8 +175,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][6]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][6]->status &&
+                            !$data['status'][$loop->index][6]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>
@@ -174,8 +187,10 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
                     <p>
                         @if ($data['status'][$loop->index][7]->is_uptodate)
                             ✔✔
-                        @else
+                        @elseif($data['status'][$loop->index][7]->status &&
+                            !$data['status'][$loop->index][7]->is_uptodate)
                             ✔
+                        @else
                         @endif
                     </p>
                 </td>

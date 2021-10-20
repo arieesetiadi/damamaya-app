@@ -178,24 +178,37 @@
         </div>
     </div>
 
-    <!-- Detail Modal -->
-    <div class="modal fade detail-modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <!-- Hasil Pemeriksaan Modal -->
+    <div class="modal fade hasil-pemeriksaan-modal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Capture Detail</h5>
+                    <h5 class="modal-title">Hasil Pemeriksaan</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <div id="detail-capture-wrapper" class="mx-2">
+                    <h6 class="mt-1 font-weight-bold mx-2">Website Subdomain</h6>
+                    <p class="ml-2" id="detail-link"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Tanggal Pemeriksaan</h6>
+                    <p class="ml-2" id="detail-tanggal"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Jam Pemeriksaan</h6>
+                    <p class="ml-2" id="detail-jam"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Status Website</h6>
+                    <p class="ml-2" id="detail-status"></p>
+
+                    <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
+                    <p class="text-justify mx-2" id="detail-keterangan"></p>
+
+                    <h6 class="mt-3 font-weight-bold mx-2">Capture Website :</h6>
+                    <div id="detail-capture-wrapper" class="mx-2 my-2">
                         <img class="w-100 rounded shadow" id="detail-capture"
                             data-path="{{ asset('img/capture/laporan\\') }}" src="" alt="Capture Website">
                     </div>
-                    <hr>
-                    <h6 class="mt-4 font-weight-bold mx-2">Keterangan :</h6>
-                    <p class="text-justify mx-2" id="detail-keterangan"></p>
                 </div>
             </div>
         </div>
@@ -206,7 +219,7 @@
         data-backdrop="static">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form id="form-tindak-lanjut" action="{{ route('keamanan-informasi-tindak.store') }}" method="POST"
+                <form id="form-tindak-lanjut" action="{{ route('tindak-lanjut.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
                     <input id="id-keamanan" type="hidden" name="idKeamanan" value="">
