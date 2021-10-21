@@ -308,7 +308,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Hapus Data Keamanan Informasi</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Riwayat Pemeriksaan</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -317,6 +317,31 @@
                 <div class="modal-footer">
                     <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Batal</button>
                     <form id="form-delete" action="{{ route('keamanan-informasi.destroy', 0) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input id="id" type="hidden" name="id" value="">
+
+                        <button type="submit" class="btn btn-sm btn-primary">OK</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Delete Modal --}}
+    <div class="modal fade" id="delete-tindak-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Hapus Riwayat Tindak Lanjut</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Tekan OK untuk menghapus data.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <form id="form-tindak-delete" action="{{ route('tindak-lanjut.destroy', 0) }}" method="POST">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
                         <input id="id" type="hidden" name="id" value="">

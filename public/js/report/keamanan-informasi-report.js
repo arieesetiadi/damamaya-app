@@ -379,22 +379,8 @@ function summaryReport(monthCounter) {
 }
 
 function tindakLanjutReport() {
-    console.log("TindakKK LANJUt");
     if ($("#tindak-table-wrapper").length) {
         let url = $('meta[name="tindak-lanjut-report-route"]').attr("content");
-        let tindakLanjutStr = `
-            <table class="table table-sm table-hover">
-                <tr>
-                    <th>No.</th>
-                    <th>Website Subdomain</th>
-                    <th>Tanggal Penindakan</th>
-                    <th>Jam Penindakan</th>
-                    <th>Keterangan</th>
-                    <th>Response Time</th>
-                    <th>Petugas</th>
-                </tr>
-            </table>
-        `;
 
         $.ajaxSetup({
             headers: {
@@ -406,7 +392,77 @@ function tindakLanjutReport() {
             url: url,
             type: "POST",
             success: function (data) {
-                console.log(data["tindakLanjut"]);
+                let userRole = $("meta[name='user-role']").attr("content");
+                let tindakLanjut = data["tindakLanjut"];
+                let tindakLanjutStr = ``;
+
+                if (tindakLanjut.length > 0) {
+                    tindakLanjutStr += `
+                            <table class="table table-sm table-hover">
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Website Subdomain</th>
+                                    <th>Tanggal Penindakan</th>
+                                    <th>Jam Penindakan</th>
+                                    <th>Response Time</th>
+                                    <th>Petugas</th>
+                        `;
+
+                    if (userRole == 1 || userRole == 2) {
+                        tindakLanjutStr += `<th>Aksi</th>`;
+                    }
+
+                    tindakLanjutStr += `
+                            </tr>
+                        `;
+
+                    $.each(tindakLanjut, function (i, val) {
+                        let date = new Date(val.tanggal);
+                        tanggal = moment(date).format("DD MMMM YYYY");
+
+                        tindakLanjutStr += `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td>
+                                <a  target="_blank"
+                                    href="${val.link_website}">
+                                    ${val.link_website}
+                                </a>
+                            </td>
+                            <td>${tanggal}</td>
+                            <td>${val.jam}</td>
+                            <td>${val.response_time} Hari</td>
+                            <td>${val.name}</td>
+                    `;
+
+                        if (userRole == 1 || userRole == 2) {
+                            tindakLanjutStr += `
+                        <td>
+                            <button
+                                class="delete-tindak btn btn-sm btn-danger ml-2"
+                                data-toggle="modal"
+                                data-id="${val.id}"
+                                data-target="#delete-tindak-modal">
+                                Delete
+                            </button>
+                        </td>
+                        `;
+                        }
+                    });
+                } else {
+                    tindakLanjutStr += `
+                        <h4
+                            class="text-secondary text-center">
+                            Data Tidak Ditemukan
+                        </h4>
+                    `;
+                }
+
+                tindakLanjutStr += `
+                    </tr></table>
+                `;
+
+                $("#tindak-table-wrapper").append(tindakLanjutStr);
             },
         });
     }
@@ -462,11 +518,10 @@ function keamananReport(startDate, endDate, kategori) {
                 <thead>
                     <tr>
                         <th>No.</th>
+                        <th>Website Subdomain</th>
                         <th>Tanggal</th>
                         <th>Jam</th>
-                        <th>Link Website</th>
                         <th>Status Website</th>
-                        <th>View</th>
                         <th>Nama Petugas</th>`;
 
             // Tampilkan menu Aksi jika user adalah Admin atau Petugas
@@ -483,29 +538,19 @@ function keamananReport(startDate, endDate, kategori) {
             $.each(data, function (i, val) {
                 let date = new Date(val.tanggal);
                 tanggal = moment(date).format("DD MMMM YYYY");
+
                 keamananTableStr += `
                 <tr>
                     <td>${i + 1}</td>
-                    <td>${tanggal}</td>
-                    <td>${val.jam}</td>
                     <td>
                         <a  target="_blank"
                             href="${val.link_website}">
                             ${val.link_website}
                         </a>
                     </td>
+                    <td>${tanggal}</td>
+                    <td>${val.jam}</td>
                     <td>${val.status_website}</td>
-                    <td>
-                        <a
-                            href=""
-                            class="detail-modal-link"
-                            data-toggle="modal"
-                            data-target=".detail-modal"
-                            data-capture="${val.capture}"
-                            data-keterangan="${val.keterangan}">
-                            Mirror
-                        </a>
-                    </td>
                     <td>${val.name}</td>
                     <td>`;
 
@@ -759,6 +804,11 @@ function keamananReport(startDate, endDate, kategori) {
         // Kirim id dari data yang akan dihapus
         $("button#delete-keamanan").on("click", function () {
             $("#form-delete input#id").val($(this).data("id"));
+        });
+
+        $("button.delete-tindak").on("click", function () {
+            let id = $(this).data("id");
+            $("#form-tindak-delete input#id").val(id);
         });
     }
 }

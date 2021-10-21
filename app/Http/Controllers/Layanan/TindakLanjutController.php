@@ -192,6 +192,6 @@ class TindakLanjutController extends Controller
         // Hapus data di database tindak lanjut
         $tindakLanjut->delete();
 
-        return redirect()->route('keamanan-informasi-tindak.index')->with('success', 'Berhasil Menghapus Data Tindak Lanjut');
+        return redirect()->route('keamanan-informasi.index')->with('success', 'Berhasil Menghapus Riwayat Tindak Lanjut');
     }
 }
