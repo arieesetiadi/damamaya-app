@@ -20,6 +20,8 @@
     <meta name="web-tidak-bisa-diakses-report-route" content="{{ route('web-tidak-bisa-diakses.report') }}">
     <meta name="pinjam-ruangan-report-route" content="{{ route('pinjam-ruangan.report') }}">
     <meta name="summary-report-route" content="{{ route('summary.report') }}">
+    <meta name="tindak-lanjut-report-route" content="{{ route('tindak-lanjut.report') }}">
+
     <meta name="keamanan-informasi-get" content="{{ route('keamanan-informasi.get') }}">
     <meta name="pinjam-ruangan-get" content="{{ route('pinjam-ruangan.get') }}">
 
@@ -56,7 +58,7 @@
                     <img width="140px" src="{{ asset('img/logo/Damamaya4.png') }}" alt="Logo Damamaya">
                     {{-- <i class="fas fa-globe-asia"></i> --}}
                 </div>
-                
+
                 {{-- <div class="sidebar-brand-text mx-3">DAMAMAYA</div> --}}
             </a>
 
@@ -64,7 +66,7 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item{{ $data['active'] == 'dashboard' ? 'active' : '' }}">
+            <li class="nav-item {{ $data['active'] == 'dashboard' ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('dashboard') }}">
                     <i class="fas fa-fw fa-home"></i>
                     <span>Dashboard</span></a>

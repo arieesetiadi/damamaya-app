@@ -64,6 +64,16 @@
                     height="400" class="chartjs-render-monitor"></canvas>
             </div>
             <hr>
+            <div>
+                <div class="d-inline-block mr-3">
+                    <span class="dot bg-success"></span>
+                    Isu Lokal
+                </div>
+                <div class="d-inline-block mr-3">
+                    <span class="dot bg-primary"></span>
+                    Isu Nasional
+                </div>
+            </div>
         </div>
     </div>
 

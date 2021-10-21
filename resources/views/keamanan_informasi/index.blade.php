@@ -12,6 +12,43 @@
         </div>
     @endif
 
+    <!-- Summary Table  -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 d-flex justify-content-between">
+            <div class="col-9">
+                <h6 class="m-0 mt-2 font-weight-bold">
+                    Summary Laporan Website
+                </h6>
+            </div>
+            <div class="col-3">
+                <div class="container d-flex justify-content-between">
+                    <div>
+                        <button id="monthLeft" class="btn btn-white btn-sm">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <h6 id="monthName" class="m-0 mt-2 font-weight-bold">
+                            Oktober
+                        </h6>
+                    </div>
+                    <div>
+                        <button id="monthRight" class="btn btn-white btn-sm">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div id="keamanan-summary-wrapper" class="pr-2 table-responsive" style="overflow-x: hidden; height: 650px;">
+                {{-- Table diisi melalui keamanan-informasi-report.js --}}
+            </div>
+        </div>
+    </div>
+
     {{-- Report Chart --}}
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
@@ -84,78 +121,24 @@
         </div>
     </div>
 
-    <!-- Summary Table  -->
+
+    <!-- Report Table  -->
     <div class="card shadow mb-4">
         <div class="card-header py-3 d-flex justify-content-between">
-            <div class="col-9">
+            <div>
                 <h6 class="m-0 mt-2 font-weight-bold">
-                    Summary Laporan Website
+                    Riwayat Pemeriksaan
                 </h6>
             </div>
-            <div class="col-3">
-                <div class="container d-flex justify-content-between">
-                    <div>
-                        <button id="monthLeft" class="btn btn-white btn-sm">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-                    </div>
-                    <div>
-                        <h6 id="monthName" class="m-0 mt-2 font-weight-bold">
-                            Oktober
-                        </h6>
-                    </div>
-                    <div>
-                        <button id="monthRight" class="btn btn-white btn-sm">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+
             <div>
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-summary-wrapper" class="pr-2 table-responsive" style="overflow-x: hidden; height: 650px;">
-                {{-- Table diisi melalui keamanan-informasi-report.js --}}
+            <div id="keamanan-table-wrapper" style="overflow-y: scroll; height: 650px;">
+                {{-- Table diisi melalui  keamanan-informasi-report.js --}}
             </div>
         </div>
-        {{-- <div class="card-body">
-            <div class="table-responsive" style="overflow-y: scroll; height: 500px">
-                <table class="table table-sm table-hover">
-
-                    <tr>
-                        <th>No.</th>
-                        <th>Web Subdomain</th>
-                        <th>Status Periksa</th>
-                    </tr>
-                    @forelse ($data['subdomains'] as $subdomain)
-                        @php
-                            $linkWebsite = 'https://' . $subdomain->link_website;
-                        @endphp
-                        <tr>
-                            <td>{{ $loop->index + 1 }}</td>
-                            <td>
-                                <a href="{{ $linkWebsite }}" target="_blank">
-                                    {{ $linkWebsite }}
-                                </a>
-                            </td>
-                            <td>
-                                @php
-                                    $statusPeriksa = App\Models\Layanan\KeamananInformasi::getStatusPeriksa($linkWebsite);
-                                    if (count($statusPeriksa) > 0) {
-                                        echo 'SUDAH';
-                                    }
-                                @endphp
-                            </td>
-                        </tr>
-                    @empty
-                        <h4 id="keamanan-table" class="text-secondary text-center">
-                            Data Tidak Ditemukan
-                        </h4>
-                    @endforelse
-                </table>
-            </div>
-        </div> --}}
     </div>
 
     <!-- Report Table  -->
@@ -163,7 +146,7 @@
         <div class="card-header py-3 d-flex justify-content-between">
             <div>
                 <h6 class="m-0 mt-2 font-weight-bold">
-                    Seluruh Laporan Status Website
+                    Riwayat Tindak Lanjut
                 </h6>
             </div>
 
@@ -171,7 +154,7 @@
             </div>
         </div>
         <div class="card-body">
-            <div id="keamanan-table-wrapper" style="overflow-y: scroll;">
+            <div id="tindak-table-wrapper" style="overflow-y: scroll; height: 650px;">
                 {{-- Table diisi melalui  keamanan-informasi-report.js --}}
             </div>
         </div>

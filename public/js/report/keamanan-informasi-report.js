@@ -4,6 +4,8 @@ $(function () {
     let endDate = null;
     let monthCounter = 0;
 
+    tindakLanjutReport();
+
     $("#keamanan-kategori").on("change", function () {
         kategori = $("#keamanan-kategori option:selected").text();
     });
@@ -376,6 +378,40 @@ function summaryReport(monthCounter) {
     });
 }
 
+function tindakLanjutReport() {
+    console.log("TindakKK LANJUt");
+    if ($("#tindak-table-wrapper").length) {
+        let url = $('meta[name="tindak-lanjut-report-route"]').attr("content");
+        let tindakLanjutStr = `
+            <table class="table table-sm table-hover">
+                <tr>
+                    <th>No.</th>
+                    <th>Website Subdomain</th>
+                    <th>Tanggal Penindakan</th>
+                    <th>Jam Penindakan</th>
+                    <th>Keterangan</th>
+                    <th>Response Time</th>
+                    <th>Petugas</th>
+                </tr>
+            </table>
+        `;
+
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
+
+        $.ajax({
+            url: url,
+            type: "POST",
+            success: function (data) {
+                console.log(data["tindakLanjut"]);
+            },
+        });
+    }
+}
+
 function keamananReport(startDate, endDate, kategori) {
     if ($("#keamanan-chart").length) {
         let url = $('meta[name="keamanan-report-route"]').attr("content");
@@ -471,33 +507,12 @@ function keamananReport(startDate, endDate, kategori) {
                         </a>
                     </td>
                     <td>${val.name}</td>
-                    <td class="d-flex justify-content-end">`;
+                    <td>`;
 
                 // Munculkan tombol tindak lanjut dan delete jika user Admin atau Petugas
                 if (userRole == 1 || userRole == 2) {
                     // Matikan tombol tindak
                     // Jika status normal atau laporan sudah ditindak lanjuti
-                    if (
-                        val.status_website == "Normal" ||
-                        val.is_tindak_lanjut
-                    ) {
-                        keamananTableStr += `
-                        <button
-                            disabled
-                            class="btn btn-sm btn-white">
-                            Tindak
-                        </button>`;
-                    } else {
-                        keamananTableStr += `
-                        <button
-                            class="btn btn-sm btn-primary"
-                            id="tindak-lanjut"
-                            data-toggle="modal"
-                            data-id="${val.id}"
-                            data-target=".tindak-modal">
-                            Tindak
-                        </button>`;
-                    }
 
                     keamananTableStr += `
                         <button
@@ -681,7 +696,9 @@ function keamananReport(startDate, endDate, kategori) {
         // Ketika tombol 'View' diklik
         // Ambil data capture dan keterangan untuk ditampilkan di modalbox
         $("a.pemeriksaan-modal-link").on("click", function () {
-            let tanggal = $(this).data("tanggal");
+            let tanggal = new Date($(this).data("tanggal"));
+            tanggal = moment(tanggal).format("DD MMMM YYYY");
+
             let jam = $(this).data("jam");
             let link = $(this).data("link");
             let status = $(this).data("status");
@@ -702,7 +719,9 @@ function keamananReport(startDate, endDate, kategori) {
         });
 
         $("a.tindak-modal-link").on("click", function () {
-            let tanggal = $(this).data("tanggal");
+            let tanggal = new Date($(this).data("tanggal"));
+            tanggal = moment(tanggal).format("DD MMMM YYYY");
+
             let jam = $(this).data("jam");
             let capture = $(this).data("capture");
             let keterangan = $(this).data("keterangan");

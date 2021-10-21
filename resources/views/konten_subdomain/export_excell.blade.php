@@ -46,7 +46,7 @@ header('Content-Disposition: attachment; filename=KontenSubdomain.xls');
         <tr>
             <td colspan="11">
                 <p class="text-center">
-                    (Per {{ $data['daftarBulan'][$data['bulan'] - 1] }} {{ $data['tahun'] }})
+                    (Bulan {{ $data['daftarBulan'][$data['bulan'] - 1] }} {{ $data['tahun'] }})
                 </p>
             </td>
         </tr>

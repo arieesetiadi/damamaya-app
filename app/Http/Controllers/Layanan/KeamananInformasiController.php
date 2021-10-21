@@ -271,4 +271,11 @@ class KeamananInformasiController extends Controller
 
         return response()->json($data);
     }
+
+    public function tindakLanjutReport()
+    {
+        $data['tindakLanjut'] = TindakLanjut::getData();
+
+        return response()->json($data);
+    }
 }
