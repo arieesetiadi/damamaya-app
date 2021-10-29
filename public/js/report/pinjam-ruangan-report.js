@@ -46,18 +46,28 @@ function pinjamRuanganReport(monthCounter) {
         let month = data["month"];
         let year = data["year"];
         let dates = data["dates"];
-        let pinjamCounts = data["pinjamCounts"];
+        let counts = data["pinjamCounts"];
 
         // Ubah nama bulan pada bagian filter
         $("#monthName").text(month);
 
         $.each(dates, function (i, val) {
+            let style = "";
+            let count = counts[i].counts;
+            let activeCount = counts[i].activeCounts;
+
+            if (count > 0 && activeCount > 0) {
+                style = "bg-primary w-25 text-white rounded p-1";
+            } else if (count > 0) {
+                style = "bg-secondary w-25 text-white rounded p-1";
+            } else {
+                style = "w-25 rounded p-1";
+            }
+
             pinjamRuanganStr += `
                  <div class="pinjam-ruangan-table col-2 py-2" style="height: 110px">
                     <button
-                        class="list-pinjam-btn btn btn-white h-100 w-100 border ${
-                            pinjamCounts[i] > 0 ? "" : ""
-                        } notification"
+                        class="list-pinjam-btn btn btn-white h-100 w-100 border notification"
                         data-toggle="modal"
                         data-target="#list-pinjam-modal"
                         data-date="${val["full"]}">
@@ -67,13 +77,9 @@ function pinjamRuanganReport(monthCounter) {
                         </small>
 
                         <center>
-                            <h6 class="${
-                                pinjamCounts[i] > 0
-                                    ? "bg-primary w-25 text-white rounded p-1"
-                                    : ""
-                            }">
+                            <h6 class="${style}">
                             ${val["day"]}
-                        </h6>
+                            </h6>
                         </center>
 
                         <small>

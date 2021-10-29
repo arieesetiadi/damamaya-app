@@ -25,14 +25,21 @@ class PinjamRuangan extends Model
     {
         $nowTime = Carbon::now()->toTimeString();
         $nowDate = Carbon::now()->toDateString();
+        $data = [];
 
-        return
-            self
+        $data['activeCounts'] = self
             ::whereDate('tanggal', $date)
             ->where([
                 ['tanggal', '>=', $nowDate],
                 // ['jam_selesai', '<=', $nowTime]
-            ])->count();
+            ])
+            ->count();
+
+        $data['counts'] = self
+            ::whereDate('tanggal', $date)
+            ->count();
+
+        return $data;
     }
 
     public static function getDataByDate($date)
