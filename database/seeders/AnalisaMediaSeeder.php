@@ -22,7 +22,8 @@ class AnalisaMediaSeeder extends Seeder
         for ($i = 1; $i <= 1000; $i++) {
             $analisaMedia[] = [
                 'tanggal' => Carbon::now()->addDay(rand(-30, 0))->toDateString(),
-                'isu' => 'Isu Dummy',
+                'isu_lokal' => 'Isu Lokal Dummy',
+                'isu_nasional' => 'Isu Nasional Dummy',
                 'kategori' => $kategori[rand(0, count($kategori) - 1)]->name,
                 'id_user' => rand(1, 2)
             ];
