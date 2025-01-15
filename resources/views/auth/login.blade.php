@@ -1,3 +1,7 @@
+@php
+    $isDemo = (bool) config('app.demo');
+@endphp
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +35,7 @@
                         @csrf
                         <div class="my-3">
                             <input name="username" class="form-control  @error('username')  border-danger @enderror"
-                                type="text" placeholder="Username" value="{{ old('username') }}">
+                                type="text" placeholder="Username" value="{{ old('username', $isDemo ? 'admin' : '') }}">
                             @error('username')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -39,7 +43,7 @@
 
                         <div class="mt-3">
                             <input name="password" class="form-control @error('password') border-danger @enderror"
-                                type="password" placeholder="Password">
+                                type="password" placeholder="Password" value="{{ $isDemo ? 'admin' : '' }}">
                             @error('password')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
